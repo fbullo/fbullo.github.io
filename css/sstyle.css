@@ -1,0 +1,569 @@
+/* CONTAINER */
+
+		#total {
+                        /*height: 600px;*/
+			width: 1100px;
+			margin-top: 0px;
+                        font-family: Lucida Grande, Tahoma, Arial, Helvetica, sans-serif; /* Lucida Grande for Macs, Tahoma for PCs */
+			font-size: 11px;
+			line-height: 1.6em;
+			color: #666;
+			background-color: #FFF;
+		}
+
+		#container {
+			float: left;
+			width: 800px;
+			margin-top: 0px;
+		}
+
+/* HEADER */
+
+                #headerandmenu {
+			float: left;
+			width: 800px;
+			margin-top: 0px;
+			/*margin-left: 0px;*/
+		}
+
+		
+		#header {
+			padding-top: 10px;
+			clear: both;
+			margin-bottom: 10px;
+			margin-left: 60px;
+		}
+		
+		#header p { 
+			margin-top: -20px;
+			margin-left: 30px;
+			color: #999999;
+		}
+		
+
+/* FONTS AND THINGS */
+
+		h1 {
+			font-weight: normal;
+			font-size: 40px;
+			color: #303030;
+			margin-bottom: 30px;
+			background-color: #FFF;
+		}
+		
+		h2 {
+			color: #303030;
+			font-size: px;
+			font-family: Arial, Helvetica, sans-serif;
+			background-color: #FFF;
+		}
+		
+		h3 {
+			color: #303030;
+		   	font-size: 11px;
+			font-weight: bold;	 
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		
+		h3 {
+			color: #303030;
+		   	font-size: 9px;
+			font-weight: bold;	 
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		
+		a {					 
+			color:#cc9900;
+			text-decoration: none;
+		}
+
+		a:hover {
+			color:#cc9900;
+			text-decoration: underline;
+		}		  
+		
+		img.floatright {
+			float: left;
+			margin: 0px 14px 3px 0px;
+		}
+		
+/* NAVIGATION MENU */
+
+		#menu {
+			width: 650px;
+			margin-left: 50px;
+			margin-top: -5px;
+			border-top: 2px solid #DDDDDD;
+			border-bottom: 2px solid #DDDDDD;
+			margin-bottom: 20px;
+			clear: both;
+		}
+		
+		#menu p {
+			  line-height: 1.6em;
+			  padding-bottom: 0px;
+			  padding-top: 0px
+			} 
+		
+		#menu a {
+			line-height: 2em;
+			padding-left: 10px;
+			padding-right: 10px;
+			color: #303030;
+			font-weight: bold;	  
+			text-decoration: none;
+		} 
+		
+		#menu a:hover	{
+			color: #303030;
+			text-decoration: underline;
+		}
+		
+/* CONTENT ELEMENTS */
+
+		#content {
+			margin-top: 50px;
+			width: 500px;
+			margin-left: 250px;
+		}
+
+		#content p {
+			padding-bottom: 10px;
+			/*border-bottom: 1px solid #DDDDDD;  A faint grey line below the text */
+		}
+
+		#content p.a {
+			margin-top: 10px;
+			padding-bottom: 10px;
+                        border-bottom: 0px;
+		}
+
+
+		#content ul {
+			padding-bottom: 10px;				 
+			width: 470px;
+			margin-left: 0px;
+			padding-left: 12px; 
+			border-bottom: 1px solid #DDDDDD; /* A faint grey line below the text */
+		}
+		
+/* SIDEBAR ELEMENTS */
+
+		#sidebar {
+			float: left;
+			width: 175px;
+		}
+		
+		#sidebar p {
+			padding-bottom: 10px;
+			border-bottom: 1px dotted #CCC;
+		}
+
+/* FOOTER ELEMENTS */
+
+		#footer {
+                        position:absolute;
+                        bottom:0; 
+			clear: both;			 
+			padding: 0px 0px 0px 0px;
+		}
+		
+		#footer p {
+			color:#89817f;
+			padding: 5px;			
+			border-bottom: 2px solid #DDDDDD;
+			text-align: left;	   
+		}
+
+/* SIDE BAR PIC'S ELEMENTS */
+
+                #sidebarpic {
+			margin-top: 0px;
+			margin-left: 800px;
+		}
+
+		#sidebarpic p {
+			color:#89817f;
+			padding: 5px;			
+			text-align: left;	   
+		}
+		
+/* CONTACT ELEMENTS */
+
+		#contact {
+			width: 300px;
+			float: left;
+			margin-top: 0px;
+			margin-left: 0px;
+		}
+
+		#logo {
+			width: 200px;
+			margin-top: 0px;
+			margin-left: 300px;
+		}
+
+/* WORK ELEMENTS */
+
+		#work {	
+			width: 1000px;
+                        margin-left: 20px;
+		}
+
+                #work p {
+			width: 1000px;
+			padding-bottom: 10px;
+                        border-bottom: 0px;
+		}
+
+		#work p.a {
+			width: 600px;
+			padding-bottom: 10px;
+			border-bottom: 1px solid #DDDDDD;  
+		}
+
+                #opinion {	
+			width: 800px;
+                        margin-left: 20px;
+		}
+
+                #opinion p {
+			width: 800px;
+			padding-bottom: 10px;
+                        border-bottom: 0px;
+		}
+
+		#opinion p.a {
+			width: 500px;
+			padding-bottom: 10px;
+			border-bottom: 1px solid #DDDDDD;  
+		}
+
+
+		#opinion ul {
+			width: 800px;
+			padding-bottom: 10px;
+			padding-left: 12px; 
+			border-bottom: 1px solid #DDDDDD; /* A faint grey line below the text */
+		} 
+
+<ul class="star-rating">
+      <li><a href="#" title="Rate this 1 star out of 5" class="one-star">1</a></li>
+      <li><a href="#" title="Rate this 2 stars out of 5" class="two-stars">2</a></li>
+      <li><a href="#" title="Rate this 3 stars out of 5" class="three-stars">3</a></li>
+      <li><a href="#" title="Rate this 4 stars out of 5" class="four-stars">4</a></li>
+      <li><a href="#" title="Rate this 5 stars out of 5" class="five-stars">5</a></li>
+    </ul>
+
+/* CONTAINER */
+
+		#total {
+                        /*height: 600px;*/
+			width: 1100px;
+			margin-top: 0px;
+                        font-family: Lucida Grande, Tahoma, Arial, Helvetica, sans-serif; /* Lucida Grande for Macs, Tahoma for PCs */
+			font-size: 11px;
+			line-height: 1.6em;
+			color: #666;
+			background-color: #FFF;
+		}
+
+		#container {
+			float: left;
+			width: 800px;
+			margin-top: 0px;
+		}
+
+/* HEADER */
+
+                #headerandmenu {
+			float: left;
+			width: 800px;
+			margin-top: 0px;
+			/*margin-left: 0px;*/
+		}
+
+		
+		#header {
+			padding-top: 10px;
+			clear: both;
+			margin-bottom: 10px;
+			margin-left: 60px;
+		}
+		
+		#header p { 
+			margin-top: -20px;
+			margin-left: 30px;
+			color: #999999;
+		}
+		
+
+/* FONTS AND THINGS */
+
+		h1 {
+			font-weight: normal;
+			font-size: 40px;
+			color: #303030;
+			margin-bottom: 30px;
+			background-color: #FFF;
+		}
+		
+		h2 {
+			color: #303030;
+			font-size: 25px;
+			font-family: Arial, Helvetica, sans-serif;
+			background-color: #FFF;
+		}
+		
+		h3 {
+			color: #303030;
+		   	font-size: 50px;
+			font-weight: bold;	 
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		
+		h3 {
+			color: #303030;
+		   	font-size: 14px;
+			font-weight: bold;	 
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		
+		a {					 
+			color:#cc9900;
+			text-decoration: none;
+		}
+
+		a:hover {
+			color:#cc9900;
+			text-decoration: underline;
+		}		  
+		
+		img.floatright {
+			float: left;
+			margin: 0px 14px 3px 0px;
+		}
+		
+/* NAVIGATION MENU */
+
+		#menu {
+			width: 650px;
+			margin-left: 50px;
+			margin-top: -5px;
+			border-top: 2px solid #DDDDDD;
+			border-bottom: 2px solid #DDDDDD;
+			margin-bottom: 20px;
+			clear: both;
+		}
+		
+		#menu p {
+			  line-height: 1.6em;
+			  padding-bottom: 0px;
+			  padding-top: 0px
+			} 
+		
+		#menu a {
+			line-height: 2em;
+			padding-left: 10px;
+			padding-right: 10px;
+			color: #303030;
+			font-weight: bold;	  
+			text-decoration: none;
+		} 
+		
+		#menu a:hover	{
+			color: #303030;
+			text-decoration: underline;
+		}
+		
+/* CONTENT ELEMENTS */
+
+		#content {
+			margin-top: 50px;
+			width: 500px;
+			margin-left: 250px;
+		}
+
+		#content p {
+			padding-bottom: 10px;
+			/*border-bottom: 1px solid #DDDDDD;  A faint grey line below the text */
+		}
+
+		#content p.a {
+			margin-top: 10px;
+			padding-bottom: 10px;
+                        border-bottom: 0px;
+		}
+
+
+		#content ul {
+			padding-bottom: 10px;				 
+			width: 470px;
+			margin-left: 0px;
+			padding-left: 12px; 
+			border-bottom: 1px solid #DDDDDD; /* A faint grey line below the text */
+		}
+		
+/* SIDEBAR ELEMENTS */
+
+		#sidebar {
+			float: left;
+			width: 175px;
+		}
+		
+		#sidebar p {
+			padding-bottom: 10px;
+			border-bottom: 1px dotted #CCC;
+		}
+
+/* FOOTER ELEMENTS */
+
+		#footer {
+                        position:absolute;
+                        bottom:0; 
+			clear: both;			 
+			padding: 0px 0px 0px 0px;
+		}
+		
+		#footer p {
+			color:#89817f;
+			padding: 5px;			
+			border-bottom: 2px solid #DDDDDD;
+			text-align: left;	   
+		}
+
+/* SIDE BAR PIC'S ELEMENTS */
+
+                #sidebarpic {
+			margin-top: 0px;
+			margin-left: 800px;
+		}
+
+		#sidebarpic p {
+			color:#89817f;
+			padding: 5px;			
+			text-align: left;	   
+		}
+		
+/* CONTACT ELEMENTS */
+
+		#contact {
+			width: 300px;
+			float: left;
+			margin-top: 0px;
+			margin-left: 0px;
+		}
+
+		#logo {
+			width: 200px;
+			margin-top: 0px;
+			margin-left: 300px;
+		}
+
+/* WORK ELEMENTS */
+
+		#work {	
+			width: 1000px;
+                        margin-left: 20px;
+		}
+
+                #work p {
+			width: 1000px;
+			padding-bottom: 10px;
+                        border-bottom: 0px;
+		}
+
+		#work p.a {
+			width: 600px;
+			padding-bottom: 10px;
+			border-bottom: 1px solid #DDDDDD;  
+		}
+
+                #opinion {	
+			width: 800px;
+                        margin-left: 20px;
+		}
+
+                #opinion p {
+			width: 800px;
+			padding-bottom: 10px;
+                        border-bottom: 0px;
+		}
+
+		#opinion p.a {
+			width: 500px;
+			padding-bottom: 10px;
+			border-bottom: 1px solid #DDDDDD;  
+		}
+
+
+		#opinion ul {
+			width: 800px;
+			padding-bottom: 10px;
+			padding-left: 12px; 
+			border-bottom: 1px solid #DDDDDD; /* A faint grey line below the text */
+		} 
+
+/*             styles for the star rater                */
+#star-rating{
+	list-style:none;
+	margin: 0px;
+	padding:0px;
+	width: 100px;
+	height: 20px;
+	position: relative;
+	background: url(star_rating.gif) top left repeat-x;		
+}
+#star-rating li{
+	padding:0px;
+	margin:0px;
+	/*\*/
+	float: left;
+	/* */
+}
+#star-rating li a{
+	display:block;
+	width:20px;
+	height: 20px;
+	text-decoration: none;
+	text-indent: -9000px;
+	z-index: 20;
+	position: absolute;
+	padding: 0px;
+}
+#star-rating li a:hover{
+	background: url(star_rating.gif) left bottom;
+	z-index: 1;
+	left: 0px;
+}
+#star-rating a.one-star{
+	left: 0px;
+}
+#star-rating a.one-star:hover{
+	width:20px;
+}
+#star-rating a.two-stars{
+	left:20px;
+}
+#star-rating a.two-stars:hover{
+	width: 40px;
+}
+#star-rating a.three-stars:hover{
+	width: 60px;
+}
+#star-rating a.three-stars{
+	left: 40px;
+}
+#star-rating a.four-stars{
+	left: 60px;
+}	
+#star-rating a.four-stars:hover{
+	width: 80px;
+}
+#star-rating a.five-stars{
+	left: 80px;
+}
+#star-rating a.five-stars:hover{
+	width: 100px;
+}
+
