@@ -39,13 +39,11 @@ html: Makefile $(FBbibfile)
 	change_string "<body bg link=\"blue\" alink=\"blue\" vlink=\"blue\">" "" *.html */*.html; rm -f *.bak  */*.bak
 	change_string "not working <A HREF=\"../index.html\"><b> BACK TO INDEX </b></A>" "" *.html */*.html; rm -f *.bak */*.bak
 	change_string "<br><br>" "<br>" *.html */*.html; rm -f *.bak */*.bak
-	change_string "<META name=\"GENERATOR\" content=\"bibtex2html 1.01\">" "<link rel=\"stylesheet\" href=\"http://motion.me.ucsb.edu/css/mysite-small.css\" type=\"text/css\" />"	*.html */*.html; rm -f *.bak */*.bak
+	change_string "<META name=\"GENERATOR\" content=\"bibtex2html 1.01\">" "<link rel=\"stylesheet\" href=\"http://fbullo.github.io/css/mysite-small.css\" type=\"text/css\" />"	*.html */*.html; rm -f *.bak */*.bak
 	change_string "cellspacing=\"2\""     "" *.html */*.html; rm -f *.bak */*.bak
 	change_string "font size=2"  "font size=1" *.html */*.html; rm -f *.bak */*.bak
 	change_string "font size=4"  "font size=2" *.html */*.html; rm -f *.bak */*.bak
 	change_string "FONT SIZE=6"  "font size=5" *.html */*.html; rm -f *.bak */*.bak
-
-	(cd; rsync -qavuzP -e ssh --exclude-from=/Users/bullo/.rsync-exclude ./public_html linux.engr.ucsb.edu:/fs/bullo/motion/ --delete)
 
 new:
 	change_string "<br>\n\n<br>"  "" *.html */*.html; rm -f *.bak */*.bak
