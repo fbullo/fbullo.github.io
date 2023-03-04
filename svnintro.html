@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML><HEAD><TITLE>Francesco Bullo's SVN Help</TITLE>
+<link rel="stylesheet" href="css/mysite.css" type="text/css" />
+</head><BODY bgcolor="#FFFFFF">
+<H2>Really basic introduction to svn</h2>
+
+<p><hr><p>
+<h4> Metaphor </h4>
+
+The key concept is that the documents are in a database: the official
+latest documents version is in an online database and users have local
+copies. A user work cycle consists of: updating the local copy of the
+documents, editing the local copy, commiting the local copy back to
+the database. Multiple users can edit at the same time the same
+documents and svn will do as good a job as possible at merging.
+
+The main svn website is:
+<a href="http://subversion.apache.org/">http://www.subversion.org</a>
+
+<p><hr><p>
+<h4> Unix (Linux/Mac OS X) Instructions</h4>
+<ul>
+
+<li> install an "svn client" on your computer (you do not need the server,
+only the client).
+
+  Example clients are available
+  <a href="https://en.wikipedia.org/wiki/Comparison_of_Subversion_clients">
+  wikipedia svn clients</a>. 
+
+<li> ask Francesco for a userid and password
+
+<li> create your own local working copy of the documents by typing
+<br>
+<strong>
+  svn checkout
+  https://fbsvn.me.ucsb.edu/svn/XXX --username francesco
+</strong> <br>
+where you should substitute your userid for "francesco", and your desired directory for XXX. 
+This  instruction  creates the directory "XXX" with all relevant files inside.
+
+<li> Each time you start working on the file(s), you should get the 
+latest version by typing inside the XXX directory:  <br>
+<strong>svn update</strong>
+
+<li> <strong> if the local file is updated, you MUST reload the file in your editor before making any changes</strong>
+
+<li> The local svn database is manipulated as if it was a unix directory:
+<ul>
+<li> to add a file (or a directory) to the database, say <strong> svn add filename</strong>
+<li> to create a directory in the database, say <strong> svn mkdir dirname</strong>
+<li> to remove a file from the database, say <strong> svn rm filename</strong>
+</ul>
+These commands and editing files only change the "local version" of the database.
+
+<li> Each time you want to propagate your local changes to the main database, you should commit your 
+changes back to the database by typing inside the XXX directory <br>
+<strong>svn commit -m "type a message here"</strong>
+
+<li> Look at the output of the "svn commit" command. In particular,
+look for conflict warnings.  If there is a conflict, then you must resolve 
+it before re-committing the changes. 
+<ul>
+<li> edit the file in question (e.g., New.bib or main.tex), look for the
+markes <<<<<< ===== >>>>>>
+ and choose the right version.
+<li> type <strong>svn resolved main.tex</strong>
+<li> type <strong>svn commit -m "resolved conflict"</strong>
+
+</ul>
+
+</ul>
+
+<p><hr><p>
+
+      
+<h4> Recommended reading/using</h4>
+
+After you've become a bit familiar with the entire concept,
+here are three important resources:
+
+<ul>
+  <li> <strong> https://fbsvn.me.ucsb.edu/svn/articles </strong> contains books, conference proceedings and a many other documents that you can easily download
+  <li> <strong> https://fbsvn.me.ucsb.edu/svn/bib </strong> contains my bibliography files. please read the file https://fbsvn.me.ucsb.edu/svn/bib/README.TXT
+  <li> <strong> https://fbsvn.me.ucsb.edu/svn/students/Academic-Skill-Tools</strong> contains a lot of useful/miscellaneous/new+old documentation and how-tos ...
+  <li> <strong> https://fbsvn.me.ucsb.edu/svn/posters/ </strong> contains examples of old posters
+    <li> (francesco to add "topics" collections of PDF files)
+
+</ul>
+
+<p><hr><p>
+      
+A real svn primer is available at: <a href="http://www.abbeyworkshop.com/howto/misc/svn01">here</a>.
+<br>
+A complete "SVN book" is available online at 
+<a href="http://svnbook.red-bean.com">http://svnbook.red-bean.com</a>.
+<br>
+For Windows users, the recommended client is at <a
+href="http://tortoisesvn.tigris.org/">http://tortoisesvn.tigris.org/</a>. 
+
+<br>
+
+
+
+<br>
+<hr>
+<br>
+Final quick: to get html file to show properly on a browser, type
+<pre>
+svn propset svn:mime-type text/html *.html
+</pre>
+or for pdf files:
+<pre>
+svn propset svn:mime-type application/pdf *.pdf
+</pre>
+
+</body>
+</html>
