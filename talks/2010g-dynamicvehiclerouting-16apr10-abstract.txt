@@ -1,0 +1,18 @@
+Speaker: Francesco Bullo
+	 http://motion.me.ucsb.edu
+
+Title: Dynamic Vehicle Routing for Robotic Systems
+
+Joint work with: Shaunak Bopardikar, Emilio Frazzoli, Marco Pavone, Ketan
+Savla, Stephen L. Smith
+
+Abstract: This talk surveys recent concepts and algorithms for dynamic
+vehicle routing (DVR), that is, for the automatic planning of optimal
+multi-vehicle routes to perform tasks that are generated over time by an
+exogenous process.  We begin by reviewing the basic DVR problem: demands
+for service arrive at random locations at random times and a vehicle
+travels to provide on-site service while minimizing the expected wait time
+of the demands. Next, we treat different multi-vehicle scenarios based on
+different models for demands (e.g., demands with different priority levels,
+moving demands and impatient demands), vehicles (e.g., motion constraints,
+communication and sensing capabilities), and tasks.

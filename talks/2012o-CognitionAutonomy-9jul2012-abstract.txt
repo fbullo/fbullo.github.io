@@ -1,0 +1,28 @@
+TITLE: Optimization Strategies for Cognition and Autonomy in Mixed 
+Human-Robot Teams
+
+SPEAKER: Francesco Bullo
+	 http://motion.me.ucsb.edu
+
+JOINT WORK WITH: Vaibhav Srivastava
+
+
+ABSTRACT:
+
+We consider the optimal servicing of a queue with sigmoid server
+performance. The sigmoid server performance occurs in various domains
+including human decision making, visual perception, human-machine
+communication and advertising response. The tasks arrive at a given rate to
+the server. Each task has a deadline that is incorporated as a latency
+penalty. We investigate the trade-off between the reward obtained by
+processing the current task and the penalty incurred due to the tasks
+waiting in the queue.  We study this optimization problem in a Markov
+decision process (MDP) framework and show that the MDP formulation is
+equivalent to a certainty-equivalent problem. We determine the receding
+horizon servicing policy for the queue and show that the optimal policy may
+drop some tasks, that is, may not process a task at all. We then develop an
+adaptive policy that incorporates all the available information about the
+current tasks and show that the adaptive policy improves the performance
+significantly. Finally, we present a comparative study of the receding
+horizon policy for the certainty-equivalent problem and the adaptive
+policy. We also suggest guidelines for the design of such queues.

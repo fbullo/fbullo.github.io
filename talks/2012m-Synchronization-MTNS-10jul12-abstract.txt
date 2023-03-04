@@ -1,0 +1,24 @@
+Title: Synchronization in Oscillator Networks and Smart Grids
+
+Author: Francesco Bullo
+
+Abstract:
+
+The emergence of synchronization in complex networks of coupled oscillators
+is a pervasive topic in numerous scientific disciplines including biology,
+physics, chemistry, and engineering. A coupled-oscillator network is
+characterized by a population of heterogeneous oscillators and a graph
+describing the interaction among the oscillators. These two ingredients
+give rise to rich dynamic behaviors that have fascinated the scientific
+community for decades.
+
+In this talk I will present joint work with Florian D\"orfler on novel
+algebraic conditions for synchronization.  The results
+exploit elegant connections among the theory of coupled oscillators, the
+graph-theoretical properties of electric circuits, and multiagent dynamical
+systems.
+
+Our results are relevant in the context of future smart grids subject to
+renewable stochastic power sources: assessing the existence, stability,
+optimality, and robustness of synchronous states is a pervasive topic in
+the study and operation of power networks.

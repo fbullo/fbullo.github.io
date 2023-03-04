@@ -1,0 +1,33 @@
+Title: Sequential Decision Aggregation
+
+Speaker: Francesco Bullo
+	 http://motion.me.ucsb.edu
+
+Joint work with: Sandra H. Dandach and Ruggero Carli
+
+
+Abstract: 
+
+This paper studies prototypical strategies to sequentially aggregate
+independent decisions.  We consider a collection of agents, each performing
+binary hypothesis testing and each obtaining a decision over time.  We
+assume the agents are identical and receive independent information.
+Individual decisions are sequentially aggregated via a threshold-based
+rule. In other words, a collective decision is taken as soon as a specified
+number of agents report a concordant decision (simultaneous discordant
+decisions and no-decision outcomes are also handled).
+
+We obtain the following results.  First, we characterize the probabilities
+of correct and wrong decisions as a function of time, group size and
+decision threshold. The computational requirements of our approach are
+linear in the group size.  Second, we consider the so-called fastest and
+majority rules, corresponding to specific decision thresholds. For these
+rules, we provide a comprehensive scalability analysis of both accuracy and
+decision time.  In the limit of large group sizes, we show that the
+decision time for the fastest rule converges to the earliest possible
+individual time, and that the decision accuracy for the majority rule shows
+an exponential improvement over the individual accuracy.  Additionally, via
+a theoretical and numerical analysis, we characterize various
+speed/accuracy tradeoffs. Finally, we relate our results to some recent
+observations reported in the cognitive information processing literature.
+

@@ -1,0 +1,25 @@
+Title: Synchronization of Power Networks and Non-uniform Kuramoto Oscillators
+
+Speaker: Francesco Bullo
+	 http://motion.me.ucsb.edu
+
+Joint work with: Florian Dorfler
+
+Abstract: Motivated by recent interest for multi-agent systems and smart
+power grid architectures, we discuss the synchronization problem for the
+network-reduced model of a power system with non-trivial transfer
+conductances.  Our key insight is to exploit the relationship between the
+power network model and a first-order model of coupled oscillators.
+Assuming overdamped generators (possibly due to local excitation
+controllers), a singular perturbation analysis shows the equivalence
+between the classic swing equations and a non-uniform Kuramoto oscillator
+model. Here, non-uniform Kuramoto oscillators are characterized by multiple
+time constants, non-homogeneous coupling, and non-uniform phase shifts.
+Extending methods from transient stability, synchronization theory and
+consensus protocols, we establish sufficient conditions for synchronization
+of non-uniform Kuramoto oscillators.  These conditions reduce to and
+improve upon previously-available tests for standard Kuramoto
+model. Combining our singular perturbation and Kuramoto analyses, we derive
+concise and purely algebraic conditions that relate synchronization and
+transient stability of a power network to the underlying system parameters
+and initial conditions.

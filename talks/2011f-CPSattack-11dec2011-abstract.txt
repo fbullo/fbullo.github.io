@@ -1,0 +1,94 @@
+TITLE: Cyber-Physical Systems under Attack
+
+AUTHORS: Fabio Pasqualetti, Florian Dorfler, and Francesco Bullo
+Center for Control, Dynamical Systems and Computation, UC Santa Barbara
+
+WORKSHOP SPEAKERS: Francesco Bullo and Fabio Pasqualetti
+
+
+ABSTRACT: 
+
+Cyber-physical systems integrate computation, communication, and
+physical capabilities to interact with the physical world and
+humans. Examples of cyber-physical systems include transportation
+networks, power generation and distribution networks, water and gas
+distribution networks, and advanced communication systems. Because of
+the crucial role of cyber-physical systems in everyday life,
+cyber-physical security challenges need to be promptly addressed.
+
+We propose a unified framework to analyze the resilience of cyber-
+physical systems against attacks cast by an omniscient adversary. We
+model cyber-physical systems as linear descriptor systems, and attacks
+as exogenous unknown inputs. Despite its simplicity, our model
+captures various real-world cyber-physical systems and it includes and
+generalizes the most studied prototypical attacks, including stealth,
+(dynamic) false-data injection and replay attacks. For this model, we
+study various attack detection and identification procedures, and we
+characterize their fundamental limitations. We provide constructive
+algebraic conditions to cast undetectable and unidentifiable attacks,
+and graph-theoretic conditions for the existence of undetectable and
+unidentifiable attacks.
+
+Following our analysis, we propose centralized and decentralized
+monitors for attack detection and identification. To be specific, we
+first design optimal centralized attack detection and identification
+monitors based upon the geometric notion of conditioned invariant
+subspace. Optimality refers here to the ability of detecting
+(resp. identifying) every detectable (resp. identifiable)
+attack. Then, starting from the centralized attack detection monitor
+we develop a fully distributed attack detection filter. By means of a
+decentralized representation of the system dynamics, we provide a
+distributed implementation of the attack detection filter based upon
+iterative local computations using the Gauss-Jacobi waveform
+relaxation technique. Finally, we show that the attack identification
+problem is inherently computationally hard, and we design a
+distributed identification method that achieves identification, at a
+low computational cost and for a certain class of attacks. Our
+distributed identification methods is based upon a divide and conquer
+procedure, in which first corrupted regions and then corrupted
+components are identified via local identification procedures and
+cooperation among neighboring regions.
+
+Finally, we present several illustrative examples that, besides
+illustrating our findings, show the effectiveness of our methods also
+in the presence of system noise, nonlinearities, and modeling
+uncertainties.
+
+
+BIOSKETCHES
+
+Fabio Pasqualetti is a Doctoral Candidate in Mechanical Engineering at the
+University of California, Santa Barbara. He received the Laurea degree
+``summa cum laude'' in Computer Engineering from the University of Pisa,
+Pisa, Italy, in 2004, and the Laurea Magistrale degree ``summa cum laude''
+in Automation Engineering from the University of Pisa, Pisa, Italy, in
+2007.  His main research interest is in secure control systems, with
+application to multi-agent networks, distributed computing and power
+networks. Other interests include vehicle routing and combinatorial
+optimization, with application to distributed area patrolling and
+persistent surveillance.
+
+Florian Dorfler received his Diplom degree in Engineering Cybernetics from
+the University of Stuttgart, Germany, in 2008. He was a visiting student at
+the University of Toronto in 2007/2008, a visiting researcher at the
+University of California, Santa Barbara in 2009, a corporal research intern
+at EADS Astrium in 2008, and graduate research intern at Los Alamos
+National Labs in 2011. Since September 2009 he is a Ph.D. candidate in the
+Department of Mechanical Engineering at the University of California, Santa
+Barbara. His main research interests include distributed systems,
+synchronization, and coordinated control with applications in smart power
+grids and robotic networks. He is recipient of the 2009 Regents Special
+International Fellowship, the 2011 Peter J. Frenkel Foundation Fellowship,
+the 2010 ACC Student Best Paper Award, and the 2011 O. Hugo Schuck Best
+Paper Award.
+
+Francesco Bullo is currently a Professor with the Mechanical Engineering
+Department and the Center for Control, Dynamical Systems and Computation at
+the University of California, Santa Barbara.  He was previously associated
+with the University of Padova, the California Institute of Technology and
+the University of Illinois at Urbana-Champaign. His main research interest
+is multi-agent networks with application to robotic coordination,
+distributed computing and power networks; he has worked on vehicle routing,
+geometric control, and motion planning.  He is the coauthor of "Geometric
+Control of Mechanical Systems" (Springer, 2004) and "Distributed Control of
+Robotic Networks" (Princeton, 2009).

@@ -1,0 +1,22 @@
+Speaker: Francesco Bullo
+	 http://motion.mee.ucsb.edu
+
+Title: Distributed Linear Programming with Application to Target
+       Localization and Formation Control
+
+Joint work with: Giuseppe Notarstefano
+
+Abstract: In this talk we discuss optimization problems over graphs and
+their distributed solution. We focus on optimization problems whose
+solution is demanded to multiple computation units that have bounded memory
+and computation capability and that can share local information. Problems
+of this sort may arise when trying to optimize a global cost function in
+sensor or robotic networks, or simply when one looks for a distributed
+solution of the problem by use of multiple computation resources. We
+identify a novel class of distributed optimization problems, namely a
+networked version of abstract linear programming. For such problems we
+propose distributed algorithms for networks with various connectivity
+and/or memory constraints.  Then, we show how these algorithms can be
+applied to solve suitable target localization and formation control
+problems.
+

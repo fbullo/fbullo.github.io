@@ -1,0 +1,17 @@
+Speaker: Francesco Bullo
+
+Title: Geometry, Optimization and Control in Robot Coordination
+
+Abstract: Motion coordination is an extraordinary phenomenon in biological
+systems and a powerful tool in man-made systems; although individual agents
+have no global system knowledge, complex behaviors emerge from local
+interactions. This talk focuses on robotic networks, that is, group of
+robots that communicate and coordinate their motions to perform useful
+tasks.  Example tasks are how to respond to service requests in an
+environment, how to deploy sensor nodes in locations of interest, and how
+to partition an environment among cooperating agents.  For these tasks, we
+propose a comprehensive collection of adaptive and distributed algorithms,
+including a novel a novel deployment and partitioning algorithm with
+minimal communication requirements. Our approach integrates concepts from
+queuing and stochastic analysis, geometric optimization, and nonlinear
+stability theory.

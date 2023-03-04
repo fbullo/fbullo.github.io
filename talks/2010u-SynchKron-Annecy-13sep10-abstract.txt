@@ -1,0 +1,33 @@
+Title: Synchronization and Kron Reduction in Power Networks
+
+Speaker: Francesco Bullo
+	 http://motion.me.ucsb.edu
+
+Joint work with: Florian Dorfler
+
+
+Abstract: 
+
+We discuss the modelling and synchronization problem for network-reduced
+and structure-preserving power system models.  First, we focus on the
+network-reduced power system model with non-trivial transfer conductances -
+the classic swing equations. We exploit the relationship between the
+network-reduced power system model and a first-order model of coupled
+oscillators.  Extending methods from transient stability, synchronization
+theory and consensus protocols, we establish sufficient conditions for
+synchronization of non-uniform Kuramoto oscillators. These conditions
+reduce to and improve upon previously-available tests for the well-known
+Kuramoto model. Combining our singular perturbation and Kuramoto analyses,
+we derive concise and purely algebraic conditions that establish
+synchronization and transient stability in a network-reduced power system.
+Second, we analyze the network-reduction process relating the
+network-reduced and the more detailed structure-preserving power system
+model. The network reduction process, termed Kron reduction, is
+characterized by iterative Schur complementation of the admittance
+matrix. A detailed algebraic and graph-theoretic analysis of the Kron
+reduction process allows us to extend the synchronization conditions
+obtained for the network-reduced model to the structure-preserving
+model. In the end, we are able state one spectral and one resistance-based
+condition that relate synchronization in a power network to the underlying
+network state, parameters, and topology.
+

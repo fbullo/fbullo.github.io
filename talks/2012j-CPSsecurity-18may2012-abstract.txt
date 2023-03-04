@@ -1,0 +1,44 @@
+TITLE: Attack detection and identification in cyber-physical systems
+
+SPEAKER: Francesco Bullo
+	 http://motion.me.ucsb.edu
+
+JOINT WORK WITH: Fabio Pasqualetti and Florian Dorfler
+
+
+ABSTRACT:
+
+Cyber-physical systems integrate computation, communication, and physical
+capabilities.  We propose a unified framework to analyze the resilience of
+cyber-physical systems against attacks cast by an omniscient adversary. We
+model cyber-physical systems as linear descriptor systems, and attacks as
+exogenous unknown inputs. Despite its simplicity, our model captures
+various real-world cyber-physical systems and it includes and generalizes
+the most studied prototypical attacks, including stealth, false-data
+injection and replay attacks. For this model, we study various attack
+detection and identification procedures, and we characterize their
+fundamental limitations. We provide constructive algebraic conditions to
+cast undetectable and unidentifiable attacks, and graph-theoretic
+conditions for the existence of undetectable and unidentifiable attacks.
+Following our analysis, we propose centralized and decentralized monitors
+for attack detection and identification.  Finally, we present several
+illustrative examples that illustrate our findings, and show the
+effectiveness of our methods also in the presence of system noise,
+nonlinearities, and modeling uncertainties.
+
+
+
+BIOSKETCH: Francesco Bullo received the Laurea degree in Electrical
+Engineering from the University of Padova in 1994, and the Ph.D. degree in
+Control and Dynamical Systems from the California Institute of Technology
+in 1999. From 1998 to 2004, he was affiliated with the Coordinated Science
+Laboratory at the University of Illinois at Urbana-Champaign. He is
+currently a Professor with the Mechanical Engineering Department at the
+University of California, Santa Barbara.  His students' papers were
+finalists for the Best Student Paper Award at the IEEE Conference on
+Decision and Control (2002, 2005, 2007), and the American Control
+Conference (2005, 2006, 2010).  He is the coauthor of the book "Geometric
+Control of Mechanical Systems" (Springer, 2004) and of the book
+"Distributed Control of Robotic Networks" (Princeton, 2009).  His main
+research interest is multi-agent networks with application to robotic
+coordination, distributed computing and power networks. 

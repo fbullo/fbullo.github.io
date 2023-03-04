@@ -1,0 +1,9 @@
+1. render all slides in 2x2 (or give multiple option)
+2. add other remarkable slides (e.g., interview talks, Sonia's CDC award)
+3. add movies
+4. render template form easier to fill out (with more scripting?)
+5. add PhD defense slides?
+6. finish cataloging and comparing all slides. then renumber/reorder slides
+7. place slides inside "public_html/pdf" directory with appropriate name: slide-2008a-blabla.
+
+recompile 2003r slides on nonsmooth coordination with movie links

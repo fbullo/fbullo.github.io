@@ -1,0 +1,33 @@
+Title: Consensus Computation in Unreliable Networks
+
+Speaker: Fabio Pasqualetti
+
+Joint work with: Antonio Bicchi and Francesco Bullo
+
+Abstract: This work addresses the problem of ensuring trustworthy
+computation in a linear consensus network. A solution to this problem is
+relevant for several tasks in multi-agent systems including motion
+coordination, clock synchronization, and cooperative estimation. In a
+linear consensus network, we allow for the presence of \emph{misbehaving
+agents}, whose behavior deviate from the nominal consensus evolution. We
+model misbehaviors as unknown and unmeasurable inputs affecting the
+network, and we cast the misbehavior detection and identification problem
+into an unknown-input system theoretic framework. We consider two extreme
+cases of misbehaving agents, namely \emph{faulty} (non-colluding) and
+\emph{malicious} (Byzantine) agents. First, we characterize the set of
+inputs that allow misbehaving agents to affect the consensus network while
+remaining undetected and/or unidentified from certain observing
+agents. Second, we provide worst-case bounds for the number of concurrent
+faulty or malicious agents that can be detected and identified. Precisely,
+the consensus network needs to be $2k+1$ (resp. $k+1$) connected for $k$
+malicious (resp. faulty) agents to be generically detectable and
+identifiable by every well behaving agent. Third, we quantify the effect of
+undetectable inputs on the final consensus value. Fourth, we design three
+algorithms to detect and identify misbehaving agents. The first and the
+second algorithm apply fault detection techniques, and affords complete
+detection and identification if global knowledge of the network is
+available to each agent, at a high computational cost. The third algorithm
+is designed to exploit the presence in the network of weakly interconnected
+subparts, and provides local detection and identification of misbehaving
+agents whose behavior deviates more than a threshold, which is quantified
+in terms of the interconnection structure.
