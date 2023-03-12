@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="mysite.css" type="text/css" />
+<title>UCSB &ldquo;Introduction to Robotics: Planning and Kinematics&rdquo;  ME/ECE 179P, Winter 2023  Instructor: Francesco Bullo</title>
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-category">UCSB ME/ECE 179P</div>
+<div class="menu-item"><a href="index.html" class="current">Description</a></div>
+<div class="menu-item"><a href="syllabus.html">Syllabus&nbsp;and&nbsp;homework</a></div>
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>UCSB &ldquo;Introduction to Robotics: Planning and Kinematics&rdquo; <br /> ME/ECE 179P, Winter 2023<br /> Instructor: Francesco Bullo</h1>
+</div>
+<p>This is the website for the UCSB course ME / ECE 179P &ldquo;Introduction to
+Robotics: Planning and Kinematics&rdquo;, Winter 2023.  This information is
+available at the URL <a href="http://motion.me.ucsb.edu/ME179P-Winter2023" target=&ldquo;blank&rdquo;>http://motion.me.ucsb.edu/ME179P-Winter2023</a>.  A pdf version of this
+documentation is available  <a href="http:\/\/motion.me.ucsb.edu/ME179P-Winter2023/handouts/coursedescription-me179p-winter2023.pdf" target=&ldquo;blank&rdquo;>online</a>.
+</p>
+<h2>Description </h2>
+<p>Motion planning and kinematics topics with an emphasis on geometric
+reasoning, programming and matrix computations.  Motion planning:
+configuration spaces, sensor-based planning, decomposition and sampling
+methods, and advanced planning algorithms. Kinematics: reference frames,
+rotations and displacements, kinematic motion models.
+</p>
+<h2>Course Learning Outcomes</h2>
+<ul>
+<li><p>An ability to apply knowledge of geometry, graph algorithms and linear algebra to robotic systems
+</p>
+</li>
+<li><p>An ability to use a numerical computing environment, such as Matlab, to solve engineering problems
+</p>
+</li>
+<li><p>An ability to formulate and solve planning problems in robotics
+</p>
+</li>
+<li><p>An ability to formulate and solve kinematics problems in robotics
+</p>
+</li>
+</ul>
+<h2>Prerequisites</h2>
+<p>Eng 3 and either ME 17 or ECE 130C (concurrent enrollment is allowed).
+
+
+</p>
+<p>Knowledge of basic concepts in matrix theory (matrix multiplication,
+traces, determinants, eigenvalues), differential equations, and familiarity
+with Matlab and/or Python programming.
+</p>
+<h2>Lecture Time and Place</h2>
+<p>Tuesday and Thursday 11:00am-12:15pm, ME Classroom Engr II 2243
+</p>
+<p>(UCSB Winter quarter 2023: Tues Jan 10 - Thu Mar 16. Finals Mon Mar 18 - Fri Mar 24.)
+</p>
+<h2>Course credit</h2>
+<p>Units: 4, including 3 units of lecture, 1 unit of computer lab per week
+</p>
+<h2>Textbook</h2>
+<div class="infoblock">
+<div class="blockcontent">
+<p><b>Lectures on Robotic Planning and Kinematics,</b> <br />
+Francesco Bullo and Stephen L. Smith<br />
+v0.93, Jan 1, 2022. <br /><br />
+Available in <a href="http://motion.me.ucsb.edu/book-lrpk" target=&ldquo;blank&rdquo;>PDF and Slide PDF format</a>.
+</p>
+</div></div>
+<p>Warning: the lecture notes may be updated during the course. I will inform
+you if and when a new version of the notes is available.  (Exercise numbers
+will not change.)
+</p>
+<h2>Instructor</h2>
+<p>Professor Francesco Bullo <br />
+Department of Mechanical Engineering  <br />
+Email: <a href="mailto:bullo-at-engineering.ucsb.edu" target=&ldquo;blank&rdquo;>bullo-at-engineering.ucsb.edu</a><br />
+Website: <a href="http://motion.me.ucsb.edu" target=&ldquo;blank&rdquo;>http://motion.me.ucsb.edu</a>
+</p>
+<h3>Office hours</h3>
+<p>Place: Engineering Bldg II, Room 2325 or Zoom (see email for room ID)  <br />
+Time: Tuesdays, 1pm-2pm as long as there are un-answered questions 
+</p>
+<p>If you have any questions about the course, please send me email. I will
+try to respond as quickly as possible.  Additionally, I will share
+questions that are particularly good (and their answers) with the rest of
+the class by broadcasting my answer to the entire class.
+</p>
+<p>If you plan to come to ( = connect with my room) office hours for questions
+about homework, please be prepared to show attempts at solving the problem
+that you prepared before coming. Also, it would be desirable if you would
+please email me at least 1 hour in advance.
+</p>
+<h2>Teaching Assistant</h2>
+<p>Francesco Seccamonte, <a href="mailto:fseccamonte-at-ucsb.edu" target=&ldquo;blank&rdquo;>fseccamonte at ucsb.edu</a><br />
+Office hours Time:  Thursday, 5:30pm&ndash;7:00pm (as long as there are un-answered questions)<br />
+Office hours Place: Eng. II, #2217 (or zoom). <br />
+</p>
+<p>Please come to office hours with prepared questions. Due to time
+constraints, only limited help will be given for coding and debugging problems.
+</p>
+<h2>Grading</h2>
+<p>Your grade will be assigned roughly according to the following percentages.
+</p>
+<ol>
+<li><p>Homework and Projects = 15% and 15%
+</p>
+</li>
+<li><p>Midterm 35%
+</p>
+</li>
+<li><p>Final 35%
+</p>
+</li>
+</ol>
+<p>Partial credit might be given whenever the overall performance is low.  If
+answers are not accompanied by satisfactory explanations (e.g., all
+intermediate steps, clearly readable handwriting), no credit will be
+given.
+</p>
+<p>Exams and quizzes will be closed book and closed notes. You may prepare an
+exam aid (cheat sheet) in your own handwriting, consisting of one,
+one-sided sheet (letter size, 8.5x11in) for the midterm and one, two-sided
+sheet for the final exam.  No calculators/tablets/cellphones are allowed
+during the exams (they would be useless anyway).
+</p>
+<p>In exceptional cases, I reserve the right to give extra points for
+excellent performance on the final. Please, do not count on it as a way to
+avoid doing homework assignments.
+</p>
+<p>Homework will is typically due on Wednesday afternoon.  No late
+homework will be accepted without prior approval.  Approval is
+automatic the first two times you ask: <b>to announce late homework you
+must send me email by midnight the day before</b>. Late homework will
+automatically lose 20% of the grade and no late homework will be
+accepted after 5pm on the following Monday.
+</p>
+<h2>Computer Access &amp; Matlab vs Python</h2>
+<p>Some of the homework and all computer laboratory
+assignments will require working knowledge of Matlab or Python.
+</p>
+<p>I expect all of you to have access to a Matlab or Python installation.
+</p>
+<p>A matlab primer is available in the handout section of the course website.
+</p>
+<h2>Collaboration Policy</h2>
+<p><a href="http://motion.me.ucsb.edu/collaboration-policy.html" target=&ldquo;blank&rdquo;>Collaboration Policy</a> for this course
+&amp; <a href="http://en.wikipedia.org/wiki/Academic_dishonesty" target=&ldquo;blank&rdquo;>Academic Dishonesty @ Wikipedia</a>
+</p>
+<h1>Resources for Students</h1>
+<p>The Division of Student Affairs provides a broad range of essential
+support services and resources to help UCSB students handle the
+challenges of university life.
+</p>
+<h2>Help during exams</h2>
+<p>Students with disabilities may request academic accommodations for
+exams online through the UCSB Disabled Students Program at
+<a href="http://dsp.sa.ucsb.edu" target=&ldquo;blank&rdquo;>http://dsp.sa.ucsb.edu</a>.
+</p>
+<p>Please make your requests for exam accommodations through the online
+system as early in the quarter as possible to ensure arrangement.
+</p>
+<h2>Managing stress</h2>
+<p>Personal concerns such as stress, anxiety, relationships, depression,
+cultural differences, can interfere with the ability of students to
+succeed and thrive.
+</p>
+<p>If you find yourself, or another student, in need of support, please
+do not hesitate to reach out to Counseling and Psychological Services
+(CAPS), 24/7 at (805) 893-4411. <a href="http://caps.sa.ucsb.edu" target=&ldquo;blank&rdquo;>http://caps.sa.ucsb.edu</a>
+</p>
+<h2>Financial crisis response team</h2>
+<p>The UCSB Financial Crisis Response Team exists to assist UCSB students
+who may be facing a financial crisis or urgent financial need. In
+order to apply for emergency funding, please first email
+<a href="mailto:FinancialCrisis@sa.ucsb.edu" target=&ldquo;blank&rdquo;>FinancialCrisis@sa.ucsb.edu</a>. Within 1-2 business days, a Financial Aid
+Advisor will contact you for your next steps.
+</p>
+<h2>Gender and sex discrimination policy and student support</h2>
+<p>Under Title IX, university students are protected from harassment and
+discrimination based on gender and sex. If a student feels
+uncomfortable or in need of support at any time related to their
+gender, sex, and/or sexual orientation, please contact your TA and/or
+course instructor immediately. If a student would like to disclose
+information related to pronouns, name changes, or identities, we
+encourage you to do so. UCSB's Resource Center for Sexual and Gender
+Diversity on the 3rd floor of the Student Resource Building is also
+available to advocate and be of and support to students.
+</p>
+<h2>Food security</h2>
+<p>If you are facing any challenges securing food or housing and believe this
+may affect your performance in the class, you are urged to meet with a Food
+Security and Calfresh Advocate who is aware of the broad variety of
+resources that UCSB has to offer (see their drop-in hours at
+food.ucsb.edu). You are also urged to contact the professor or teaching
+assistant if you are comfortable doing so. Please visit food.ucsb.edu for
+additional resources including Calfresh, the AS Food Bank, and more.
+</p>
+<h2>Responsible scholarship</h2>
+<p>Honesty and integrity in all academic work is essential for a valuable
+educational experience.  The Office of Judicial Affairs has policies,
+tips, and resources for
+</p>
+<ul>
+<li><p>proper citation use,
+</p>
+</li>
+<li><p>recognizing actions considered to be cheating or other forms of academic theft, and
+</p>
+</li>
+<li><p>students&rsquo; responsibilities.
+</p>
+</li>
+</ul>
+<p>This information is available on their website at:
+<a href="http://judicialaffairs.sa.ucsb.edu" target=&ldquo;blank&rdquo;>http://judicialaffairs.sa.ucsb.edu</a>.  Students are responsible for
+educating themselves on the policies and to abide by them.
+</p>
+<p>Furthermore, for general academic support, we encourage students to
+visit Campus Learning Assistance Services (CLAS) early and often. CLAS
+offers instructional groups, drop-in tutoring, writing and ESL
+services, skills workshops and one-on-one consultations. CLAS is
+located on the third floor of the Student Resource Building, or visit
+<a href="http://clas.sa.ucsb.edu" target=&ldquo;blank&rdquo;>http://clas.sa.ucsb.edu</a>.
+</p>
+<h2>Copyright policy</h2>
+<p>All course materials (class lectures and discussions, handouts,
+examinations, web materials) and the intellectual content of the
+course itself are protected by United States Federal Copyright Law,
+the California Civil Code. 
+</p>
+<ul>
+<li><p>The UC Policy 102.23 expressly prohibits students (and all other
+persons) from recording lectures or discussions and from distributing
+or selling lectures notes and all other course materials without the
+prior written permission of the instructor (See
+<a href="http://policy.ucop.edu/doc/2710530/PACAOS-100" target=&ldquo;blank&rdquo;>Policy on Student
+Conduct and Discipline</a>).
+</p>
+</li>
+<li><p>I have made the textbook available with a copyright-friendly policy (see page 2 of the text).
+</p>
+</li>
+<li><p>Students are permitted to make notes solely
+for their own private educational use.  Exceptions to accommodate
+students with disabilities may be granted with appropriate
+documentation.
+</p>
+</li>
+</ul>
+<p>To be clear, in this class students are forbidden from
+completing study guides and selling them to any person or
+organization.
+</p>
+</td>
+</tr>
+</table>
+</body>
+</html>
