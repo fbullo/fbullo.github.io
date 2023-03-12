@@ -1,0 +1,810 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 4.0,
+MathReader 4.0, or any compatible application. The data for the notebook 
+starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     15252,        594]*)
+(*NotebookOutlinePosition[     15932,        618]*)
+(*  CellTagsIndexPosition[     15888,        614]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+  "Demo for Tensors.m\n",
+  StyleBox["Andrew D. Lewis\nDepartment of Mathematics and Statistics\n\
+Queen's University\nKingston ON K7L 3N6\nCanada\n\n", "Author"],
+  StyleBox["andrew@mast.queensu.ca", "Author",
+    FontFamily->"Courier",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  StyleBox["\n\n", "Author",
+    FontFamily->"Courier"],
+  StyleBox["This is a set of ", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  StyleBox["Mathematica", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Italic"],
+  StyleBox[" ", "Author",
+    FontFamily->"Courier"],
+  StyleBox["commands for performing basic tensor analysis.  This is an \
+initial implementation, and will hopefully be improved upon as time goes by.\n\
+\nReference: ", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontVariations->{"CompatibilityType"->0}],
+  StyleBox["Geometric Control of Mechanical Systems.  Modeling, Analysis, and \
+Design for Simple Mechanical Control Systems\n", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontVariations->{"CompatibilityType"->0}],
+  StyleBox["                      Francesco Bullo and Andrew D. Lewis\n       \
+                ", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontVariations->{"CompatibilityType"->0}],
+  StyleBox["http://penelope.mast.queensu.ca/smcs/\n       ", "Author",
+    FontFamily->"Courier",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontVariations->{"CompatibilityType"->0}],
+  StyleBox["January 2003", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontVariations->{"CompatibilityType"->0}]
+}], "Title"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(<< Tensors.m\)], "Input",
+  CellLabel->"In[1]:="],
+
+Cell[BoxData[
+    \("\nPackage \"Tensors\" defines: ChangeBasis, ChangeCoordinates, \
+EvaluateTensor, InitializeTensor, ITen2Vec, IVec2Ten, LieDerivative, Ten2Vec, \
+TheJacobian, Vec2Ten."\)], "Print",
+  CellLabel->"From In[1]:="]
+}, Open  ]],
+
+Cell[TextData[{
+  "To get help, type ",
+  StyleBox["?command",
+    FontFamily->"Courier"]
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(?ChangeCoordinates\)\)], "Input",
+  CellLabel->"In[2]:="],
+
+Cell[BoxData[
+    \("ChangeCoordinates[A,x,xp,xofxp,Type,Deriv] gives a tensor A of type \
+Type expressed originally in coordinates x, in coordinates xp.  Here xofxp \
+gives x as a function of xp.  If Type=\"Affine Connection\" then the input \
+should be the Christoffel symbols of an affine connection in coordinates x, \
+and the result will be the Christoffel symbols in coordinates xp."\)], "Print",\
+
+  CellLabel->"From In[2]:="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tensor basics", "Subsection"],
+
+Cell["\<\
+Tensors of type $(r,s)$ are stored as lists of depth $r+s$, with \
+the basic list element being a component of the tensor.  One can initialize a \
+tensor to have all zero entries.  The following command initializes a \
+$(0,2)$-tensor in a $2$-dimensional vector space.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(g = InitializeTensor[{0, 2}, 2]\)], "Input",
+  CellLabel->"In[3]:="],
+
+Cell[BoxData[
+    \({{0, 0}, {0, 0}}\)], "Output",
+  CellLabel->"Out[3]="]
+}, Open  ]],
+
+Cell["\<\
+Note that a tensor can be thought of as being on a vector space, or \
+on the tangent space to a manifold.  As far as how it is stored, they are the \
+same thing.
+
+Let us work with a specific tensor, namely the standard Riemannian metric on \
+$\\real^2$, first using Cartesian coordinates.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(g[\([1, 1]\)] = \(g[\([2, 2]\)] = 1\); g\)], "Input",
+  CellLabel->"In[4]:="],
+
+Cell[BoxData[
+    \({{1, 0}, {0, 1}}\)], "Output",
+  CellLabel->"Out[4]="]
+}, Open  ]],
+
+Cell["\<\
+A tensor can be evaluated on various of its arguments.  For \
+example, the Riemannian metric above can be evaluated on two vectors.\
+\>", \
+"Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(u\  = \ {u1, u2}\)], "Input",
+  CellLabel->"In[5]:="],
+
+Cell[BoxData[
+    \({u1, u2}\)], "Output",
+  CellLabel->"Out[5]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(v\  = \ {v1, v2}\)], "Input",
+  CellLabel->"In[6]:="],
+
+Cell[BoxData[
+    \({v1, v2}\)], "Output",
+  CellLabel->"Out[6]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(EvaluateTensor[g, {u, v}, {0, 2}, {{}, {}}]\)], "Input",
+  CellLabel->"In[7]:="],
+
+Cell[BoxData[
+    \(u1\ v1 + u2\ v2\)], "Output",
+  CellLabel->"Out[7]="]
+}, Open  ]],
+
+Cell["\<\
+The syntax here bears explanation.  The first argument is the \
+tensor itself.  The second argument is a list containing the vectors and \
+covectors on which the tensor will be evaluated.  The third argument is the \
+type of the tensor.  The fourth argument consists of two lists.  The first \
+list is the contravariant (i.e., up) indices that will be left free, and the \
+second is the covariant (i.e., down) indices that will be left free.
+
+To see how this works, let us use the same tensor, but now evaluate it on \
+only one argument.  This corresponds in this case to the ``flat map.''\
+\>", \
+"Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(EvaluateTensor[g, {u}, {0, 2}, {{}, {1}}]\)], "Input",
+  CellLabel->"In[8]:="],
+
+Cell[BoxData[
+    \({u1, u2}\)], "Output",
+  CellLabel->"Out[8]="]
+}, Open  ]],
+
+Cell["\<\
+Since the tensor is symmetric, the answer will be the same if the \
+second covariant index is left free.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(EvaluateTensor[g, {u}, {0, 2}, {{}, {2}}]\)], "Input",
+  CellLabel->"In[9]:="],
+
+Cell[BoxData[
+    \({u1, u2}\)], "Output",
+  CellLabel->"Out[9]="]
+}, Open  ]],
+
+Cell["\<\
+It may be helpful to ``flatten'' a tensor, by which an \
+$(r,s)$-tensor on a vector space of dimension $n$ is converted to a list of \
+length $n^{r+s}$.  There are a few commands associated with this and related \
+operations.  First let us convert a list to a tensor.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Aten\  = \ Vec2Ten[{a11, a12, a21, a22}, {0, 2}, 2]\)], "Input",
+  CellLabel->"In[10]:="],
+
+Cell[BoxData[
+    \({{a11, a12}, {a21, a22}}\)], "Output",
+  CellLabel->"Out[10]="]
+}, Open  ]],
+
+Cell["Now let us convert this back to a list.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Avec\  = \ Ten2Vec[Aten, {0, 2}, 2]\)], "Input",
+  CellLabel->"In[11]:="],
+
+Cell[BoxData[
+    \({a11, a12, a21, a22}\)], "Output",
+  CellLabel->"Out[11]="]
+}, Open  ]],
+
+Cell[TextData[{
+  "Specific entries can be grabbed as well.  For example, one may want to \
+grab from a long list the element corresponding to a certain tensor index.  \
+The following manipulations use the ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " ",
+  StyleBox["Sequence",
+    FontFamily->"Courier"],
+  " command."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(IVec2Ten[3, {0, 2}, 2]\)], "Input",
+  CellLabel->"In[12]:="],
+
+Cell[BoxData[
+    \({2, 1}\)], "Output",
+  CellLabel->"Out[12]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Aten[\([Sequence @@ %]\)]\)], "Input",
+  CellLabel->"In[13]:="],
+
+Cell[BoxData[
+    \(a21\)], "Output",
+  CellLabel->"Out[13]="]
+}, Open  ]],
+
+Cell["One can also go the other way.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ITen2Vec[{1, 2}, 2]\)], "Input",
+  CellLabel->"In[14]:="],
+
+Cell[BoxData[
+    \(2\)], "Output",
+  CellLabel->"Out[14]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Avec[\([%]\)]\)], "Input",
+  CellLabel->"In[15]:="],
+
+Cell[BoxData[
+    \(a12\)], "Output",
+  CellLabel->"Out[15]="]
+}, Open  ]],
+
+Cell[TextData[{
+  "In the above commands, the ``",
+  StyleBox["I",
+    FontFamily->"Courier"],
+  "'' stands for ``index,'' reflecting the fact that these commands have to \
+do with manipulation of indices."
+}], "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Lie differentiation", "Subsection"],
+
+Cell["\<\
+One can Lie differentiate tensors of arbitrary type.  The command \
+takes as arguments, the tensor being Lie differentiated, the vector field \
+with respect to which differentiation is being done, a list containing the \
+coordinates, and the type of the tensor.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(X\  = \ {\(-y\), x}\)], "Input",
+  CellLabel->"In[16]:="],
+
+Cell[BoxData[
+    \({\(-y\), x}\)], "Output",
+  CellLabel->"Out[16]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(q\  = \ {x, y}\)], "Input",
+  CellLabel->"In[17]:="],
+
+Cell[BoxData[
+    \({x, y}\)], "Output",
+  CellLabel->"Out[17]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(LXg\  = \ LieDerivative[g, X, q, {0, 2}]\)], "Input",
+  CellLabel->"In[18]:="],
+
+Cell[BoxData[
+    \({{0, 0}, {0, 0}}\)], "Output",
+  CellLabel->"Out[18]="]
+}, Open  ]],
+
+Cell["Note that the vector field is Killing.", "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Changes of coordinate", "Subsection"],
+
+Cell[TextData[{
+  "Coordinate changes can be done symbolically.  First let us do a linear \
+change of coordinates (i.e., a change of basis).  We will work with the \
+existing tensor ",
+  StyleBox["g",
+    FontFamily->"Courier"],
+  ".  One requires a change of basis matrix, and this is defined as follows.  \
+Suppose the existing basis is $\\{e_1,\\dots,e_n\\}$ and the new basis is \
+$\\{f_1,\\dots,f_n\\}$.  One may then write $f_i=P^j_ie_j$ (using the \
+summation convention) for some invertible $n\\times n$ matrix $\\mat{P}$.  \
+The change of basis matrix in ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " is defined so that ",
+  StyleBox["P[[i,j]]",
+    FontFamily->"Courier"],
+  " is $P^i_j$.  Thus, for us, if the new basis is"
+}], "Text"],
+
+Cell[BoxData[
+    \(f1\  = \ {1, 1}; f2\  = \ {0, 1};\)], "Input",
+  CellLabel->"In[19]:="],
+
+Cell["then we should define", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(P\  = \ Transpose[{f1, f2}]\)], "Input",
+  CellLabel->"In[20]:="],
+
+Cell[BoxData[
+    \({{1, 0}, {1, 1}}\)], "Output",
+  CellLabel->"Out[20]="]
+}, Open  ]],
+
+Cell["We then have", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ChangeBasis[g, P, {0, 2}]\)], "Input",
+  CellLabel->"In[21]:="],
+
+Cell[BoxData[
+    \({{2, 1}, {1, 1}}\)], "Output",
+  CellLabel->"Out[21]="]
+}, Open  ]],
+
+Cell[TextData[{
+  "Now let us change coordinates.  We already have the coordinates ",
+  StyleBox["q",
+    FontFamily->"Courier"],
+  " defined above.  Let us introduce new coordinates which are polar \
+coordinates."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(qp\  = \ {r, theta}\)], "Input",
+  CellLabel->"In[22]:="],
+
+Cell[BoxData[
+    \({r, theta}\)], "Output",
+  CellLabel->"Out[22]="]
+}, Open  ]],
+
+Cell["\<\
+What is needed for the change of basis function is the original \
+coordinates expressed in terms of the new coordinates.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(qofqp\  = \ {r\ Cos[theta], r\ Sin[theta]}\)], "Input",
+  CellLabel->"In[23]:="],
+
+Cell[BoxData[
+    \({r\ Cos[theta], r\ Sin[theta]}\)], "Output",
+  CellLabel->"Out[23]="]
+}, Open  ]],
+
+Cell["\<\
+Now we may make the change of coordinates by providing all of the \
+above data, along with the type of the tensor.  For example, for the vector \
+field we have\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Xp\  = \ 
+      Simplify[ChangeCoordinates[X, q, qp, qofqp, {1, 0}]]\)], "Input",
+  CellLabel->"In[24]:="],
+
+Cell[BoxData[
+    \({0, 1}\)], "Output",
+  CellLabel->"Out[24]="]
+}, Open  ]],
+
+Cell["Also the metric.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gp\  = \ 
+      Simplify[ChangeCoordinates[g, q, qp, qofqp, {0, 2}]]\)], "Input",
+  CellLabel->"In[25]:="],
+
+Cell[BoxData[
+    \({{1, 0}, {0, r\^2}}\)], "Output",
+  CellLabel->"Out[25]="]
+}, Open  ]],
+
+Cell["\<\
+The concept of a Killing vector field is coordinate \
+invariant.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(LieDerivative[gp, Xp, qp, {0, 2}]\)], "Input",
+  CellLabel->"In[26]:="],
+
+Cell[BoxData[
+    \({{0, 0}, {0, 0}}\)], "Output",
+  CellLabel->"Out[26]="]
+}, Open  ]],
+
+Cell[TextData[{
+  "One can also change coordinates for the Christoffel symbols of an affine \
+connection.  We shall do this for the Levi-Civita connection for the \
+Riemannian metric ",
+  StyleBox["g",
+    FontFamily->"Courier"],
+  " used above, noting that its Christoffel symbols are zero in Cartesian \
+coordinates."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(conn\  = \ Table[0, {i, 2}, {j, 2}, {k, 2}]\)], "Input",
+  CellLabel->"In[27]:="],
+
+Cell[BoxData[
+    \({{{0, 0}, {0, 0}}, {{0, 0}, {0, 0}}}\)], "Output",
+  CellLabel->"Out[27]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[
+      ChangeCoordinates[conn, q, qp, 
+        qofqp, "\<Affine Connection\>"]]\)], "Input",
+  CellLabel->"In[28]:="],
+
+Cell[BoxData[
+    \({{{0, 0}, {0, \(-r\)}}, {{0, 1\/r}, {1\/r, 0}}}\)], "Output",
+  CellLabel->"Out[28]="]
+}, Open  ]],
+
+Cell[TextData[{
+  "One may recognize these as the Christoffel symbols for the standard metric \
+in polar coordinates.\n\nThere is also a Jacobian function included.  The ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " Jacobian manipulations require too much setup to use conveniently."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(TheJacobian[qofqp, qp]\)], "Input",
+  CellLabel->"In[29]:="],
+
+Cell[BoxData[
+    \({{Cos[theta], \(-r\)\ Sin[theta]}, {Sin[theta], 
+        r\ Cos[theta]}}\)], "Output",
+  CellLabel->"Out[29]="]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"4.0 for X",
+ScreenRectangle->{{0, 1600}, {0, 1200}},
+WindowSize->{1588, 1172},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+StyleDefinitions -> "ArticleModern.nb"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1739, 51, 1773, 48, 295, "Title"],
+
+Cell[CellGroupData[{
+Cell[3537, 103, 69, 2, 42, "Input"],
+Cell[3609, 107, 230, 4, 54, "Print"]
+}, Open  ]],
+Cell[3854, 114, 101, 4, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[3980, 122, 79, 2, 42, "Input"],
+Cell[4062, 126, 433, 7, 54, "Print"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4532, 138, 35, 0, 54, "Subsection"],
+Cell[4570, 140, 292, 5, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[4887, 149, 88, 2, 42, "Input"],
+Cell[4978, 153, 74, 2, 42, "Output"]
+}, Open  ]],
+Cell[5067, 158, 312, 7, 62, "Text"],
+
+Cell[CellGroupData[{
+Cell[5404, 169, 97, 2, 42, "Input"],
+Cell[5504, 173, 74, 2, 42, "Output"]
+}, Open  ]],
+Cell[5593, 178, 157, 4, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[5775, 186, 73, 2, 42, "Input"],
+Cell[5851, 190, 66, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5954, 197, 73, 2, 42, "Input"],
+Cell[6030, 201, 66, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6133, 208, 100, 2, 42, "Input"],
+Cell[6236, 212, 73, 2, 42, "Output"]
+}, Open  ]],
+Cell[6324, 217, 615, 11, 80, "Text"],
+
+Cell[CellGroupData[{
+Cell[6964, 232, 98, 2, 42, "Input"],
+Cell[7065, 236, 66, 2, 42, "Output"]
+}, Open  ]],
+Cell[7146, 241, 128, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[7299, 248, 98, 2, 42, "Input"],
+Cell[7400, 252, 66, 2, 42, "Output"]
+}, Open  ]],
+Cell[7481, 257, 291, 5, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[7797, 266, 109, 2, 42, "Input"],
+Cell[7909, 270, 83, 2, 42, "Output"]
+}, Open  ]],
+Cell[8007, 275, 55, 0, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[8087, 279, 93, 2, 42, "Input"],
+Cell[8183, 283, 79, 2, 42, "Output"]
+}, Open  ]],
+Cell[8277, 288, 344, 10, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[8646, 302, 80, 2, 42, "Input"],
+Cell[8729, 306, 65, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8831, 313, 83, 2, 42, "Input"],
+Cell[8917, 317, 62, 2, 42, "Output"]
+}, Open  ]],
+Cell[8994, 322, 46, 0, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[9065, 326, 77, 2, 42, "Input"],
+Cell[9145, 330, 60, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9242, 337, 71, 2, 42, "Input"],
+Cell[9316, 341, 62, 2, 42, "Output"]
+}, Open  ]],
+Cell[9393, 346, 218, 6, 26, "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9648, 357, 41, 0, 54, "Subsection"],
+Cell[9692, 359, 285, 5, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[10002, 368, 77, 2, 42, "Input"],
+Cell[10082, 372, 70, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10189, 379, 72, 2, 42, "Input"],
+Cell[10264, 383, 65, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10366, 390, 98, 2, 42, "Input"],
+Cell[10467, 394, 75, 2, 42, "Output"]
+}, Open  ]],
+Cell[10557, 399, 54, 0, 26, "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10648, 404, 43, 0, 54, "Subsection"],
+Cell[10694, 406, 759, 17, 44, "Text"],
+Cell[11456, 425, 91, 2, 42, "Input"],
+Cell[11550, 429, 37, 0, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[11612, 433, 85, 2, 42, "Input"],
+Cell[11700, 437, 75, 2, 42, "Output"]
+}, Open  ]],
+Cell[11790, 442, 28, 0, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[11843, 446, 83, 2, 42, "Input"],
+Cell[11929, 450, 75, 2, 42, "Output"]
+}, Open  ]],
+Cell[12019, 455, 226, 6, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[12270, 465, 77, 2, 42, "Input"],
+Cell[12350, 469, 69, 2, 42, "Output"]
+}, Open  ]],
+Cell[12434, 474, 144, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[12603, 481, 100, 2, 42, "Input"],
+Cell[12706, 485, 89, 2, 42, "Output"]
+}, Open  ]],
+Cell[12810, 490, 183, 4, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[13018, 498, 126, 3, 42, "Input"],
+Cell[13147, 503, 65, 2, 42, "Output"]
+}, Open  ]],
+Cell[13227, 508, 32, 0, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[13284, 512, 126, 3, 42, "Input"],
+Cell[13413, 517, 78, 2, 44, "Output"]
+}, Open  ]],
+Cell[13506, 522, 88, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[13619, 529, 91, 2, 42, "Input"],
+Cell[13713, 533, 75, 2, 42, "Output"]
+}, Open  ]],
+Cell[13803, 538, 331, 8, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[14159, 550, 101, 2, 42, "Input"],
+Cell[14263, 554, 95, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14395, 561, 146, 4, 42, "Input"],
+Cell[14544, 567, 106, 2, 60, "Output"]
+}, Open  ]],
+Cell[14665, 572, 308, 6, 62, "Text"],
+
+Cell[CellGroupData[{
+Cell[14998, 582, 80, 2, 42, "Input"],
+Cell[15081, 586, 131, 3, 42, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

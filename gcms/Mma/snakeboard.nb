@@ -1,0 +1,4518 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 4.0,
+MathReader 4.0, or any compatible application. The data for the notebook 
+starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[    154782,       4077]*)
+(*NotebookOutlinePosition[    155462,       4101]*)
+(*  CellTagsIndexPosition[    155418,       4097]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+  "Snakeboard modeling\n",
+  StyleBox["Andrew D. Lewis\nDepartment of Mathematics and Statistics\n\
+Queen's University\nKingston ON K7L 3N6\nCanada\n\n", "Author"],
+  StyleBox["andrew@mast.queensu.ca", "Author",
+    FontFamily->"Courier",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  StyleBox["\n\n", "Author",
+    FontFamily->"Courier"],
+  StyleBox["This is a ", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  StyleBox["Mathematica", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Italic"],
+  StyleBox[" implementation of the modeling for the snakeboard.\n\nReference: \
+", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontVariations->{"CompatibilityType"->0}],
+  StyleBox["Geometric Control of Mechanical Systems.  Modeling, Analysis, and \
+Design for Simple Mechanical Control Systems\n", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontVariations->{"CompatibilityType"->0}],
+  StyleBox["                      Francesco Bullo and Andrew D. Lewis\n       \
+                ", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontVariations->{"CompatibilityType"->0}],
+  StyleBox["http://penelope.mast.queensu.ca/smcs/\n       August", "Author",
+    FontFamily->"Courier",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontVariations->{"CompatibilityType"->0}],
+  StyleBox[" 2004", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontVariations->{"CompatibilityType"->0}]
+}], "Title"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(<< SMCS.m\)], "Input",
+  CellLabel->"In[1]:="],
+
+Cell[BoxData[
+    \("\nPackage \"Tensors\" defines: ChangeBasis, ChangeCoordinates, \
+EvaluateTensor, InitializeTensor, ITen2Vec, IVec2Ten, LieDerivative, Ten2Vec, \
+TheJacobian, Vec2Ten."\)], "Print",
+  CellLabel->"From In[1]:="],
+
+Cell[BoxData[
+    \("\nPackage \"Affine\" defines: AlongCurve, CovariantDerivative, \
+CovariantDifferential, CurvatureTensor, Grad, LeviCivita, RicciCurvature, \
+RiemannFlat, RiemannSharp, ScalarCurvature, SectionalCurvature, Spray, \
+SymmetricProduct, TorsionTensor."\)], "Print",
+  CellLabel->"From In[1]:="],
+
+Cell[BoxData[
+    \("\nPackage \"SMCS\" defines: ACCSequations, ACCSsimulate, \
+BodyAngularVelocity, ConstrainedConnection, Force, \
+GeneralizedCovariantDerivative, GetState, Hat, Hessian, KErot, KEtrans, \
+OrthogonalChristoffelSymbols, OrthogonalForce, OrthogonalProjection, \
+SetEqual, SMCSequations, SMCSsimulate, SpatialAngularVelocity, Unhat."\)], \
+"Print",
+  CellLabel->"From In[1]:="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Inertia tensors", "Subsection"],
+
+Cell[TextData[{
+  "The snakeboard is comprised of four components, the coupler, the rotor, \
+the ``back'' wheels, and the ``front'' wheels.  These will be denoted with \
+the suffixes ``",
+  StyleBox["c",
+    FontFamily->"Courier"],
+  ",'' ``",
+  StyleBox["r",
+    FontFamily->"Courier"],
+  ",'' ``",
+  StyleBox["f",
+    FontFamily->"Courier"],
+  ",'' and ``",
+  StyleBox["b",
+    FontFamily->"Courier"],
+  ",'' respectively.  In all cases, the frames we consider will be those \
+described in the text.  Let us first define the inertia tensors for the four \
+bodies."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Ic\  = \ {{a11, a12, 0}, {a12, a22, 0}, {0, 0, Jc}}\)], "Input",
+  CellLabel->"In[2]:="],
+
+Cell[BoxData[
+    \({{a11, a12, 0}, {a12, a22, 0}, {0, 0, Jc}}\)], "Output",
+  CellLabel->"Out[2]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Ir\  = \ {{a11, a12, 0}, {a12, a22, 0}, {0, 0, Jr}}\)], "Input",
+  CellLabel->"In[3]:="],
+
+Cell[BoxData[
+    \({{a11, a12, 0}, {a12, a22, 0}, {0, 0, Jr}}\)], "Output",
+  CellLabel->"Out[3]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Ib\  = \ \(If1\  = \ {{a11, a12, 0}, {a12, a22, 0}, {0, 0, 
+            Jw}}\)\)], "Input",
+  CellLabel->"In[4]:="],
+
+Cell[BoxData[
+    \({{a11, a12, 0}, {a12, a22, 0}, {0, 0, Jw}}\)], "Output",
+  CellLabel->"Out[4]="]
+}, Open  ]],
+
+Cell[TextData[{
+  "Note that we are forced to use ``",
+  StyleBox["If1",
+    FontFamily->"Courier"],
+  "'' since ``",
+  StyleBox["If",
+    FontFamily->"Courier"],
+  "'' is an internal ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " symbol.  Also note that the parameters ",
+  StyleBox["a11",
+    FontFamily->"Courier"],
+  ", ",
+  StyleBox["a12",
+    FontFamily->"Courier"],
+  ", and ",
+  StyleBox["a22",
+    FontFamily->"Courier"],
+  " are dummies, and should not show up in the final expressions by virtue of \
+the way in which the frames are defined."
+}], "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Forward kinematic maps", "Subsection"],
+
+Cell["\<\
+Now we define the forward kinematic maps for the four bodies by \
+defining the positions of the centers of mass from the spatial origin, and by \
+defining the orientation of the body frames relative to the spatial frame.  \
+Thus this step amounts to defining four vectors in $\\real^3$ and four \
+matrices in $\\SO{3}$.  First we need coordinates and their velocities.  We \
+use the ones from the text, of course.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(conf\  = \ {x[t], y[t], theta[t], psi[t], phi[t]}\)], "Input",
+  CellLabel->"In[5]:="],
+
+Cell[BoxData[
+    \({x[t], y[t], theta[t], psi[t], phi[t]}\)], "Output",
+  CellLabel->"Out[5]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(vel\  = \ D[conf, t]\)], "Input",
+  CellLabel->"In[6]:="],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{
+          SuperscriptBox["x", "\[Prime]",
+            MultilineFunction->None], "[", "t", "]"}], ",", 
+        RowBox[{
+          SuperscriptBox["y", "\[Prime]",
+            MultilineFunction->None], "[", "t", "]"}], ",", 
+        RowBox[{
+          SuperscriptBox["theta", "\[Prime]",
+            MultilineFunction->None], "[", "t", "]"}], ",", 
+        RowBox[{
+          SuperscriptBox["psi", "\[Prime]",
+            MultilineFunction->None], "[", "t", "]"}], ",", 
+        RowBox[{
+          SuperscriptBox["phi", "\[Prime]",
+            MultilineFunction->None], "[", "t", "]"}]}], "}"}]], "Output",
+  CellLabel->"Out[6]="]
+}, Open  ]],
+
+Cell[TextData[{
+  "Now for the forward kinematic maps.  The lowercase ",
+  StyleBox["r",
+    FontFamily->"Courier"],
+  " is for the center of mass position, and the uppercase ",
+  StyleBox["R",
+    FontFamily->"Courier"],
+  " is for the orientation matrices."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(rc\  = \ {x[t], y[t], 0}\)], "Input",
+  CellLabel->"In[7]:="],
+
+Cell[BoxData[
+    \({x[t], y[t], 0}\)], "Output",
+  CellLabel->"Out[7]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(rr\  = \ {x[t], y[t], 0}\)], "Input",
+  CellLabel->"In[8]:="],
+
+Cell[BoxData[
+    \({x[t], y[t], 0}\)], "Output",
+  CellLabel->"Out[8]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(rb\  = \ {x[t] - l\ Cos[theta[t]], y[t] - l\ Sin[theta[t]], 
+        0}\)], "Input",
+  CellLabel->"In[9]:="],
+
+Cell[BoxData[
+    \({\(-l\)\ Cos[theta[t]] + x[t], \(-l\)\ Sin[theta[t]] + y[t], 
+      0}\)], "Output",
+  CellLabel->"Out[9]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(rf\  = \ {x[t] + l\ Cos[theta[t]], y[t] + l\ Sin[theta[t]], 
+        0}\)], "Input",
+  CellLabel->"In[10]:="],
+
+Cell[BoxData[
+    \({l\ Cos[theta[t]] + x[t], l\ Sin[theta[t]] + y[t], 0}\)], "Output",
+  CellLabel->"Out[10]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Rc\  = \ {{Cos[theta[t]], \(-Sin[theta[t]]\), 0}, {Sin[theta[t]], 
+          Cos[theta[t]], 0}, {0, 0, 1}}\)], "Input",
+  CellLabel->"In[11]:="],
+
+Cell[BoxData[
+    \({{Cos[theta[t]], \(-Sin[theta[t]]\), 0}, {Sin[theta[t]], Cos[theta[t]], 
+        0}, {0, 0, 1}}\)], "Output",
+  CellLabel->"Out[11]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Rr\  = \ {{Cos[theta[t] + psi[t]], \(-Sin[theta[t] + psi[t]]\), 
+          0}, {Sin[theta[t] + psi[t]], Cos[theta[t] + psi[t]], 0}, {0, 0, 
+          1}}\)], "Input",
+  CellLabel->"In[12]:="],
+
+Cell[BoxData[
+    \({{Cos[psi[t] + theta[t]], \(-Sin[psi[t] + theta[t]]\), 
+        0}, {Sin[psi[t] + theta[t]], Cos[psi[t] + theta[t]], 0}, {0, 0, 
+        1}}\)], "Output",
+  CellLabel->"Out[12]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Rb\  = \ {{Cos[theta[t] + phi[t]], \(-Sin[theta[t] + phi[t]]\), 
+          0}, {Sin[theta[t] + phi[t]], Cos[theta[t] + phi[t]], 0}, {0, 0, 
+          1}}\)], "Input",
+  CellLabel->"In[13]:="],
+
+Cell[BoxData[
+    \({{Cos[phi[t] + theta[t]], \(-Sin[phi[t] + theta[t]]\), 
+        0}, {Sin[phi[t] + theta[t]], Cos[phi[t] + theta[t]], 0}, {0, 0, 
+        1}}\)], "Output",
+  CellLabel->"Out[13]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Rf\  = \ {{Cos[theta[t] - phi[t]], \(-Sin[theta[t] - phi[t]]\), 
+          0}, {Sin[theta[t] - phi[t]], Cos[theta[t] - phi[t]], 0}, {0, 0, 
+          1}}\)], "Input",
+  CellLabel->"In[14]:="],
+
+Cell[BoxData[
+    \({{Cos[phi[t] - theta[t]], Sin[phi[t] - theta[t]], 
+        0}, {\(-Sin[phi[t] - theta[t]]\), Cos[phi[t] - theta[t]], 0}, {0, 0, 
+        1}}\)], "Output",
+  CellLabel->"Out[14]="]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Kinetic energy and the kinetic energy metric", "Subsection"],
+
+Cell["\<\
+Now we compute the kinetic energies, translational and rotational, \
+for all of the bodies.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ketranc\  = \ KEtrans[rc, conf, mc, t]\)], "Input",
+  CellLabel->"In[15]:="],
+
+Cell[BoxData[
+    RowBox[{\(1\/2\), " ", "mc", " ", 
+      RowBox[{"(", 
+        RowBox[{
+          SuperscriptBox[
+            RowBox[{
+              SuperscriptBox["x", "\[Prime]",
+                MultilineFunction->None], "[", "t", "]"}], "2"], "+", 
+          SuperscriptBox[
+            RowBox[{
+              SuperscriptBox["y", "\[Prime]",
+                MultilineFunction->None], "[", "t", "]"}], "2"]}], 
+        ")"}]}]], "Output",
+  CellLabel->"Out[15]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(kerotc\  = \ Simplify[KErot[Rc, conf, Ic, t]]\)], "Input",
+  CellLabel->"In[16]:="],
+
+Cell[BoxData[
+    RowBox[{\(1\/2\), " ", "Jc", " ", 
+      SuperscriptBox[
+        RowBox[{
+          SuperscriptBox["theta", "\[Prime]",
+            MultilineFunction->None], "[", "t", "]"}], "2"]}]], "Output",
+  CellLabel->"Out[16]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ketranr\  = \ KEtrans[rr, conf, mr, t]\)], "Input",
+  CellLabel->"In[17]:="],
+
+Cell[BoxData[
+    RowBox[{\(1\/2\), " ", "mr", " ", 
+      RowBox[{"(", 
+        RowBox[{
+          SuperscriptBox[
+            RowBox[{
+              SuperscriptBox["x", "\[Prime]",
+                MultilineFunction->None], "[", "t", "]"}], "2"], "+", 
+          SuperscriptBox[
+            RowBox[{
+              SuperscriptBox["y", "\[Prime]",
+                MultilineFunction->None], "[", "t", "]"}], "2"]}], 
+        ")"}]}]], "Output",
+  CellLabel->"Out[17]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(kerotr\  = \ Simplify[KErot[Rr, conf, Ir, t]]\)], "Input",
+  CellLabel->"In[18]:="],
+
+Cell[BoxData[
+    RowBox[{\(1\/2\), " ", "Jr", " ", 
+      SuperscriptBox[
+        RowBox[{"(", 
+          RowBox[{
+            RowBox[{
+              SuperscriptBox["psi", "\[Prime]",
+                MultilineFunction->None], "[", "t", "]"}], "+", 
+            RowBox[{
+              SuperscriptBox["theta", "\[Prime]",
+                MultilineFunction->None], "[", "t", "]"}]}], ")"}], 
+        "2"]}]], "Output",
+  CellLabel->"Out[18]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ketranb\  = \ KEtrans[rb, conf, mw, t]\)], "Input",
+  CellLabel->"In[19]:="],
+
+Cell[BoxData[
+    RowBox[{\(1\/2\), " ", "mw", " ", 
+      RowBox[{"(", 
+        RowBox[{
+          SuperscriptBox[
+            RowBox[{"(", 
+              RowBox[{
+                RowBox[{"l", " ", \(Sin[theta[t]]\), " ", 
+                  RowBox[{
+                    SuperscriptBox["theta", "\[Prime]",
+                      MultilineFunction->None], "[", "t", "]"}]}], "+", 
+                RowBox[{
+                  SuperscriptBox["x", "\[Prime]",
+                    MultilineFunction->None], "[", "t", "]"}]}], ")"}], "2"], 
+          "+", 
+          SuperscriptBox[
+            RowBox[{"(", 
+              RowBox[{
+                RowBox[{\(-l\), " ", \(Cos[theta[t]]\), " ", 
+                  RowBox[{
+                    SuperscriptBox["theta", "\[Prime]",
+                      MultilineFunction->None], "[", "t", "]"}]}], "+", 
+                RowBox[{
+                  SuperscriptBox["y", "\[Prime]",
+                    MultilineFunction->None], "[", "t", "]"}]}], ")"}], 
+            "2"]}], ")"}]}]], "Output",
+  CellLabel->"Out[19]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(kerotb\  = \ Simplify[KErot[Rb, conf, Ib, t]]\)], "Input",
+  CellLabel->"In[20]:="],
+
+Cell[BoxData[
+    RowBox[{\(1\/2\), " ", "Jw", " ", 
+      SuperscriptBox[
+        RowBox[{"(", 
+          RowBox[{
+            RowBox[{
+              SuperscriptBox["phi", "\[Prime]",
+                MultilineFunction->None], "[", "t", "]"}], "+", 
+            RowBox[{
+              SuperscriptBox["theta", "\[Prime]",
+                MultilineFunction->None], "[", "t", "]"}]}], ")"}], 
+        "2"]}]], "Output",
+  CellLabel->"Out[20]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ketranf\  = \ KEtrans[rf, conf, mw, t]\)], "Input",
+  CellLabel->"In[21]:="],
+
+Cell[BoxData[
+    RowBox[{\(1\/2\), " ", "mw", " ", 
+      RowBox[{"(", 
+        RowBox[{
+          SuperscriptBox[
+            RowBox[{"(", 
+              RowBox[{
+                RowBox[{\(-l\), " ", \(Sin[theta[t]]\), " ", 
+                  RowBox[{
+                    SuperscriptBox["theta", "\[Prime]",
+                      MultilineFunction->None], "[", "t", "]"}]}], "+", 
+                RowBox[{
+                  SuperscriptBox["x", "\[Prime]",
+                    MultilineFunction->None], "[", "t", "]"}]}], ")"}], "2"], 
+          "+", 
+          SuperscriptBox[
+            RowBox[{"(", 
+              RowBox[{
+                RowBox[{"l", " ", \(Cos[theta[t]]\), " ", 
+                  RowBox[{
+                    SuperscriptBox["theta", "\[Prime]",
+                      MultilineFunction->None], "[", "t", "]"}]}], "+", 
+                RowBox[{
+                  SuperscriptBox["y", "\[Prime]",
+                    MultilineFunction->None], "[", "t", "]"}]}], ")"}], 
+            "2"]}], ")"}]}]], "Output",
+  CellLabel->"Out[21]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(kerotf\  = \ Simplify[KErot[Rf, conf, If1, t]]\)], "Input",
+  CellLabel->"In[22]:="],
+
+Cell[BoxData[
+    RowBox[{\(1\/2\), " ", "Jw", " ", 
+      SuperscriptBox[
+        RowBox[{"(", 
+          RowBox[{
+            RowBox[{
+              SuperscriptBox["phi", "\[Prime]",
+                MultilineFunction->None], "[", "t", "]"}], "-", 
+            RowBox[{
+              SuperscriptBox["theta", "\[Prime]",
+                MultilineFunction->None], "[", "t", "]"}]}], ")"}], 
+        "2"]}]], "Output",
+  CellLabel->"Out[22]="]
+}, Open  ]],
+
+Cell[TextData[{
+  "Note that, in the above computations, the arguments ``",
+  StyleBox["mc",
+    FontFamily->"Courier"],
+  ",'' ``",
+  StyleBox["mr",
+    FontFamily->"Courier"],
+  ",'' and ``",
+  StyleBox["mw",
+    FontFamily->"Courier"],
+  "'' are masses.  We can now obtain the total kinetic energy."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(KE\  = \ 
+      Simplify[ketranc + kerotc + ketranr + kerotr + ketranb + kerotb + 
+          ketranf + kerotf]\)], "Input",
+  CellLabel->"In[23]:="],
+
+Cell[BoxData[
+    RowBox[{\(1\/2\), " ", 
+      RowBox[{"(", 
+        RowBox[{
+          RowBox[{"2", " ", "Jw", " ", 
+            SuperscriptBox[
+              RowBox[{
+                SuperscriptBox["phi", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}], "2"]}], "+", 
+          RowBox[{"Jr", " ", 
+            SuperscriptBox[
+              RowBox[{
+                SuperscriptBox["psi", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}], "2"]}], "+", 
+          RowBox[{"2", " ", "Jr", " ", 
+            RowBox[{
+              SuperscriptBox["psi", "\[Prime]",
+                MultilineFunction->None], "[", "t", "]"}], " ", 
+            RowBox[{
+              SuperscriptBox["theta", "\[Prime]",
+                MultilineFunction->None], "[", "t", "]"}]}], "+", 
+          RowBox[{"Jc", " ", 
+            SuperscriptBox[
+              RowBox[{
+                SuperscriptBox["theta", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}], "2"]}], "+", 
+          RowBox[{"Jr", " ", 
+            SuperscriptBox[
+              RowBox[{
+                SuperscriptBox["theta", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}], "2"]}], "+", 
+          RowBox[{"2", " ", "Jw", " ", 
+            SuperscriptBox[
+              RowBox[{
+                SuperscriptBox["theta", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}], "2"]}], "+", 
+          RowBox[{"2", " ", \(l\^2\), " ", "mw", " ", 
+            SuperscriptBox[
+              RowBox[{
+                SuperscriptBox["theta", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}], "2"]}], "+", 
+          RowBox[{"mc", " ", 
+            SuperscriptBox[
+              RowBox[{
+                SuperscriptBox["x", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}], "2"]}], "+", 
+          RowBox[{"mr", " ", 
+            SuperscriptBox[
+              RowBox[{
+                SuperscriptBox["x", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}], "2"]}], "+", 
+          RowBox[{"2", " ", "mw", " ", 
+            SuperscriptBox[
+              RowBox[{
+                SuperscriptBox["x", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}], "2"]}], "+", 
+          RowBox[{"mc", " ", 
+            SuperscriptBox[
+              RowBox[{
+                SuperscriptBox["y", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}], "2"]}], "+", 
+          RowBox[{"mr", " ", 
+            SuperscriptBox[
+              RowBox[{
+                SuperscriptBox["y", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}], "2"]}], "+", 
+          RowBox[{"2", " ", "mw", " ", 
+            SuperscriptBox[
+              RowBox[{
+                SuperscriptBox["y", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}], "2"]}]}], 
+        ")"}]}]], "Output",
+  CellLabel->"Out[23]="]
+}, Open  ]],
+
+Cell["We can compute the components to the kinetric energy metric.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(metric\  = \ Simplify[KE2Metric[KE, vel]]\)], "Input",
+  CellLabel->"In[24]:="],
+
+Cell[BoxData[
+    \({{mc + mr + 2\ mw, 0, 0, 0, 0}, {0, mc + mr + 2\ mw, 0, 0, 0}, {0, 0, 
+        Jc + Jr + 2\ \((Jw + l\^2\ mw)\), Jr, 0}, {0, 0, Jr, Jr, 0}, {0, 0, 
+        0, 0, 2\ Jw}}\)], "Output",
+  CellLabel->"Out[24]="]
+}, Open  ]],
+
+Cell["\<\
+We can also compute the Christoffel symbols for the associated \
+Levi-Civita affine connection.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(lcgamma\  = \ LeviCivita[metric, conf]\)], "Input",
+  CellLabel->"In[25]:="],
+
+Cell[BoxData[
+    \({{{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 
+          0}, {0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 
+          0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, 
+          0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}, {{0, 
+          0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 
+          0, 0, 0, 0}}, {{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 
+          0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}}\)], "Output",
+  CellLabel->"Out[25]="]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Forces", "Subsection"],
+
+Cell["\<\
+For the snakeboard there are only control forces, and there are two \
+of these.  First we consider the force that spins the rotor.  The \
+corresponding Newtonian force is applied to the rotor and the coupler, and so \
+the Lagrangian force will be a sum of these two Newtonian contributions.  \
+First we make a list of the Newtonian forces.  In this case, there are two of \
+these (one each for the coupler and the rotor), and they are both zero.\
+\>", \
+"Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(force1\  = \ {{0, 0, 0}, {0, 0, 0}}\)], "Input",
+  CellLabel->"In[26]:="],
+
+Cell[BoxData[
+    \({{0, 0, 0}, {0, 0, 0}}\)], "Output",
+  CellLabel->"Out[26]="]
+}, Open  ]],
+
+Cell["We now do the same for torques.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(torque1\  = \ {{0, 0, \(-1\)}, {0, 0, 1}}\)], "Input",
+  CellLabel->"In[27]:="],
+
+Cell[BoxData[
+    \({{0, 0, \(-1\)}, {0, 0, 1}}\)], "Output",
+  CellLabel->"Out[27]="]
+}, Open  ]],
+
+Cell["Next we create the Lagrangian force.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(F1\  = \ 
+      Simplify[Force[torque1, force1, {Rc, Rr}, {rc, rr}, conf, 
+          t]]\)], "Input",
+  CellLabel->"In[28]:="],
+
+Cell[BoxData[
+    \({0, 0, 0, 1, 0}\)], "Output",
+  CellLabel->"Out[28]="]
+}, Open  ]],
+
+Cell["\<\
+Let us do the same for the other control force that moves the \
+wheels.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(force2\  = \ {{0, 0, 0}, {0, 0, 0}}\)], "Input",
+  CellLabel->"In[29]:="],
+
+Cell[BoxData[
+    \({{0, 0, 0}, {0, 0, 0}}\)], "Output",
+  CellLabel->"Out[29]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(torque2\  = \ {{0, 0, 1/2}, {0, 0, \(-1\)/2}}\)], "Input",
+  CellLabel->"In[30]:="],
+
+Cell[BoxData[
+    \({{0, 0, 1\/2}, {0, 0, \(-\(1\/2\)\)}}\)], "Output",
+  CellLabel->"Out[30]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(F2\  = \ 
+      Simplify[Force[torque2, force2, {Rb, Rf}, {rb, rf}, conf, 
+          t]]\)], "Input",
+  CellLabel->"In[31]:="],
+
+Cell[BoxData[
+    \({0, 0, 0, 0, 1}\)], "Output",
+  CellLabel->"Out[31]="]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["The constrained connection", "Subsection"],
+
+Cell[TextData[{
+  "The explicit expressions here are a little outrageous, so we suppress much \
+of the output.  The first step is to compute an orthogonal basis of vector \
+fields for which the first vector fields in the list are a basis for the \
+constraint distribution.  This is generally not possible.  For example, for \
+the snakeboard, the constraint distribution does not have constant rank.  \
+Even when the constraint distribution ",
+  StyleBox["does",
+    FontSlant->"Italic"],
+  StyleBox[" have constant rank, it is not always possible to find a global \
+basis.  We refer to the text for details surround such discussions.  Here we \
+merely note that, provided one omits consideration of the configurations \
+where the constraint distribution gains rank, it is possible to find a global \
+basis of vector fields for the snakeboard constraint distribution.  First we \
+provide a set of covector fields that annihilate the constraint \
+distribution.",
+    FontVariations->{"CompatibilityType"->0}]
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(omega1\  = \ {\(-Sin[phi[t] + theta[t]]\), 
+        Cos[phi[t] + theta[t]], \(-l\)\ Cos[phi[t]], 0, 0}\)], "Input",
+  CellLabel->"In[32]:="],
+
+Cell[BoxData[
+    \({\(-Sin[phi[t] + theta[t]]\), 
+      Cos[phi[t] + theta[t]], \(-l\)\ Cos[phi[t]], 0, 0}\)], "Output",
+  CellLabel->"Out[32]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(omega2\  = \ {Sin[phi[t] - theta[t]], Cos[phi[t] - theta[t]], 
+        l\ Cos[phi[t]], 0, 0}\)], "Input",
+  CellLabel->"In[33]:="],
+
+Cell[BoxData[
+    \({Sin[phi[t] - theta[t]], Cos[phi[t] - theta[t]], l\ Cos[phi[t]], 0, 
+      0}\)], "Output",
+  CellLabel->"Out[33]="]
+}, Open  ]],
+
+Cell["\<\
+By ``sharping'' these relative to the kinetic energy metric, we get \
+two vector fields that are $\\metric$-orthogonal to the constraint \
+distribution.  Then we need to ensure that these are $\\metric$-orthogonal.\
+\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(X4\  = \ RiemannSharp[omega1, metric];\)\)], "Input",
+  CellLabel->"In[34]:="],
+
+Cell[BoxData[
+    \(\(X5t\  = \ RiemannSharp[omega2, metric];\)\)], "Input",
+  CellLabel->"In[35]:="],
+
+Cell["\<\
+The next equation is just the Gram\\textendash{}Schmidt \
+Procedure.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(X5\  = \ 
+        X5t - \((X4 . metric . X5t)\) X4/\((X4 . metric . X4)\);\)\)], "Input",\
+
+  CellLabel->"In[36]:="],
+
+Cell["\<\
+Now we define the three vector fields used in the text as a \
+$\\metric$-orthogonal basis for the constraint distribution.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(V1\  = \ {Cos[theta[t]], Sin[theta[t]], 0, 0, 0}\)], "Input",
+  CellLabel->"In[37]:="],
+
+Cell[BoxData[
+    \({Cos[theta[t]], Sin[theta[t]], 0, 0, 0}\)], "Output",
+  CellLabel->"Out[37]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(X1\  = \ l\ Cos[phi[t]]\ V1 - Sin[phi[t]]\ {0, 0, 1, 0, 0}\)], "Input",
+  CellLabel->"In[38]:="],
+
+Cell[BoxData[
+    \({l\ Cos[phi[t]]\ Cos[theta[t]], 
+      l\ Cos[phi[t]]\ Sin[theta[t]], \(-Sin[phi[t]]\), 0, 0}\)], "Output",
+  CellLabel->"Out[38]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(X2t\  = \ {0, 0, 0, 1, 0}\)], "Input",
+  CellLabel->"In[39]:="],
+
+Cell[BoxData[
+    \({0, 0, 0, 1, 0}\)], "Output",
+  CellLabel->"Out[39]="]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(X2\  = \ 
+        Simplify[\((\((X1 . metric . X1)\) X2t - \((X1 . metric . X2t)\) 
+                  X1)\)/\((\((mc + mr + 2  mw)\) 
+                  l^2\ Cos[phi[t]]^2 + \((Jc + Jr + 2 \((Jw + mw\ l^2)\))\) 
+                  Sin[phi[t]]^2)\)];\)\)], "Input",
+  CellLabel->"In[40]:="],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(X3\  = \ {0, 0, 0, 0, 1}\)], "Input",
+  CellLabel->"In[41]:="],
+
+Cell[BoxData[
+    \({0, 0, 0, 0, 1}\)], "Output",
+  CellLabel->"Out[41]="]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(X\  = \ {X1, X2, X3, X4, X5};\)\)], "Input",
+  CellLabel->"In[42]:="],
+
+Cell["Let us save the basis for $\\dist{D}$ for later use.", "Text"],
+
+Cell[BoxData[
+    \(\(Ddim\  = \ 3;\)\)], "Input",
+  CellLabel->"In[43]:="],
+
+Cell[BoxData[
+    \(\(Dbasis\  = \ Table[X[\([i]\)], {i, Ddim}];\)\)], "Input",
+  CellLabel->"In[44]:="],
+
+Cell["\<\
+One can check that these vector fields are indeed \
+$\\metric$-orthogonal.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[
+      Table[\((X[\([i]\)] . metric . X[\([j]\)])\)/\((X[\([i]\)] . metric . 
+              X[\([i]\)])\), {i, 5}, {j, 5}]]\)], "Input",
+  CellLabel->"In[45]:="],
+
+Cell[BoxData[
+    \({{1, 0, 0, 0, 0}, {0, 1, 0, 0, 0}, {0, 0, 1, 0, 0}, {0, 0, 0, 1, 
+        0}, {0, 0, 0, 0, 1}}\)], "Output",
+  CellLabel->"Out[45]="]
+}, Open  ]],
+
+Cell["\<\
+One can now determine the components of the orthogonal projection \
+onto $\\dist{D}^\\perp$.  To do this, we first compute the orthogonal \
+projection onto $\\dist{D}$.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(P\  = \ 
+        OrthogonalProjection[{X1/Sqrt[X1 . metric . X1], 
+            X2/Sqrt[X2 . metric . X2], X3/Sqrt[X3 . metric . X3]}, 
+          metric];\)\)], "Input",
+  CellLabel->"In[46]:="],
+
+Cell["\<\
+Since we have suppressed the somewhat lengthy explicit expression, \
+let us at least verify that it is what it is supposed to be.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Table[Simplify[P . X[\([i]\)] - X[\([i]\)]], {i, 3}]\)], "Input",
+  CellLabel->"In[47]:="],
+
+Cell[BoxData[
+    \({{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}\)], "Output",
+  CellLabel->"Out[47]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Table[Simplify[P . X[\([i]\)]], {i, 4, 5}]\)], "Input",
+  CellLabel->"In[48]:="],
+
+Cell[BoxData[
+    \({{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}}\)], "Output",
+  CellLabel->"Out[48]="]
+}, Open  ]],
+
+Cell["Now we define the projection onto $\\dist{D}^\\perp$.", "Text"],
+
+Cell[BoxData[
+    \(\(Pperp\  = \ IdentityMatrix[5] - P;\)\)], "Input",
+  CellLabel->"In[49]:="],
+
+Cell["\<\
+Were one to examine the components of $P_{\\dist{D}}$, one would \
+find that each of them has as a denominator the following expression:\
+\>", \
+"Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(den\  = \ \((Jc + Jr + 2  Jw + l^2\ \ mc + l^2\ \ mr + 
+              4  l^2\ \ mw - \((Jc + Jr + 2  Jw - l^2\ \ mc - l^2\ \ mr)\) 
+                Cos[2  phi[t]])\)^2\ \ \((Jc + 2\ \ Jw + l^2  mc + 
+            l^2\ \ mr + 
+            4  l^2\ \ mw + \((\(-Jc\) - 2  Jw + l^2 \((mc + mr)\))\) 
+              Cos[2  phi[t]])\)\)], "Input",
+  CellLabel->"In[50]:="],
+
+Cell[BoxData[
+    \(\((Jc + Jr + 2\ Jw + l\^2\ mc + l\^2\ mr + 4\ l\^2\ mw - \((Jc + Jr + 2\
+\ Jw - l\^2\ mc - l\^2\ mr)\)\ Cos[2\ phi[t]])\)\^2\ \((Jc + 2\ Jw + 
+          l\^2\ mc + l\^2\ mr + 
+          4\ l\^2\ mw + \((\(-Jc\) - 2\ Jw + l\^2\ \((mc + mr)\))\)\ Cos[
+              2\ phi[t]])\)\)], "Output",
+  CellLabel->"Out[50]="]
+}, Open  ]],
+
+Cell["\<\
+Since we will be covariantly differentiating \
+$P_{\\dist{D}}^\\perp$, the computations would simplify if we could get rid \
+of this denominator (no messy quotient rule computations).  It is not obvious \
+how this can be done.  The key is the following fact.  If $A$ is an arbitrary \
+invertible $(1,1)$-tensor field, then we may define the affine connection \
+$\\Anabla$ on $\\man{Q}$ by
+\\begin{equation*}
+\\Anabla_XY=\\lcconnection{\\metric}_XY+A^{-1}(\\lcconnection{\\metric}_X(AP_{\
+\\dist{D}}^\\perp))(Y).
+\\end{equation*}
+It is easy to verify that this affine connection restricts to $\\dist{D}$, \
+and that its restriction to $\\dist{D}$ agrees with \
+$\\cconnection{\\dist{D}}$ (see \\cite{ADL:97a}).  We apply this formula with \
+$A$ being the identity tensor multiplied by the denominator.  Since one \
+covariantly differentiates $A\\scirc P_{\\dist{D}}^\\perp$ when computing \
+$\\Anabla$, the denominator disappears, and the differentiations \
+simplify.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(cgamma\  = \ 
+        ConstrainedConnection[lcgamma, den\ IdentityMatrix[5], Pperp, 
+          conf];\)\)], "Input",
+  CellLabel->"In[51]:="],
+
+Cell["\<\
+Now, having computed the Christoffel symbols for the constrained \
+connection, we will do nothing with them symbolically.  They are just too \
+unwieldy.\
+\>", "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["The data for the orthogonal Poincar\\'e representation", "Subsection"],
+
+Cell["\<\
+In this section we illustrate the use of the orthogonal Poincar\\'e \
+representation.  Fortunately, we have already done much of the work, namely \
+the computation of a $\\metric$-orthogonal basis for the constraint \
+distribution.  Therefore, we can directly compute the $3^3$ Christoffel \
+symbols that appear in the orthogonal Poincar\\'e representation.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(ogamma\  = \ 
+        Simplify[
+          OrthogonalChristoffelSymbols[Dbasis, metric, lcgamma, 
+            conf]];\)\)], "Input",
+  CellLabel->"In[52]:="],
+
+Cell[TextData[{
+  "While we suppress the output of ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " here, the explicit expressions are not that bad, and indeed are produced \
+in the text."
+}], "Text"],
+
+Cell["\<\
+It is possible to use the generalized covariant derivative to \
+perform controllability computations.  Let us, for example, check that the \
+snakeboard is STLC from points with zero initial velocity.  In the text it is \
+shown that the system is KC, and therefore STLCC.  To show that the system is \
+STLC, we need only show that $\\symdist{1}{\\dist{Y}}=\\dist{D}$ (cf. \
+\\fref{the:stlccsuff}).  First we need the components of the vector forces \
+relative to the $\\metric$-orthogonal basis.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(Y1o\  = \ OrthogonalForce[F1, Dbasis, metric];\)\)], "Input",
+  CellLabel->"In[53]:="],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Y2o\  = \ OrthogonalForce[F2, Dbasis, metric]\)], "Input",
+  CellLabel->"In[54]:="],
+
+Cell[BoxData[
+    \({0, 0, 1\/\(2\ Jw\)}\)], "Output",
+  CellLabel->"Out[54]="]
+}, Open  ]],
+
+Cell["Now we compute the symmetric products.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Y1symY1o\  = \ 
+      2  Simplify[
+          GeneralizedCovariantDerivative[Y1o, Y1o, Dbasis, ogamma, 
+            conf]]\)], "Input",
+  CellLabel->"In[55]:="],
+
+Cell[BoxData[
+    \({0, 0, 0}\)], "Output",
+  CellLabel->"Out[55]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Y2symY2o\  = \ 
+      2  Simplify[
+          GeneralizedCovariantDerivative[Y2o, Y2o, Dbasis, ogamma, 
+            conf]]\)], "Input",
+  CellLabel->"In[56]:="],
+
+Cell[BoxData[
+    \({0, 0, 0}\)], "Output",
+  CellLabel->"Out[56]="]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(Y1symY2o\  = \ 
+        GeneralizedCovariantDerivative[Y1o, Y2o, Dbasis, ogamma, conf] + 
+          GeneralizedCovariantDerivative[Y2o, Y1o, Dbasis, ogamma, 
+            conf];\)\)], "Input",
+  CellLabel->"In[57]:="],
+
+Cell["\<\
+The vanishing of $\\symprod{Y_1}{Y_1}$ and $\\symprod{Y_2}{Y_2}$ \
+gives the kinematic controllability of the system, as described in the text \
+in \\fref{subsec:snakemodeling}.\
+\>", "Text"],
+
+Cell["\<\
+We now see that $\\{Y_1,Y_2,\\symprod{Y_1}{Y_2}\\}$ generate \
+$\\dist{D}$ at all points where $\\{X_1,X_2,X_3\\}$ generate the constraint \
+distribution (i.e., at points where $\\cos\\phi\\not=0$).\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[Det[{Y1o, Y2o, Y1symY2o}]]\)], "Input",
+  CellLabel->"In[58]:="],
+
+Cell[BoxData[
+    \(\(l\^2\ \((mc + mr + 2\ mw)\)\ Cos[phi[t]]\)\/\(Jr\ Jw\^2\ \((Jc + 2\ \
+Jw + l\^2\ mc + l\^2\ mr + 4\ l\^2\ mw - \((Jc + 2\ Jw - l\^2\ \((mc + mr)\))\
+\)\ Cos[2\ phi[t]])\)\^2\)\)], "Output",
+  CellLabel->"Out[58]="]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Affine connection control system equations", "Subsection"],
+
+Cell["\<\
+We will compute equations of motion in two different ways.  First \
+we use the Christoffel symbols for the constrained connection as above, and \
+just produce the full geodesic equations.  First we need to give the input \
+vector fields, properly projected onto the constraint distribution.\
+\>", \
+"Text"],
+
+Cell[BoxData[
+    \(\(Y1c\  = \ P . RiemannSharp[F1, metric];\)\)], "Input",
+  CellLabel->"In[59]:="],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Y2c\  = \ P . RiemannSharp[F2, metric]\)], "Input",
+  CellLabel->"In[60]:="],
+
+Cell[BoxData[
+    \({0, 0, 0, 0, 1\/\(2\ Jw\)}\)], "Output",
+  CellLabel->"Out[60]="]
+}, Open  ]],
+
+Cell["\<\
+The total input is a linear combination of the two inputs, with the \
+coefficients being the controls.  Let us leave the controls as general for \
+the moment.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(Yc\  = \ u1\ Y1c + u2\ Y2c;\)\)], "Input",
+  CellLabel->"In[61]:="],
+
+Cell["Now we can produce the equations of motion.", "Text"],
+
+Cell[BoxData[
+    \(\(eqmot1\  = \ ACCSequations[cgamma, Yc, conf, t];\)\)], "Input",
+  CellLabel->"In[62]:="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Poincar\\'e equations", "Subsection"],
+
+Cell["\<\
+First one defines the ``full'' set of pseudo-velocities.  In this \
+case there are three.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(pv\  = \ {pv1[t], pv2[t], pv3[t]}\)], "Input",
+  CellLabel->"In[63]:="],
+
+Cell[BoxData[
+    \({pv1[t], pv2[t], pv3[t]}\)], "Output",
+  CellLabel->"Out[63]="]
+}, Open  ]],
+
+Cell["\<\
+Then one extracts the state for the equations, properly taking into \
+account that some of the pseudo-velocities are velocities.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(state\  = \ GetState[Dbasis, pv, conf, t]\)], "Input",
+  CellLabel->"In[64]:="],
+
+Cell[BoxData[
+    \({x[t], y[t], theta[t], psi[t], phi[t], pv1[t]}\)], "Output",
+  CellLabel->"Out[64]="]
+}, Open  ]],
+
+Cell["\<\
+Note that the second and third pseudo-velocities are actual \
+velocities, and so do not appear in the list of states.\
+\>", "Text"],
+
+Cell["Next we give the vector force.", "Text"],
+
+Cell[BoxData[
+    \(\(Yo\  = \ u1\ Y1o + u2\ Y2o;\)\)], "Input",
+  CellLabel->"In[65]:="],
+
+Cell["Now we can formulate the equations of motion.", "Text"],
+
+Cell[BoxData[
+    \(\(eqmot2\  = \ 
+        SMCSequations[ogamma, Yo, Dbasis, pv, conf, t];\)\)], "Input",
+  CellLabel->"In[66]:="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Simulation", "Subsection"],
+
+Cell["First let us give numerical values to the parameters.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(params\  = \ {Jc \[Rule] 1/2, Jw \[Rule] 1/8, Jr \[Rule] 3/4, 
+        mc \[Rule] 1/2, mr \[Rule] 3/4, mw \[Rule] 1/4, 
+        l \[Rule] 1/2}\)], "Input",
+  CellLabel->"In[67]:="],
+
+Cell[BoxData[
+    \({Jc \[Rule] 1\/2, Jw \[Rule] 1\/8, Jr \[Rule] 3\/4, mc \[Rule] 1\/2, 
+      mr \[Rule] 3\/4, mw \[Rule] 1\/4, l \[Rule] 1\/2}\)], "Output",
+  CellLabel->"Out[67]="]
+}, Open  ]],
+
+Cell["Now define specific controls.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(u1\  = \ 2  Sin[3  t]\)], "Input",
+  CellLabel->"In[68]:="],
+
+Cell[BoxData[
+    \(2\ Sin[3\ t]\)], "Output",
+  CellLabel->"Out[68]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(u2\  = \ 2  Sin[2  t]\)], "Input",
+  CellLabel->"In[69]:="],
+
+Cell[BoxData[
+    \(2\ Sin[2\ t]\)], "Output",
+  CellLabel->"Out[69]="]
+}, Open  ]],
+
+Cell["Next define the initial and final times for the simulation.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Ti\  = \ 0\)], "Input",
+  CellLabel->"In[70]:="],
+
+Cell[BoxData[
+    \(0\)], "Output",
+  CellLabel->"Out[70]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Tf\  = \ 3  Pi\)], "Input",
+  CellLabel->"In[71]:="],
+
+Cell[BoxData[
+    \(3\ \[Pi]\)], "Output",
+  CellLabel->"Out[71]="]
+}, Open  ]],
+
+Cell["Now the initial conditions.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(qinit\  = \ \(vinit\  = \ {0, 0, 0, 0, 0}\)\)], "Input",
+  CellLabel->"In[72]:="],
+
+Cell[BoxData[
+    \({0, 0, 0, 0, 0}\)], "Output",
+  CellLabel->"Out[72]="]
+}, Open  ]],
+
+Cell["Now simulate.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(sol1\  = \ 
+      ACCSsimulate[\((eqmot1 /. params)\), conf, qinit, vinit, t, Ti, 
+        Tf]\)], "Input",
+  CellLabel->"In[73]:="],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{"{", 
+        RowBox[{
+          RowBox[{\(x[t]\), "\[Rule]", 
+            RowBox[{
+              
+              TagBox[\(InterpolatingFunction[{{0.`, 9.42477796076938`}}, 
+                  "<>"]\),
+                False,
+                Editable->False], "[", "t", "]"}]}], ",", 
+          RowBox[{\(y[t]\), "\[Rule]", 
+            RowBox[{
+              
+              TagBox[\(InterpolatingFunction[{{0.`, 9.42477796076938`}}, 
+                  "<>"]\),
+                False,
+                Editable->False], "[", "t", "]"}]}], ",", 
+          RowBox[{\(theta[t]\), "\[Rule]", 
+            RowBox[{
+              
+              TagBox[\(InterpolatingFunction[{{0.`, 9.42477796076938`}}, 
+                  "<>"]\),
+                False,
+                Editable->False], "[", "t", "]"}]}], ",", 
+          RowBox[{\(psi[t]\), "\[Rule]", 
+            RowBox[{
+              
+              TagBox[\(InterpolatingFunction[{{0.`, 9.42477796076938`}}, 
+                  "<>"]\),
+                False,
+                Editable->False], "[", "t", "]"}]}], ",", 
+          RowBox[{\(phi[t]\), "\[Rule]", 
+            RowBox[{
+              
+              TagBox[\(InterpolatingFunction[{{0.`, 9.42477796076938`}}, 
+                  "<>"]\),
+                False,
+                Editable->False], "[", "t", "]"}]}]}], "}"}], "}"}]], "Output",\
+
+  CellLabel->"Out[73]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Plot[x[t] /. sol1, {t, Ti, Tf}]\)], "Input",
+  CellLabel->"In[74]:="],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: .61803 
+MathPictureStart
+/Mabs {
+Mgmatrix idtransform
+Mtmatrix dtransform
+} bind def
+/Mabsadd { Mabs
+3 -1 roll add
+3 1 roll add
+exch } bind def
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.0238095 0.101051 0.298337 3.1333 [
+[.22591 .28584 -3 -9 ]
+[.22591 .28584 3 0 ]
+[.42801 .28584 -3 -9 ]
+[.42801 .28584 3 0 ]
+[.63011 .28584 -3 -9 ]
+[.63011 .28584 3 0 ]
+[.83222 .28584 -3 -9 ]
+[.83222 .28584 3 0 ]
+[.01131 .06334 -36 -4.5 ]
+[.01131 .06334 0 4.5 ]
+[.01131 .14167 -30 -4.5 ]
+[.01131 .14167 0 4.5 ]
+[.01131 .22 -36 -4.5 ]
+[.01131 .22 0 4.5 ]
+[.01131 .37667 -30 -4.5 ]
+[.01131 .37667 0 4.5 ]
+[.01131 .455 -24 -4.5 ]
+[.01131 .455 0 4.5 ]
+[.01131 .53333 -30 -4.5 ]
+[.01131 .53333 0 4.5 ]
+[.01131 .61167 -18 -4.5 ]
+[.01131 .61167 0 4.5 ]
+[ 0 0 0 0 ]
+[ 1 .61803 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 g
+.25 Mabswid
+[ ] 0 setdash
+.22591 .29834 m
+.22591 .30459 L
+s
+[(2)] .22591 .28584 0 1 Mshowa
+.42801 .29834 m
+.42801 .30459 L
+s
+[(4)] .42801 .28584 0 1 Mshowa
+.63011 .29834 m
+.63011 .30459 L
+s
+[(6)] .63011 .28584 0 1 Mshowa
+.83222 .29834 m
+.83222 .30459 L
+s
+[(8)] .83222 .28584 0 1 Mshowa
+.125 Mabswid
+.07433 .29834 m
+.07433 .30209 L
+s
+.12486 .29834 m
+.12486 .30209 L
+s
+.17539 .29834 m
+.17539 .30209 L
+s
+.27644 .29834 m
+.27644 .30209 L
+s
+.32696 .29834 m
+.32696 .30209 L
+s
+.37749 .29834 m
+.37749 .30209 L
+s
+.47854 .29834 m
+.47854 .30209 L
+s
+.52906 .29834 m
+.52906 .30209 L
+s
+.57959 .29834 m
+.57959 .30209 L
+s
+.68064 .29834 m
+.68064 .30209 L
+s
+.73116 .29834 m
+.73116 .30209 L
+s
+.78169 .29834 m
+.78169 .30209 L
+s
+.88274 .29834 m
+.88274 .30209 L
+s
+.93327 .29834 m
+.93327 .30209 L
+s
+.98379 .29834 m
+.98379 .30209 L
+s
+.25 Mabswid
+0 .29834 m
+1 .29834 L
+s
+.02381 .06334 m
+.03006 .06334 L
+s
+[(-0.075)] .01131 .06334 1 0 Mshowa
+.02381 .14167 m
+.03006 .14167 L
+s
+[(-0.05)] .01131 .14167 1 0 Mshowa
+.02381 .22 m
+.03006 .22 L
+s
+[(-0.025)] .01131 .22 1 0 Mshowa
+.02381 .37667 m
+.03006 .37667 L
+s
+[(0.025)] .01131 .37667 1 0 Mshowa
+.02381 .455 m
+.03006 .455 L
+s
+[(0.05)] .01131 .455 1 0 Mshowa
+.02381 .53333 m
+.03006 .53333 L
+s
+[(0.075)] .01131 .53333 1 0 Mshowa
+.02381 .61167 m
+.03006 .61167 L
+s
+[(0.1)] .01131 .61167 1 0 Mshowa
+.125 Mabswid
+.02381 .07901 m
+.02756 .07901 L
+s
+.02381 .09467 m
+.02756 .09467 L
+s
+.02381 .11034 m
+.02756 .11034 L
+s
+.02381 .12601 m
+.02756 .12601 L
+s
+.02381 .15734 m
+.02756 .15734 L
+s
+.02381 .173 m
+.02756 .173 L
+s
+.02381 .18867 m
+.02756 .18867 L
+s
+.02381 .20434 m
+.02756 .20434 L
+s
+.02381 .23567 m
+.02756 .23567 L
+s
+.02381 .25134 m
+.02756 .25134 L
+s
+.02381 .267 m
+.02756 .267 L
+s
+.02381 .28267 m
+.02756 .28267 L
+s
+.02381 .314 m
+.02756 .314 L
+s
+.02381 .32967 m
+.02756 .32967 L
+s
+.02381 .34534 m
+.02756 .34534 L
+s
+.02381 .361 m
+.02756 .361 L
+s
+.02381 .39234 m
+.02756 .39234 L
+s
+.02381 .408 m
+.02756 .408 L
+s
+.02381 .42367 m
+.02756 .42367 L
+s
+.02381 .43933 m
+.02756 .43933 L
+s
+.02381 .47067 m
+.02756 .47067 L
+s
+.02381 .48633 m
+.02756 .48633 L
+s
+.02381 .502 m
+.02756 .502 L
+s
+.02381 .51767 m
+.02756 .51767 L
+s
+.02381 .549 m
+.02756 .549 L
+s
+.02381 .56467 m
+.02756 .56467 L
+s
+.02381 .58033 m
+.02756 .58033 L
+s
+.02381 .596 m
+.02756 .596 L
+s
+.02381 .04767 m
+.02756 .04767 L
+s
+.02381 .03201 m
+.02756 .03201 L
+s
+.02381 .01634 m
+.02756 .01634 L
+s
+.02381 .00067 m
+.02756 .00067 L
+s
+.25 Mabswid
+.02381 0 m
+.02381 .61803 L
+s
+0 0 m
+1 0 L
+1 .61803 L
+0 .61803 L
+closepath
+clip
+newpath
+.5 Mabswid
+.02381 .29834 m
+.02499 .29834 L
+.02605 .29834 L
+.02729 .29834 L
+.02846 .29834 L
+.02954 .29834 L
+.03053 .29834 L
+.03163 .29834 L
+.03279 .29834 L
+.03395 .29834 L
+.0352 .29834 L
+.03638 .29834 L
+.03746 .29835 L
+.03873 .29836 L
+.03944 .29836 L
+.04011 .29837 L
+.04132 .29839 L
+.04262 .29841 L
+.04396 .29845 L
+.04519 .2985 L
+.04654 .29857 L
+.04797 .29868 L
+.04922 .29879 L
+.05038 .29893 L
+.05173 .29913 L
+.05302 .29937 L
+.0554 .29996 L
+.05757 .30072 L
+.0599 .30183 L
+.06244 .30348 L
+.06505 .30575 L
+.06749 .30853 L
+.07017 .31243 L
+.07306 .31778 L
+.07894 .33283 L
+.08433 .35175 L
+.09482 .39847 L
+.09993 .42144 L
+.10458 .4389 L
+.10684 .44542 L
+.10803 .44819 L
+.10929 .45056 L
+.11039 .45213 L
+.1116 .45327 L
+.1127 .45374 L
+.11373 .45366 L
+.11499 .45284 L
+.11619 .45129 L
+.11727 .44923 L
+.11844 .44623 L
+Mistroke
+.11971 .44205 L
+.12107 .43651 L
+.1235 .42355 L
+.12619 .40457 L
+.1291 .37833 L
+.13437 .3158 L
+.1442 .16808 L
+.14881 .10572 L
+.15134 .0774 L
+.15373 .05519 L
+.15509 .0447 L
+.15656 .03511 L
+.15779 .02861 L
+.15849 .02554 L
+.15914 .02308 L
+.16041 .0195 L
+.16106 .01831 L
+.16176 .01752 L
+.16302 .01746 L
+.16418 .01903 L
+.16541 .02249 L
+.16673 .02835 L
+.16797 .03606 L
+.16909 .04502 L
+.17185 .07549 L
+.17446 .11619 L
+.17716 .1711 L
+.17964 .23188 L
+.18526 .38417 L
+.18995 .49192 L
+.19258 .53613 L
+.19383 .55281 L
+.19498 .56592 L
+.19721 .58525 L
+.19839 .59246 L
+.19964 .59804 L
+.20072 .60121 L
+.20174 .60288 L
+.20286 .60332 L
+.20406 .60224 L
+.20536 .59937 L
+.20656 .59519 L
+.20789 .589 L
+.20931 .5806 L
+.2122 .55805 L
+.21483 .53163 L
+.22471 .39392 L
+.22952 .32156 L
+.23402 .26359 L
+.23871 .21772 L
+Mistroke
+.2412 .1997 L
+.24388 .18503 L
+.24526 .17926 L
+.24677 .17432 L
+.24746 .17251 L
+.2482 .17088 L
+.24889 .16964 L
+.24952 .16873 L
+.25019 .16799 L
+.25092 .16746 L
+.25223 .16718 L
+.25343 .16763 L
+.25469 .1688 L
+.25588 .17051 L
+.25715 .17295 L
+.25945 .17879 L
+.26466 .19745 L
+.27428 .24111 L
+.28449 .28255 L
+.28981 .29783 L
+.29285 .3044 L
+.29569 .30928 L
+.29829 .31277 L
+.30067 .31526 L
+.30329 .31734 L
+.30471 .31822 L
+.30605 .31891 L
+.30725 .31944 L
+.30855 .31991 L
+.31082 .32055 L
+.31211 .32082 L
+.31347 .32104 L
+.31463 .32119 L
+.31591 .32131 L
+.31711 .3214 L
+.3182 .32146 L
+.31946 .32151 L
+.32066 .32154 L
+.32176 .32156 L
+.32278 .32156 L
+.3239 .32156 L
+.32509 .32155 L
+.32578 .32155 L
+.3265 .32154 L
+.3278 .32152 L
+.33072 .32147 L
+.33602 .32137 L
+.34591 .32118 L
+.3508 .32109 L
+.35542 .32098 L
+Mistroke
+.35798 .32091 L
+.35933 .32086 L
+.36075 .3208 L
+.36195 .32074 L
+.36327 .32065 L
+.3656 .32045 L
+.36682 .32031 L
+.36799 .32014 L
+.37017 .31975 L
+.37251 .31914 L
+.37508 .31822 L
+.3773 .31711 L
+.37968 .31555 L
+.38192 .31364 L
+.38395 .31147 L
+.38883 .30419 L
+.39128 .29924 L
+.39397 .29268 L
+.40319 .26104 L
+.41408 .2115 L
+.41924 .18935 L
+.4215 .1811 L
+.42401 .17356 L
+.42513 .17082 L
+.42633 .16837 L
+.42761 .16638 L
+.4288 .16513 L
+.42944 .16472 L
+.43013 .16448 L
+.43085 .16447 L
+.43153 .16469 L
+.43273 .16566 L
+.43402 .16756 L
+.43525 .17022 L
+.43658 .17409 L
+.43899 .18389 L
+.44134 .19706 L
+.44351 .21255 L
+.44834 .25908 L
+.45367 .32846 L
+.45918 .41279 L
+.46442 .4894 L
+.46928 .54612 L
+.47203 .57017 L
+.47334 .57942 L
+.47458 .58674 L
+.47571 .59223 L
+.47694 .59678 L
+.47805 .59964 L
+.47907 .60113 L
+Mistroke
+.48018 .60146 L
+.4814 .6002 L
+.48267 .59697 L
+.48386 .5921 L
+.48516 .58455 L
+.48657 .57356 L
+.48914 .54554 L
+.49164 .50745 L
+.49395 .46236 L
+.49915 .33173 L
+.50475 .18353 L
+.5072 .13043 L
+.50978 .08595 L
+.51199 .05725 L
+.51325 .04445 L
+.51439 .035 L
+.51556 .02737 L
+.51666 .02193 L
+.51782 .01792 L
+.51908 .01549 L
+.52019 .0149 L
+.52135 .01576 L
+.52235 .01763 L
+.52344 .02086 L
+.52482 .02659 L
+.52613 .03366 L
+.52858 .051 L
+.53122 .07529 L
+.5341 .10787 L
+.54405 .25367 L
+.54856 .31892 L
+.55343 .37614 L
+.55622 .40142 L
+.55877 .41981 L
+.56122 .43323 L
+.56257 .43898 L
+.5638 .44321 L
+.56508 .4467 L
+.5663 .44911 L
+.56759 .45077 L
+.56831 .45133 L
+.56898 .4516 L
+.5701 .45157 L
+.57133 .45087 L
+.57261 .44943 L
+.57382 .44746 L
+.57523 .44446 L
+.57658 .44096 L
+.5791 .43293 L
+.58479 .40979 L
+Mistroke
+.59511 .36243 L
+.60017 .34215 L
+.60483 .32702 L
+.60907 .31644 L
+.61355 .30837 L
+.61588 .30528 L
+.61805 .30297 L
+.62044 .30098 L
+.62299 .29938 L
+.62552 .29824 L
+.62696 .29775 L
+.62828 .29737 L
+.63071 .29686 L
+.63193 .29667 L
+.63329 .29651 L
+.63442 .29639 L
+.63562 .2963 L
+.63693 .29622 L
+.63813 .29616 L
+.63925 .29612 L
+.6403 .29609 L
+.64145 .29607 L
+.64267 .29605 L
+.64408 .29603 L
+.64538 .29602 L
+.64681 .29601 L
+.64832 .296 L
+.65366 .29598 L
+.65888 .29596 L
+.66365 .29595 L
+.66596 .29594 L
+.66719 .29594 L
+.66849 .29593 L
+.66974 .29593 L
+.67087 .29593 L
+.67201 .29593 L
+.67309 .29593 L
+.67432 .29594 L
+.67563 .29595 L
+.67674 .29596 L
+.67796 .29599 L
+.67928 .29603 L
+.68001 .29605 L
+.68069 .29608 L
+.68199 .29616 L
+.68323 .29625 L
+.68428 .29635 L
+.68544 .29649 L
+.68657 .29665 L
+.68779 .29687 L
+Mistroke
+.68996 .29738 L
+.692 .29805 L
+.69456 .2992 L
+.69698 .30071 L
+.69916 .30248 L
+.70154 .30496 L
+.70409 .30835 L
+.70685 .31302 L
+.71185 .3245 L
+.71671 .33973 L
+.7212 .35712 L
+.73203 .40651 L
+.73733 .42877 L
+.73964 .43681 L
+.74086 .44047 L
+.74216 .44386 L
+.74331 .44638 L
+.74458 .4486 L
+.74573 .45005 L
+.74682 .4509 L
+.74793 .45122 L
+.74894 .45099 L
+.75006 .45014 L
+.75123 .44853 L
+.7524 .4462 L
+.75364 .44284 L
+.75588 .43443 L
+.75855 .42025 L
+.76097 .40319 L
+.76606 .35376 L
+.77159 .28061 L
+.77677 .20116 L
+.78162 .13009 L
+.78618 .07562 L
+.78874 .0519 L
+.79108 .03497 L
+.7924 .02751 L
+.79363 .02205 L
+.79432 .0196 L
+.79498 .01772 L
+.79573 .0161 L
+.79641 .01515 L
+.79768 .01472 L
+.79885 .01594 L
+.80013 .01917 L
+.80077 .02158 L
+.80148 .02487 L
+.80289 .0335 L
+.80423 .04437 L
+.80674 .07239 L
+Mistroke
+.80943 .11462 L
+.81236 .1751 L
+.8176 .31175 L
+.82252 .43962 L
+.82473 .4867 L
+.82705 .52699 L
+.82827 .54427 L
+.8296 .56026 L
+.8308 .57219 L
+.83193 .58139 L
+.83329 .58996 L
+.83453 .59551 L
+.83523 .59775 L
+.83587 .59927 L
+.83657 .60036 L
+.83731 .60089 L
+.83854 .6004 L
+.83969 .59846 L
+.84096 .59478 L
+.84167 .59202 L
+.84231 .58909 L
+.84499 .57289 L
+.84747 .55237 L
+.8531 .48817 L
+.86333 .33501 L
+.86843 .2668 L
+.87111 .23769 L
+.87394 .21251 L
+.87642 .19505 L
+.87773 .18751 L
+.87914 .18071 L
+.88043 .17555 L
+.88161 .17175 L
+.88279 .16877 L
+.88391 .16667 L
+.88498 .16531 L
+.88617 .16451 L
+.8874 .16441 L
+.88855 .16497 L
+.88963 .16602 L
+.89062 .16741 L
+.89176 .1695 L
+.89284 .17192 L
+.89748 .18639 L
+.90254 .2075 L
+.91266 .25397 L
+.91763 .27383 L
+.92221 .2887 L
+.92749 .30148 L
+.93027 .30642 L
+Mistroke
+.9332 .31049 L
+.93566 .3131 L
+.93796 .31498 L
+.94048 .31654 L
+.94318 .31774 L
+.94522 .31839 L
+.94739 .31889 L
+.94925 .3192 L
+.9513 .31944 L
+.95244 .31954 L
+.95349 .31962 L
+.95464 .31968 L
+.95585 .31973 L
+.95691 .31977 L
+.9579 .31979 L
+.95898 .31981 L
+.96013 .31983 L
+.96121 .31984 L
+.96221 .31985 L
+.9633 .31986 L
+.96446 .31986 L
+.96546 .31987 L
+.9664 .31987 L
+.96854 .31988 L
+.97619 .31989 L
+Mfstroke
+% End of Graphics
+MathPictureEnd
+\
+\>"], "Graphics",
+  CellLabel->"From In[74]:=",
+  ImageSize->{288, 177.938},
+  ImageMargins->{{35, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40004P0000/B000`400?l00000o`00003oo`3IfMTQ
+0=WIf@00o`3IfMTQ0=WIf@00o`3IfMTQ0=WIf@00o`3IfMTQ0=WIf@00o`3IfMTQ0=WIf@00o`3IfMTQ
+0=WIf@00o`3IfMTQ0=WIf@00o`3IfMTQ0=WIf@009`3IfMT200000?L0fMWI000W0=WIf@030000003I
+fMT0fMWI0?H0fMWI000W0=WIf@030000003IfMT0fMWI0?H0fMWI000W0=WIf@030000003IfMT0fMWI
+0?H0fMWI000W0=WIf@800000N`3IfMT2000004D0fMWI00<000000=WIf@3IfMT0<P3IfMT002L0fMWI
+00<000000=WIf@3IfMT07`3IfMT2000005T0fMWI0`0000130=WIf@030000003IfMT0000003<0fMWI
+000W0=WIf@030000003IfMT0fMWI01l0fMWI00<000000=WIf@000000F03IfMT00`000000fMWI0000
+00130=WIf@030000003IfMT0000003<0fMWI000W0=WIf@030000003IfMT0fMWI01l0fMWI00<00000
+0=WIf@000000F03IfMT00`000000fMWI000000130=WIf@030000003IfMT0000003<0fMWI000W0=WI
+f@800000803IfMT00`000000fMWI0000001H0=WIf@030000003IfMT0000004<0fMWI00<000000=WI
+f@000000<`3IfMT002L0fMWI00<000000=WIf@3IfMT07P3IfMT010000000fMWI0=WIf@00001G0=WI
+f@040000003IfMT0fMWI00000480fMWI00@000000=WIf@3IfMT00000<`3IfMT002L0fMWI00<00000
+0=WIf@3IfMT07P3IfMT010000000fMWI0=WIf@00001G0=WIf@040000003IfMT0fMWI00000480fMWI
+00D000000=WIf@3IfMT0fMWI0000000b0=WIf@009`3IfMT00`000000fMWI0=WIf@0N0=WIf@050000
+003IfMT0fMWI0=WIf@000000EP3IfMT01@000000fMWI0=WIf@3IfMT000000440fMWI00D000000=WI
+f@3IfMT0fMWI0000000b0=WIf@009`3IfMT2000001l0fMWI00D000000=WIf@3IfMT0fMWI0000001F
+0=WIf@050000003IfMT0fMWI0=WIf@000000@@3IfMT01@000000fMWI0=WIf@3IfMT000000380fMWI
+000W0=WIf@030000003IfMT0fMWI01h0fMWI00D000000=WIf@3IfMT0fMWI0000001F0=WIf@050000
+003IfMT0fMWI0=WIf@000000@@3IfMT01@000000fMWI0=WIf@3IfMT000000380fMWI00080=WIf@80
+0000103IfMT00`000000fMWI0=WIf@030=WIf@800000103IfMT00`000000fMWI0=WIf@020=WIf@<0
+00001@3IfMT00`000000fMWI0=WIf@0N0=WIf@050000003IfMT0fMWI0=WIf@000000EP3IfMT01@00
+0000fMWI0=WIf@3IfMT000000440fMWI00D000000=WIf@3IfMT0fMWI0000000b0=WIf@001`3IfMT0
+10000000fMWI0=WIf@0000080=WIf@040000003IfMT0fMWI000000<0fMWI00<000000=WIf@3IfMT0
+1@3IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI01h0fMWI00D000000=WIf@3IfMT0
+fMWI0000001F0=WIf@050000003IfMT0fMWI0=WIf@000000@@3IfMT01@000000fMWI0=WIf@3IfMT0
+00000380fMWI00070=WIf@040000003IfMT0fMWI000000P0fMWI00@000000=WIf@3IfMT00000103I
+fMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI0080fMWI0P00000O0=WIf@050000003I
+fMT0fMWI0=WIf@000000EP3IfMT01@000000fMWI0=WIf@3IfMT000000440fMWI00D000000=WIf@3I
+fMT0fMWI0000000b0=WIf@0000<0fMWI0000000000000P0000020=WIf@040000003IfMT0fMWI0000
+00P0fMWI00@000000=WIf@3IfMT00000103IfMT010000000fMWI0=WIf@3IfMT3000000D0fMWI00<0
+00000=WIf@3IfMT07P3IfMT01@000000fMWI0=WIf@3IfMT0000005H0fMWI00D000000=WIf@3IfMT0
+fMWI000000100=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0<03IfMT000L0fMWI
+00@000000=WIf@3IfMT00000203IfMT010000000fMWI0=WIf@0000050=WIf@040000003IfMT0fMWI
+000000L0fMWI00<000000=WIf@3IfMT07@3IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0
+fMWI05@0fMWI00D000000=WIf@3IfMT0fMWI000000100=WIf@030000003IfMT0fMWI0080fMWI00<0
+00000=WIf@3IfMT0<03IfMT000L0fMWI00@000000=WIf@3IfMT00000203IfMT010000000fMWI0=WI
+f@0000020=WIf@040000003IfMT0fMWI00000080fMWI00<000000=WIf@3IfMT01@3IfMT00`000000
+fMWI0=WIf@0M0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0D`3IfMT00`000000
+fMWI0=WIf@020=WIf@030000003IfMT0fMWI03h0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000
+fMWI0=WIf@0`0=WIf@00203IfMT2000000X0fMWI0P0000030=WIf@@000000P3IfMT4000000@0fMWI
+0P00000N0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0D`3IfMT00`000000fMWI
+0=WIf@020=WIf@030000003IfMT0fMWI03h0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI
+0=WIf@0`0=WIf@009`3IfMT00`000000fMWI0=WIf@0M0=WIf@030000003IfMT0fMWI0080fMWI00<0
+00000=WIf@3IfMT0D`3IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI03h0fMWI00<0
+00000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@0`0=WIf@009`3IfMT00`000000fMWI0=WIf@0M
+0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0D`3IfMT00`000000fMWI0=WIf@02
+0=WIf@030000003IfMT0fMWI03h0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@0`
+0=WIf@009`3IfMT00`000000fMWI0=WIf@0M0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WI
+f@3IfMT0D`3IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI03h0fMWI00<000000=WI
+f@3IfMT00P3IfMT00`000000fMWI0=WIf@0`0=WIf@009`3IfMT2000001d0fMWI00<000000=WIf@3I
+fMT00`3IfMT00`000000fMWI0=WIf@1C0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3I
+fMT0?@3IfMT00`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI02l0fMWI000W0=WIf@030000
+003IfMT0fMWI01`0fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@1B0=WIf@030000
+003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT0?@3IfMT00`000000fMWI0=WIf@030=WIf@030000
+003IfMT0fMWI02l0fMWI000W0=WIf@030000003IfMT0fMWI01`0fMWI00<000000=WIf@3IfMT0103I
+fMT00`000000fMWI0=WIf@1B0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT0?@3I
+fMT00`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI02l0fMWI000W0=WIf@030000003IfMT0
+fMWI01`0fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@1B0=WIf@030000003IfMT0
+fMWI00<0fMWI00<000000=WIf@3IfMT0?03IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0
+fMWI02l0fMWI000W0=WIf@8000007@3IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI
+0540fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0l0=WIf@030000003IfMT0fMWI
+00@0fMWI00<000000=WIf@3IfMT0;`3IfMT002L0fMWI00<000000=WIf@3IfMT0703IfMT00`000000
+fMWI0=WIf@040=WIf@030000003IfMT0fMWI0540fMWI00<000000=WIf@3IfMT0103IfMT00`000000
+fMWI0=WIf@0l0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0;`3IfMT002L0fMWI
+00<000000=WIf@3IfMT0703IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI0540fMWI
+00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0l0=WIf@030000003IfMT0fMWI00@0fMWI
+00<000000=WIf@3IfMT0;`3IfMT002L0fMWI00<000000=WIf@3IfMT0703IfMT00`000000fMWI0=WI
+f@040=WIf@030000003IfMT0fMWI0540fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WI
+f@0l0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0;`3IfMT002L0fMWI0P00000M
+0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0D@3IfMT00`000000fMWI0=WIf@04
+0=WIf@030000003IfMT0fMWI03`0fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0_
+0=WIf@009`3IfMT00`000000fMWI0=WIf@0L0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WI
+f@3IfMT0D@3IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI03`0fMWI00<000000=WI
+f@3IfMT0103IfMT00`000000fMWI0=WIf@0_0=WIf@003P3IfMT2000000@0fMWI00<000000=WIf@3I
+fMT00`3IfMT2000000<0fMWI0`0000050=WIf@030000003IfMT0fMWI01`0fMWI00<000000=WIf@3I
+fMT0103IfMT00`000000fMWI0=WIf@1A0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3I
+fMT0?03IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI02l0fMWI000=0=WIf@040000
+003IfMT0fMWI000000P0fMWI00@000000=WIf@3IfMT000001@3IfMT00`000000fMWI0=WIf@020=WI
+f@030000003IfMT0fMWI01`0fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@1A0=WI
+f@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0>`3IfMT00`000000fMWI0=WIf@040=WI
+f@030000003IfMT0fMWI02l0fMWI000=0=WIf@040000003IfMT0fMWI000000P0fMWI00@000000=WI
+f@3IfMT000001@3IfMT00`000000fMWI0=WIf@020=WIf@800000703IfMT00`000000fMWI0=WIf@05
+0=WIf@030000003IfMT0fMWI0540fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0k
+0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0;`3IfMT000L0fMWI100000020=WI
+f@040000003IfMT0fMWI000000P0fMWI00@000000=WIf@3IfMT000000P3IfMT3000000D0fMWI00<0
+00000=WIf@3IfMT06`3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI0500fMWI00<0
+00000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0k0=WIf@030000003IfMT0fMWI00D0fMWI00<0
+00000=WIf@3IfMT0;P3IfMT000d0fMWI00@000000=WIf@3IfMT00000203IfMT010000000fMWI0=WI
+f@0000020=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT06`3IfMT00`000000fMWI
+0=WIf@060=WIf@030000003IfMT0fMWI0500fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI
+0=WIf@0k0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0;P3IfMT000d0fMWI00@0
+00000=WIf@3IfMT00000203IfMT010000000fMWI0=WIf@0000020=WIf@030000003IfMT0fMWI00D0
+fMWI00<000000=WIf@3IfMT06`3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI0500
+fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0k0=WIf@030000003IfMT0fMWI00D0
+fMWI00<000000=WIf@3IfMT0;P3IfMT000h0fMWI0P00000:0=WIf@8000000`3IfMT4000000@0fMWI
+0P00000L0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT0D03IfMT00`000000fMWI
+0=WIf@050=WIf@030000003IfMT0fMWI03/0fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI
+0=WIf@0^0=WIf@009`3IfMT00`000000fMWI0=WIf@0K0=WIf@030000003IfMT0fMWI00H0fMWI00<0
+00000=WIf@3IfMT0D03IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI03/0fMWI00<0
+00000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0^0=WIf@009`3IfMT00`000000fMWI0=WIf@0K
+0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT0?03IfMT200000180fMWI00<00000
+0=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0k0=WIf@030000003IfMT0fMWI00D0fMWI00<00000
+0=WIf@3IfMT03`3IfMT2000001d0fMWI000W0=WIf@030000003IfMT0fMWI01/0fMWI00<000000=WI
+f@3IfMT01P3IfMT00`000000fMWI0=WIf@0?0=WIf@<00000:P3IfMT00`000000fMWI0000000A0=WI
+f@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0>P3IfMT00`000000fMWI0=WIf@060=WI
+f@030000003IfMT0fMWI00l0fMWI00<000000=WIf@000000703IfMT002L0fMWI0P00000L0=WIf@03
+0000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT03P3IfMT2000000030=WIf@000000fMWI02P0
+fMWI0P0000000`3IfMT000000=WIf@0@0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3I
+fMT0>P3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI00h0fMWI00@000000=WIf@3I
+fMT00000703IfMT002L0fMWI00<000000=WIf@3IfMT06`3IfMT00`000000fMWI0=WIf@060=WIf@03
+0000003IfMT0fMWI00h0fMWI00@000000=WIf@3IfMT00000:@3IfMT010000000fMWI0=WIf@00000A
+0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0>P3IfMT00`000000fMWI0=WIf@06
+0=WIf@030000003IfMT0fMWI00h0fMWI00@000000=WIf@3IfMT00000703IfMT002L0fMWI00<00000
+0=WIf@3IfMT06`3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI00h0fMWI00@00000
+0=WIf@3IfMT00000:@3IfMT01@000000fMWI0=WIf@3IfMT000000100fMWI00<000000=WIf@3IfMT0
+1@3IfMT00`000000fMWI0=WIf@0j0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT0
+3P3IfMT01@000000fMWI0=WIf@3IfMT0000001/0fMWI000W0=WIf@030000003IfMT0fMWI01/0fMWI
+00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0>0=WIf@050000003IfMT0fMWI0=WIf@00
+0000:03IfMT01@000000fMWI0=WIf@3IfMT000000100fMWI00<000000=WIf@3IfMT01P3IfMT00`00
+0000fMWI0=WIf@0i0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT03P3IfMT01@00
+0000fMWI0=WIf@3IfMT0000001/0fMWI000W0=WIf@800000703IfMT00`000000fMWI0=WIf@060=WI
+f@030000003IfMT0fMWI00h0fMWI00D000000=WIf@3IfMT0fMWI0000000W0=WIf@030000003IfMT0
+fMWI0080fMWI00<000000=WIf@3IfMT03P3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0
+fMWI03T0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0=0=WIf@030000003IfMT0
+fMWI0080fMWI00<000000=WIf@3IfMT06@3IfMT002L0fMWI00<000000=WIf@3IfMT06`3IfMT00`00
+0000fMWI0=WIf@060=WIf@030000003IfMT0fMWI00h0fMWI00<000000=WIf@3IfMT00P3IfMT00`00
+0000fMWI0=WIf@0T0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT03@3IfMT00`00
+0000fMWI0=WIf@060=WIf@030000003IfMT0fMWI03T0fMWI00<000000=WIf@3IfMT01P3IfMT00`00
+0000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT0603IfMT002L0
+fMWI00<000000=WIf@3IfMT06`3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI00d0
+fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@0T0=WIf@030000003IfMT0fMWI00<0
+fMWI00<000000=WIf@3IfMT03@3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI03T0
+fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00<0
+fMWI00<000000=WIf@3IfMT0603IfMT002L0fMWI00<000000=WIf@3IfMT06`3IfMT00`000000fMWI
+0=WIf@060=WIf@030000003IfMT0fMWI00d0fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI
+0=WIf@0T0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT03@3IfMT00`000000fMWI
+0=WIf@060=WIf@030000003IfMT0fMWI03T0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI
+0=WIf@0=0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT0603IfMT002L0fMWI0P00
+000L0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT03@3IfMT00`000000fMWI0=WI
+f@030=WIf@030000003IfMT0fMWI02<0fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WI
+f@0=0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT0>@3IfMT00`000000fMWI0=WI
+f@060=WIf@030000003IfMT0fMWI00d0fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WI
+f@0G0=WIf@009`3IfMT00`000000fMWI0=WIf@0J0=WIf@030000003IfMT0fMWI00L0fMWI00<00000
+0=WIf@3IfMT03@3IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI0280fMWI00<00000
+0=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00H0fMWI00<00000
+0=WIf@3IfMT0>@3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI00`0fMWI00<00000
+0=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0G0=WIf@00203IfMT2000000@0fMWI00<000000=WI
+f@3IfMT00`3IfMT2000000<0fMWI100000020=WIf@<000001@3IfMT00`000000fMWI0=WIf@0J0=WI
+f@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@050=WI
+f@030000003IfMT0fMWI0280fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0=0=WI
+f@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT0>@3IfMT00`000000fMWI0=WIf@060=WI
+f@030000003IfMT0fMWI00`0fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0G0=WI
+f@001`3IfMT010000000fMWI0=WIf@0000080=WIf@040000003IfMT0fMWI00000080fMWI00<00000
+0=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI01X0fMWI00<00000
+0=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI00D0fMWI00<00000
+0=WIf@3IfMT08P3IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI00d0fMWI00<00000
+0=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0i0=WIf@030000003IfMT0fMWI00H0fMWI00<00000
+0=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI01L0fMWI00070=WI
+f@040000003IfMT0fMWI000000P0fMWI00@000000=WIf@3IfMT000000`3IfMT00`000000fMWI0=WI
+f@050=WIf@030000003IfMT0fMWI0080fMWI0P00000K0=WIf@030000003IfMT0fMWI00L0fMWI00<0
+00000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI0280fMWI00<0
+00000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00H0fMWI00<0
+00000=WIf@3IfMT0>@3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI00`0fMWI00<0
+00000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0F0=WIf@0000<0fMWI0000000000000P000002
+0=WIf@040000003IfMT0fMWI000000P0fMWI00@000000=WIf@3IfMT00000103IfMT010000000fMWI
+0=WIf@3IfMT3000000D0fMWI00<000000=WIf@3IfMT06P3IfMT00`000000fMWI0=WIf@070=WIf@03
+0000003IfMT0fMWI00`0fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0Q0=WIf@03
+0000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@070=WIf@03
+0000003IfMT0fMWI03T0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0<0=WIf@03
+0000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT05P3IfMT000L0fMWI00@000000=WIf@3IfMT0
+0000203IfMT010000000fMWI0=WIf@0000050=WIf@040000003IfMT0fMWI000000L0fMWI00<00000
+0=WIf@3IfMT06P3IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI00`0fMWI00<00000
+0=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0Q0=WIf@030000003IfMT0fMWI00D0fMWI00<00000
+0=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI03T0fMWI00<00000
+0=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI00H0fMWI00<00000
+0=WIf@3IfMT05P3IfMT000L0fMWI00@000000=WIf@3IfMT00000203IfMT010000000fMWI0=WIf@00
+00020=WIf@040000003IfMT0fMWI00000080fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI
+0=WIf@0J0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI
+0=WIf@060=WIf@030000003IfMT0fMWI0200fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI
+0=WIf@0<0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT0>03IfMT00`000000fMWI
+0=WIf@060=WIf@030000003IfMT0fMWI00`0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI
+0=WIf@0F0=WIf@00203IfMT2000000X0fMWI0P0000040=WIf@8000000`3IfMT4000000@0fMWI0P00
+000K0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WI
+f@060=WIf@030000003IfMT0fMWI0200fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WI
+f@0;0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT0>03IfMT00`000000fMWI0=WI
+f@060=WIf@030000003IfMT0fMWI00`0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WI
+f@0F0=WIf@009`3IfMT00`000000fMWI0=WIf@0J0=WIf@030000003IfMT0fMWI00L0fMWI00<00000
+0=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI01l0fMWI00<00000
+0=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI00P0fMWI00<00000
+0=WIf@3IfMT0>03IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI00`0fMWI00<00000
+0=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0F0=WIf@009`3IfMT00`000000fMWI0=WIf@0J0=WI
+f@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@070=WI
+f@030000003IfMT0fMWI01l0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0;0=WI
+f@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT0=`3IfMT00`000000fMWI0=WIf@080=WI
+f@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0E0=WI
+f@009`3IfMT00`000000fMWI0=WIf@0J0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3I
+fMT02`3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI01h0fMWI00<000000=WIf@3I
+fMT01`3IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3I
+fMT0=`3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3I
+fMT01`3IfMT00`000000fMWI0=WIf@0E0=WIf@009`3IfMT2000001/0fMWI00<000000=WIf@3IfMT0
+1`3IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT0
+7P3IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT0
+203IfMT00`000000fMWI0=WIf@0g0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT0
+2`3IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI01D0fMWI000W0=WIf@030000003I
+fMT0fMWI01X0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0;0=WIf@030000003I
+fMT0fMWI00P0fMWI00<000000=WIf@3IfMT07@3IfMT00`000000fMWI0=WIf@080=WIf@030000003I
+fMT0fMWI00/0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0g0=WIf@030000003I
+fMT0fMWI00P0fMWI00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@080=WIf@030000003I
+fMT0fMWI01D0fMWI000W0=WIf@030000003IfMT0fMWI01X0fMWI00<000000=WIf@3IfMT01`3IfMT0
+0`000000fMWI0=WIf@070=WIf@D000002P3IfMT00`000000fMWI0=WIf@0M0=WIf@030000003IfMT0
+fMWI00<0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0
+fMWI00P0fMWI00<000000=WIf@3IfMT04P3IfMT2000002<0fMWI00<000000=WIf@3IfMT0203IfMT0
+0`000000fMWI0=WIf@02000000P0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0E
+0=WIf@009`3IfMT00`000000fMWI0=WIf@0J0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WI
+f@3IfMT01`3IfMT01@000000fMWI0=WIf@3IfMT0000000/0fMWI00<000000=WIf@3IfMT0703IfMT0
+0`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT02`3IfMT0
+0`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI0140fMWI00@000000=WIf@3IfMT000008P3I
+fMT00`000000fMWI0=WIf@080=WIf@030000003IfMT000000080fMWI00<000000=WIf@3IfMT01@3I
+fMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI01@0fMWI000W0=WIf@8000006`3IfMT0
+0`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI00P0fMWI00@000000=WIf@3IfMT000002`3I
+fMT00`000000fMWI0=WIf@0L0=WIf@030000003IfMT0fMWI00D000000`3IfMT00`000000fMWI0=WI
+f@0;0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT04@3IfMT010000000fMWI0=WI
+f@00000R0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@0000000P3IfMT00`000000fMWI
+0=WIf@050=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT0503IfMT002L0fMWI00<0
+00000=WIf@3IfMT06P3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI00P0fMWI00<0
+00000=WIf@0000002`3IfMT00`000000fMWI0=WIf@0K0=WIf@050000003IfMT0fMWI0=WIf@000000
+0P3IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT0
+203IfMT00`000000fMWI0=WIf@0A0=WIf@<000008`3IfMT00`000000fMWI0=WIf@080=WIf@030000
+003IfMT0fMWI00800000203IfMT00`000000fMWI0=WIf@0:0=WIf@030000003IfMT0fMWI01<0fMWI
+000W0=WIf@030000003IfMT0fMWI01X0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WI
+f@090=WIf@8000002`3IfMT00`000000fMWI0=WIf@0K0=WIf@030000003IfMT0fMWI0080fMWI00<0
+00000=WIf@000000103IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI00P0fMWI00<0
+00000=WIf@3IfMT04@3IfMT00`000000fMWI0=WIf@0S0=WIf@030000003IfMT0fMWI00P0fMWI00<0
+00000=WIf@0000000P3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI00X0fMWI00<0
+00000=WIf@3IfMT04`3IfMT002L0fMWI00<000000=WIf@3IfMT06@3IfMT00`000000fMWI0=WIf@09
+0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT00P00000<0=WIf@030000003IfMT0
+fMWI01X0fMWI00<000000=WIf@3IfMT00`3IfMT2000000D0fMWI00<000000=WIf@3IfMT02P3IfMT0
+0`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI0140fMWI00<000000=WIf@3IfMT08`3IfMT0
+0`000000fMWI0=WIf@080=WIf@030000003IfMT000000080fMWI00<000000=WIf@3IfMT01@3IfMT0
+0`000000fMWI0=WIf@0:0=WIf@030000003IfMT0fMWI01<0fMWI000W0=WIf@8000006P3IfMT00`00
+0000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00L0fMWI0P0000000`3IfMT000000=WIf@0;0=WI
+f@030000003IfMT0fMWI01X0fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@030=WI
+f@030000003IfMT0fMWI00X0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0B0=WI
+f@<000008P3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI00800000203IfMT00`00
+0000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI0180fMWI000W0=WIf@030000003IfMT0fMWI01T0
+fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@0:0=WIf@030000003IfMT0fMWI00X0
+fMWI00<000000=WIf@3IfMT06@3IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI00X0
+fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@0f0=WIf@030000003IfMT0fMWI00P0
+fMWI00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI0180
+fMWI000W0=WIf@030000003IfMT0fMWI01T0fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI
+0=WIf@0:0=WIf@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT0603IfMT00`000000fMWI
+0=WIf@0;0=WIf@030000003IfMT0fMWI00X0fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI
+0=WIf@0f0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT02P3IfMT00`000000fMWI
+0=WIf@0;0=WIf@030000003IfMT0fMWI0180fMWI000W0=WIf@030000003IfMT0fMWI01T0fMWI00<0
+00000=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00`0fMWI00<0
+00000=WIf@3IfMT0603IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI00T0fMWI00<0
+00000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0B0=WIf@l000005@3IfMT00`000000fMWI0=WI
+f@080=WIf@030000003IfMT0fMWI00X0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WI
+f@0A0=WIf@008@3IfMWo000000009`3IfMT00`000000fMWI0=WIf@060=WIf@050000003IfMT0fMWI
+0=WIf@0000002`3IfMT010000000fMWI0=WIf@0000090=WIf@030000003IfMT0000000X0fMWI0P00
+000;0=WIf@050000003IfMT0fMWI0=WIf@000000203IfMT00`000000fMWI0=WIf@090=WIf@040000
+003IfMT0fMWI000000T0fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@040=WIf@03
+0000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@020=WIf@03
+0000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT01`3IfMT010000000fMWI0=WIf@00000;0=WI
+f@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@070=WI
+f@040000003IfMT0fMWI000000P0fMWI00D000000=WIf@3IfMT0fMWI000000070=WIf@030000003I
+fMT0fMWI0080fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0000000;0=WIf@030000003I
+fMT0fMWI00<0fMWI000W0=WIf@030000003IfMT0fMWI00L0fMWI0P00000@0=WIf@030000003IfMT0
+fMWI00T0fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@0>0=WIf@030000003IfMT0
+fMWI01@0fMWI00<000000=WIf@3IfMT03@3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0
+fMWI00X0fMWI00<000000=WIf@3IfMT03@3IfMT2000001D0fMWI00<000000=WIf@3IfMT03P3IfMT0
+0`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT03P3IfMT0
+0`000000fMWI0=WIf@0@0=WIf@009`3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI
+00h0fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI
+00h0fMWI00<000000=WIf@3IfMT04`3IfMT00`000000fMWI0=WIf@0>0=WIf@030000003IfMT0fMWI
+00T0fMWI00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI
+01D0fMWI00<000000=WIf@3IfMT03@3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI
+00T0fMWI00<000000=WIf@3IfMT03`3IfMT00`000000fMWI0=WIf@0?0=WIf@009`3IfMT2000000X0
+fMWI00<000000=WIf@3IfMT03@3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00T0
+fMWI00<000000=WIf@3IfMT03P3IfMT2000001<0fMWI0P00000A0=WIf@030000003IfMT0fMWI00P0
+fMWI00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI01H0
+fMWI00<000000=WIf@3IfMT03@3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00T0
+fMWI00<000000=WIf@3IfMT03`3IfMT200000100fMWI000W0=WIf@030000003IfMT0fMWI00T0fMWI
+00<000000=WIf@3IfMT03@3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00T0fMWI
+00<000000=WIf@3IfMT0403IfMT2000000d0fMWI1000000C0=WIf@030000003IfMT0fMWI00P0fMWI
+00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI01H0fMWI
+00<000000=WIf@3IfMT03@3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00T0fMWI
+00<000000=WIf@3IfMT04@3IfMT9000000L0fMWI000W0=WIf@030000003IfMT0fMWI00X0fMWI00<0
+00000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00T0fMWI00<0
+00000=WIf@3IfMT04P3IfMT>000001H0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WI
+f@0:0=WIf@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT0603IfMT00`000000fMWI0=WI
+f@0<0=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI0=WI
+f@0Q0=WIf@009`3IfMT00`000000fMWI0=WIf@0:0=WIf@030000003IfMT0fMWI00`0fMWI00<00000
+0=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI03H0fMWI00<00000
+0=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0:0=WIf@030000003IfMT0fMWI00/0fMWI00<00000
+0=WIf@3IfMT0603IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI00T0fMWI00<00000
+0=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@0Q0=WIf@009`3IfMT2000000`0fMWI00<000000=WI
+f@3IfMT02`3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WI
+f@3IfMT0=P3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI00X0fMWI00<000000=WI
+f@3IfMT02`3IfMT00`000000fMWI0=WIf@0I0=WIf@030000003IfMT0fMWI00/0fMWI00<000000=WI
+f@3IfMT02@3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI0240fMWI000W0=WIf@03
+0000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0:0=WIf@03
+0000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT0=P3IfMT00`000000fMWI0=WIf@080=WIf@03
+0000003IfMT0fMWI00X0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@0I0=WIf@03
+0000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@090=WIf@03
+0000003IfMT0fMWI0240fMWI000W0=WIf@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT0
+2P3IfMT00`000000fMWI0=WIf@0:0=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT0
+=P3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI00X0fMWI00<000000=WIf@3IfMT0
+2P3IfMT00`000000fMWI0=WIf@0K0=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT0
+2P3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI0240fMWI000W0=WIf@030000003I
+fMT0fMWI00`0fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@0:0=WIf@030000003I
+fMT0fMWI00T0fMWI00<000000=WIf@3IfMT0=P3IfMT00`000000fMWI0=WIf@080=WIf@030000003I
+fMT0fMWI00X0fMWI00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0K0=WIf@030000003I
+fMT0fMWI00T0fMWI00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@090=WIf@030000003I
+fMT0fMWI0240fMWI000W0=WIf@8000003@3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0
+fMWI00X0fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@0f0=WIf@030000003IfMT0
+fMWI00P0fMWI00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0:0=WIf@030000003IfMT0
+fMWI01/0fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@0:0=WIf@030000003IfMT0
+fMWI00T0fMWI00<000000=WIf@3IfMT08@3IfMT002L0fMWI00<000000=WIf@3IfMT0303IfMT00`00
+0000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT0203IfMT00`00
+0000fMWI0=WIf@0f0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT02`3IfMT00`00
+0000fMWI0=WIf@090=WIf@030000003IfMT0fMWI01`0fMWI00<000000=WIf@3IfMT0203IfMT00`00
+0000fMWI0=WIf@0:0=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT08@3IfMT002L0
+fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00/0
+fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0f0=WIf@030000003IfMT0fMWI00P0
+fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI01d0
+fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0:0=WIf@030000003IfMT0fMWI00T0
+fMWI00<000000=WIf@3IfMT08@3IfMT002L0fMWI00<000000=WIf@3IfMT03@3IfMT00`000000fMWI
+0=WIf@080=WIf@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI
+0=WIf@0f0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI
+0=WIf@080=WIf@030000003IfMT0fMWI01d0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI
+0=WIf@0:0=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT08@3IfMT002L0fMWI0P00
+000>0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WI
+f@070=WIf@030000003IfMT0fMWI03L0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WI
+f@0;0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT07@3IfMT00`000000fMWI0=WI
+f@080=WIf@030000003IfMT0fMWI00X0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WI
+f@0R0=WIf@009`3IfMT00`000000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00L0fMWI00<00000
+0=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI03L0fMWI00<00000
+0=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI00P0fMWI00<00000
+0=WIf@3IfMT07@3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI00X0fMWI00<00000
+0=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0R0=WIf@00203IfMT2000000@0fMWI00<000000=WI
+f@3IfMT00`3IfMT2000000<0fMWI100000020=WIf@<000001@3IfMT00`000000fMWI0=WIf@0=0=WI
+f@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@070=WI
+f@030000003IfMT0fMWI03L0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0;0=WI
+f@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT07P3IfMT00`000000fMWI0=WIf@070=WI
+f@030000003IfMT0fMWI00X0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0R0=WI
+f@001`3IfMT010000000fMWI0=WIf@0000080=WIf@040000003IfMT0fMWI00000080fMWI00<00000
+0=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI00h0fMWI00<00000
+0=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI00L0fMWI00<00000
+0=WIf@3IfMT0>03IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI00/0fMWI00<00000
+0=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0O0=WIf@030000003IfMT0fMWI00L0fMWI00<00000
+0=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI0280fMWI00070=WI
+f@040000003IfMT0fMWI000000P0fMWI00@000000=WIf@3IfMT000000`3IfMT00`000000fMWI0=WI
+f@050=WIf@030000003IfMT0fMWI0080fMWI0P00000?0=WIf@030000003IfMT0fMWI00H0fMWI00<0
+00000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI03P0fMWI00<0
+00000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI00L0fMWI00<0
+00000=WIf@3IfMT07`3IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI00/0fMWI00<0
+00000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0R0=WIf@001`3IfMT010000000fMWI0=WIf@00
+00080=WIf@040000003IfMT0fMWI000000@0fMWI00@000000=WIf@3IfMT0fMWI0`0000050=WIf@03
+0000003IfMT0fMWI00h0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0<0=WIf@03
+0000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0>03IfMT00`000000fMWI0=WIf@070=WIf@03
+0000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0O0=WIf@03
+0000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@070=WIf@03
+0000003IfMT0fMWI0280fMWI00070=WIf@040000003IfMT0fMWI000000P0fMWI00@000000=WIf@3I
+fMT000001@3IfMT010000000fMWI0=WIf@0000070=WIf@030000003IfMT0fMWI00h0fMWI00<00000
+0=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI00L0fMWI00<00000
+0=WIf@3IfMT0>03IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI00/0fMWI00<00000
+0=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0O0=WIf@030000003IfMT0fMWI00H0fMWI00<00000
+0=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI0280fMWI00070=WI
+f@040000003IfMT0fMWI000000P0fMWI00@000000=WIf@3IfMT000000P3IfMT010000000fMWI0=WI
+f@0000020=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT03`3IfMT00`000000fMWI
+0=WIf@050=WIf@030000003IfMT0fMWI00`0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI
+0=WIf@0h0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI
+0=WIf@050=WIf@030000003IfMT0fMWI0200fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI
+0=WIf@0<0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT08P3IfMT000P0fMWI0P00
+000:0=WIf@800000103IfMT2000000<0fMWI100000040=WIf@800000403IfMT00`000000fMWI0=WI
+f@050=WIf@030000003IfMT0fMWI00`0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WI
+f@0h0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WI
+f@050=WIf@030000003IfMT0fMWI0240fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WI
+f@0<0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT08P3IfMT002L0fMWI00<00000
+0=WIf@3IfMT03`3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI00`0fMWI00<00000
+0=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0h0=WIf@030000003IfMT0fMWI00L0fMWI00<00000
+0=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI0240fMWI00<00000
+0=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI00L0fMWI00<00000
+0=WIf@3IfMT08P3IfMT002L0fMWI00<000000=WIf@3IfMT03`3IfMT00`000000fMWI0=WIf@050=WI
+f@030000003IfMT0fMWI00`0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0h0=WI
+f@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT03@3IfMT00`000000fMWI0=WIf@050=WI
+f@030000003IfMT0fMWI0240fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0<0=WI
+f@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT08P3IfMT002L0fMWI00<000000=WIf@3I
+fMT03`3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI00`0fMWI00<000000=WIf@3I
+fMT01`3IfMT00`000000fMWI0=WIf@0h0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3I
+fMT03@3IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI0280fMWI00<000000=WIf@3I
+fMT01@3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3I
+fMT08P3IfMT002L0fMWI0P00000A0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0
+303IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI03P0fMWI00<000000=WIf@3IfMT0
+1P3IfMT00`000000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0
+8P3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI00`0fMWI00<000000=WIf@3IfMT0
+1`3IfMT00`000000fMWI0=WIf@0R0=WIf@009`3IfMT00`000000fMWI0=WIf@0@0=WIf@030000003I
+fMT0fMWI00@0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@070=WIf@030000003I
+fMT0fMWI03P0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0=0=WIf@030000003I
+fMT0fMWI00@0fMWI00<000000=WIf@3IfMT08`3IfMT00`000000fMWI0=WIf@030=WIf@030000003I
+fMT0fMWI00d0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0S0=WIf@009`3IfMT0
+0`000000fMWI0=WIf@0@0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT03@3IfMT0
+0`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI03T0fMWI00<000000=WIf@3IfMT01P3IfMT0
+0`000000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT08`3IfMT0
+0`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI00d0fMWI00<000000=WIf@3IfMT01P3IfMT0
+0`000000fMWI0=WIf@0S0=WIf@009`3IfMT00`000000fMWI0=WIf@0@0=WIf@030000003IfMT0fMWI
+00<0fMWI00<000000=WIf@3IfMT03@3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI
+03T0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI
+00@0fMWI00<000000=WIf@3IfMT08`3IfMT00`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI
+00d0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0S0=WIf@009`3IfMT200000140
+fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00H0
+fMWI00<000000=WIf@3IfMT0>@3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI00d0
+fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@0U0=WIf@030000003IfMT0fMWI0080
+fMWI00<000000=WIf@3IfMT03@3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI02<0
+fMWI000W0=WIf@030000003IfMT0fMWI0100fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI
+0=WIf@0=0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT0>@3IfMT00`000000fMWI
+0=WIf@060=WIf@030000003IfMT0fMWI00h0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI
+0=WIf@0U0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT03@3IfMT00`000000fMWI
+0=WIf@060=WIf@030000003IfMT0fMWI02<0fMWI000W0=WIf@030000003IfMT0fMWI0140fMWI00D0
+00000=WIf@3IfMT0fMWI0000000@0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT0
+>P3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI00h0fMWI00<000000=WIf@3IfMT0
+0P3IfMT00`000000fMWI0=WIf@0U0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0
+3@3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI02<0fMWI000W0=WIf@030000003I
+fMT0fMWI0140fMWI00D000000=WIf@3IfMT0fMWI0000000@0=WIf@030000003IfMT0fMWI00H0fMWI
+00<000000=WIf@3IfMT0>P3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI00h0fMWI
+00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@0U0=WIf@030000003IfMT0fMWI0080fMWI
+00<000000=WIf@3IfMT03@3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI02<0fMWI
+000W0=WIf@8000004P3IfMT01@000000fMWI0=WIf@3IfMT000000140fMWI00<000000=WIf@3IfMT0
+1@3IfMT00`000000fMWI0=WIf@0j0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0
+3P3IfMT01@000000fMWI0=WIf@3IfMT0000002T0fMWI00@000000=WIf@3IfMT00000403IfMT00`00
+0000fMWI0=WIf@060=WIf@030000003IfMT0fMWI02<0fMWI000W0=WIf@030000003IfMT0fMWI0180
+fMWI00@000000=WIf@3IfMT000004@3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI
+03X0fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0?0=WIf@040000003IfMT0fMWI
+000002T0fMWI00@000000=WIf@3IfMT00000403IfMT00`000000fMWI0=WIf@060=WIf@030000003I
+fMT0fMWI02<0fMWI000>0=WIf@800000103IfMT00`000000fMWI0=WIf@030=WIf@8000000`3IfMT3
+000000D0fMWI00<000000=WIf@3IfMT04P3IfMT00`000000fMWI0000000B0=WIf@030000003IfMT0
+fMWI00D0fMWI00<000000=WIf@3IfMT0>P3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0
+fMWI00l0fMWI00<000000=WIf@000000:`3IfMT200000140fMWI00<000000=WIf@3IfMT01P3IfMT0
+0`000000fMWI0=WIf@0S0=WIf@003@3IfMT010000000fMWI0=WIf@0000080=WIf@040000003IfMT0
+fMWI000000D0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@0B0=WIf@<000004P3I
+fMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI03X0fMWI00<000000=WIf@3IfMT01@3I
+fMT00`000000fMWI0=WIf@0@0=WIf@800000:`3IfMT200000140fMWI00<000000=WIf@3IfMT01P3I
+fMT00`000000fMWI0=WIf@0S0=WIf@003@3IfMT010000000fMWI0=WIf@0000080=WIf@040000003I
+fMT0fMWI000000D0fMWI00<000000=WIf@3IfMT00P3IfMT2000002P0fMWI00<000000=WIf@3IfMT0
+1@3IfMT00`000000fMWI0=WIf@0j0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0
+D03IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI02<0fMWI000=0=WIf@040000003I
+fMT0fMWI000000P0fMWI00@000000=WIf@3IfMT000000P3IfMT3000000D0fMWI00<000000=WIf@3I
+fMT09`3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI03X0fMWI00<000000=WIf@3I
+fMT01@3IfMT00`000000fMWI0=WIf@1@0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3I
+fMT08`3IfMT000d0fMWI00@000000=WIf@3IfMT00000203IfMT010000000fMWI0=WIf@0000020=WI
+f@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT09`3IfMT00`000000fMWI0=WIf@040=WI
+f@030000003IfMT0fMWI03/0fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@1A0=WI
+f@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0903IfMT000d0fMWI00@000000=WIf@3I
+fMT00000203IfMT010000000fMWI0=WIf@0000020=WIf@030000003IfMT0fMWI00D0fMWI00<00000
+0=WIf@3IfMT09`3IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI03/0fMWI00<00000
+0=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@1A0=WIf@030000003IfMT0fMWI00@0fMWI00<00000
+0=WIf@3IfMT0903IfMT000h0fMWI0P00000:0=WIf@8000000`3IfMT4000000@0fMWI0P00000X0=WI
+f@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0?03IfMT00`000000fMWI0=WIf@040=WI
+f@030000003IfMT0fMWI0540fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0T0=WI
+f@009`3IfMT00`000000fMWI0=WIf@0W0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3I
+fMT0?03IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI0540fMWI00<000000=WIf@3I
+fMT0103IfMT00`000000fMWI0=WIf@0T0=WIf@009`3IfMT00`000000fMWI0=WIf@0W0=WIf@030000
+003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0?03IfMT00`000000fMWI0=WIf@040=WIf@030000
+003IfMT0fMWI0540fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0T0=WIf@009`3I
+fMT00`000000fMWI0=WIf@0W0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0?03I
+fMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI0540fMWI00<000000=WIf@3IfMT0103I
+fMT00`000000fMWI0=WIf@0T0=WIf@009`3IfMT2000002P0fMWI00<000000=WIf@3IfMT0103IfMT0
+0`000000fMWI0=WIf@0l0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT0DP3IfMT0
+0`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI02@0fMWI000W0=WIf@030000003IfMT0fMWI
+02L0fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0l0=WIf@030000003IfMT0fMWI
+00<0fMWI00<000000=WIf@3IfMT0DP3IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI
+02@0fMWI000W0=WIf@030000003IfMT0fMWI02L0fMWI00<000000=WIf@3IfMT0103IfMT00`000000
+fMWI0=WIf@0l0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT0DP3IfMT00`000000
+fMWI0=WIf@040=WIf@030000003IfMT0fMWI02@0fMWI000W0=WIf@030000003IfMT0fMWI02L0fMWI
+00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0l0=WIf@030000003IfMT0fMWI00<0fMWI
+00<000000=WIf@3IfMT0DP3IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI02@0fMWI
+000W0=WIf@800000:03IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI03`0fMWI00<0
+00000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@1B0=WIf@030000003IfMT0fMWI00@0fMWI00<0
+00000=WIf@3IfMT0903IfMT002L0fMWI00<000000=WIf@3IfMT09`3IfMT00`000000fMWI0=WIf@04
+0=WIf@030000003IfMT0fMWI03`0fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@1C
+0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT0903IfMT002L0fMWI00<000000=WI
+f@3IfMT09`3IfMT00`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI03d0fMWI00<000000=WI
+f@3IfMT00`3IfMT00`000000fMWI0=WIf@1C0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WI
+f@3IfMT0903IfMT002L0fMWI00<000000=WIf@3IfMT0:03IfMT00`000000fMWI0=WIf@020=WIf@03
+0000003IfMT0fMWI03d0fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@1C0=WIf@03
+0000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT0903IfMT002L0fMWI0P00000Y0=WIf@030000
+003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0?P3IfMT00`000000fMWI0=WIf@020=WIf@030000
+003IfMT0fMWI05<0fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@0T0=WIf@009`3I
+fMT00`000000fMWI0=WIf@0X0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0?P3I
+fMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI05<0fMWI00<000000=WIf@3IfMT00P3I
+fMT00`000000fMWI0=WIf@0U0=WIf@00203IfMT2000000@0fMWI00<000000=WIf@3IfMT00`3IfMT2
+000000@0fMWI00<000000=WIf@3IfMT00P3IfMT3000000D0fMWI00<000000=WIf@3IfMT0:03IfMT0
+0`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI03h0fMWI00<000000=WIf@3IfMT00P3IfMT0
+0`000000fMWI0=WIf@1C0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT09@3IfMT0
+00L0fMWI00@000000=WIf@3IfMT00000203IfMT010000000fMWI0=WIf@0000030=WIf@030000003I
+fMT0fMWI00D0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@0X0=WIf@030000003I
+fMT0fMWI0080fMWI00<000000=WIf@3IfMT0?P3IfMT00`000000fMWI0=WIf@020=WIf@030000003I
+fMT0fMWI05<0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@0U0=WIf@001`3IfMT0
+10000000fMWI0=WIf@0000080=WIf@040000003IfMT0fMWI000000@0fMWI00<000000=WIf@3IfMT0
+103IfMT00`000000fMWI0=WIf@020=WIf@800000:@3IfMT00`000000fMWI0=WIf@020=WIf@030000
+003IfMT0fMWI03h0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@1C0=WIf@030000
+003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT09@3IfMT000L0fMWI00@000000=WIf@3IfMT00000
+203IfMT010000000fMWI0=WIf@0000040=WIf@040000003IfMT0fMWI0=WIf@<000001@3IfMT00`00
+0000fMWI0=WIf@0X0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0?P3IfMT00`00
+0000fMWI0=WIf@020=WIf@030000003IfMT0fMWI05<0fMWI00<000000=WIf@3IfMT00P3IfMT00`00
+0000fMWI0=WIf@0U0=WIf@001`3IfMT010000000fMWI0=WIf@0000080=WIf@040000003IfMT0fMWI
+000000D0fMWI00@000000=WIf@3IfMT000001`3IfMT00`000000fMWI0=WIf@0X0=WIf@030000003I
+fMT0fMWI0080fMWI00<000000=WIf@3IfMT0?P3IfMT00`000000fMWI0=WIf@020=WIf@030000003I
+fMT0fMWI05<0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@0U0=WIf@001`3IfMT0
+10000000fMWI0=WIf@0000080=WIf@040000003IfMT0fMWI00000080fMWI00@000000=WIf@3IfMT0
+00000P3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI02P0fMWI00<000000=WIf@3I
+fMT00P3IfMT00`000000fMWI0=WIf@0n0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3I
+fMT0D`3IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI02D0fMWI00080=WIf@800000
+2P3IfMT2000000<0fMWI100000020=WIf@@00000103IfMT2000002T0fMWI00<000000=WIf@3IfMT0
+0P3IfMT00`000000fMWI0=WIf@0n0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0
+D`3IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI02D0fMWI000W0=WIf@030000003I
+fMT0fMWI02P0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@0n0=WIf@030000003I
+fMT0fMWI0080fMWI00<000000=WIf@3IfMT0D`3IfMT00`000000fMWI0=WIf@020=WIf@030000003I
+fMT0fMWI02D0fMWI000W0=WIf@030000003IfMT0fMWI02P0fMWI00<000000=WIf@3IfMT00P3IfMT0
+0`000000fMWI0=WIf@0n0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0D`3IfMT0
+0`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI02D0fMWI000W0=WIf@800000:@3IfMT00`00
+0000fMWI0=WIf@020=WIf@030000003IfMT0fMWI03h0fMWI00D000000=WIf@3IfMT0fMWI0000001F
+0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT09@3IfMT002L0fMWI00<000000=WI
+f@3IfMT0:03IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI03h0fMWI00D000000=WI
+f@3IfMT0fMWI0000001G0=WIf@040000003IfMT0fMWI000002P0fMWI000W0=WIf@030000003IfMT0
+fMWI02P0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@0n0=WIf@050000003IfMT0
+fMWI0=WIf@000000E`3IfMT010000000fMWI0=WIf@00000X0=WIf@009`3IfMT00`000000fMWI0=WI
+f@0X0=WIf@050000003IfMT0fMWI0=WIf@000000@P3IfMT010000000fMWI0=WIf@00001G0=WIf@04
+0000003IfMT0fMWI000002P0fMWI000W0=WIf@800000:P3IfMT010000000fMWI0=WIf@0000120=WI
+f@040000003IfMT0fMWI000005L0fMWI00@000000=WIf@3IfMT00000:03IfMT002L0fMWI00<00000
+0=WIf@3IfMT0:@3IfMT010000000fMWI0=WIf@0000120=WIf@040000003IfMT0fMWI000005L0fMWI
+00@000000=WIf@3IfMT00000:03IfMT002L0fMWI00<000000=WIf@3IfMT0:@3IfMT010000000fMWI
+0=WIf@0000120=WIf@040000003IfMT0fMWI000005L0fMWI00<000000=WIf@000000:@3IfMT002L0
+fMWI00<000000=WIf@3IfMT0:@3IfMT00`000000fMWI000000130=WIf@030000003IfMT0000005P0
+fMWI00<000000=WIf@000000:@3IfMT002L0fMWI0P00000Z0=WIf@030000003IfMT0000004@0fMWI
+0P00001H0=WIf@030000003IfMT0000002T0fMWI000W0=WIf@030000003IfMT0fMWI02T0fMWI00<0
+00000=WIf@000000A03IfMT2000005T0fMWI0P00000Y0=WIf@00503IfMT2000000@0fMWI00<00000
+0=WIf@3IfMT00P3IfMT4000000@0fMWI00<000000=WIf@3IfMT0:P3IfMT00`000000fMWI0=WIf@13
+0=WIf@800000F@3IfMT2000002T0fMWI000C0=WIf@040000003IfMT0fMWI000000X0fMWI00<00000
+0=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@3f0=WIf@004`3IfMT010000000fMWI0=WIf@00000:
+0=WIf@030000003IfMT0fMWI00<0fMWI0P00003g0=WIf@004`3IfMT010000000fMWI0=WIf@00000:
+0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT0mP3IfMT001<0fMWI00@000000=WI
+f@3IfMT000002P3IfMT00`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI0?H0fMWI000C0=WI
+f@040000003IfMT0fMWI000000P0fMWI0`00003n0=WIf@00503IfMT2000000/0fMWI00<000000=WI
+f@3IfMT0o03IfMT00?l0fMWI8@3IfMT00?l0fMWI8@3IfMT00?l0fMWI8@3IfMT00?l0fMWI8@3IfMT0
+0?l0fMWI8@3IfMT00?l0fMWI8@3IfMT00?l0fMWI8@3IfMT00?l0fMWI8@3IfMT00?l0fMWI8@3IfMT0
+0001\
+\>"],
+  ImageRangeCache->{{{0, 287}, {176.938, 0}} -> {-1.52705, -0.105997, \
+0.0389807, 0.00125715}}],
+
+Cell[BoxData[
+    TagBox[\(\[SkeletonIndicator]  Graphics  \[SkeletonIndicator]\),
+      False,
+      Editable->False]], "Output",
+  CellLabel->"Out[74]="]
+}, Open  ]],
+
+Cell["\<\
+Now we simulate the system as a Poincar\\'e representation.  First \
+we need to compute the initial pseudo-velocities.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(pvinit\  = \ 
+      Table[vinit . metric . 
+            X[\([i]\)]/\((X[\([i]\)] . metric . X[\([i]\)])\), {i, 
+          Ddim}]\)], "Input",
+  CellLabel->"In[75]:="],
+
+Cell[BoxData[
+    \({0, 0, 0}\)], "Output",
+  CellLabel->"Out[75]="]
+}, Open  ]],
+
+Cell["Now simulate.", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(sol2\  = \ 
+      SMCSsimulate[\((eqmot2 /. params)\), Dbasis, conf, pv, qinit, pvinit, 
+        t, Ti, Tf]\)], "Input",
+  CellLabel->"In[76]:="],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{"{", 
+        RowBox[{
+          RowBox[{\(x[t]\), "\[Rule]", 
+            RowBox[{
+              
+              TagBox[\(InterpolatingFunction[{{0.`, 9.42477796076938`}}, 
+                  "<>"]\),
+                False,
+                Editable->False], "[", "t", "]"}]}], ",", 
+          RowBox[{\(y[t]\), "\[Rule]", 
+            RowBox[{
+              
+              TagBox[\(InterpolatingFunction[{{0.`, 9.42477796076938`}}, 
+                  "<>"]\),
+                False,
+                Editable->False], "[", "t", "]"}]}], ",", 
+          RowBox[{\(theta[t]\), "\[Rule]", 
+            RowBox[{
+              
+              TagBox[\(InterpolatingFunction[{{0.`, 9.42477796076938`}}, 
+                  "<>"]\),
+                False,
+                Editable->False], "[", "t", "]"}]}], ",", 
+          RowBox[{\(psi[t]\), "\[Rule]", 
+            RowBox[{
+              
+              TagBox[\(InterpolatingFunction[{{0.`, 9.42477796076938`}}, 
+                  "<>"]\),
+                False,
+                Editable->False], "[", "t", "]"}]}], ",", 
+          RowBox[{\(phi[t]\), "\[Rule]", 
+            RowBox[{
+              
+              TagBox[\(InterpolatingFunction[{{0.`, 9.42477796076938`}}, 
+                  "<>"]\),
+                False,
+                Editable->False], "[", "t", "]"}]}], ",", 
+          RowBox[{\(pv1[t]\), "\[Rule]", 
+            RowBox[{
+              
+              TagBox[\(InterpolatingFunction[{{0.`, 9.42477796076938`}}, 
+                  "<>"]\),
+                False,
+                Editable->False], "[", "t", "]"}]}]}], "}"}], "}"}]], "Output",\
+
+  CellLabel->"Out[76]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Plot[x[t] /. sol2, {t, Ti, Tf}]\)], "Input",
+  CellLabel->"In[77]:="],
+
+Cell[GraphicsData["PostScript", "\<\
+%!
+%%Creator: Mathematica
+%%AspectRatio: .61803 
+MathPictureStart
+/Mabs {
+Mgmatrix idtransform
+Mtmatrix dtransform
+} bind def
+/Mabsadd { Mabs
+3 -1 roll add
+3 1 roll add
+exch } bind def
+%% Graphics
+%%IncludeResource: font Courier
+%%IncludeFont: Courier
+/Courier findfont 10  scalefont  setfont
+% Scaling calculations
+0.0238095 0.101051 0.296984 3.14592 [
+[.22591 .28448 -3 -9 ]
+[.22591 .28448 3 0 ]
+[.42801 .28448 -3 -9 ]
+[.42801 .28448 3 0 ]
+[.63011 .28448 -3 -9 ]
+[.63011 .28448 3 0 ]
+[.83222 .28448 -3 -9 ]
+[.83222 .28448 3 0 ]
+[.01131 .06104 -36 -4.5 ]
+[.01131 .06104 0 4.5 ]
+[.01131 .13969 -30 -4.5 ]
+[.01131 .13969 0 4.5 ]
+[.01131 .21834 -36 -4.5 ]
+[.01131 .21834 0 4.5 ]
+[.01131 .37563 -30 -4.5 ]
+[.01131 .37563 0 4.5 ]
+[.01131 .45428 -24 -4.5 ]
+[.01131 .45428 0 4.5 ]
+[.01131 .53293 -30 -4.5 ]
+[.01131 .53293 0 4.5 ]
+[.01131 .61158 -18 -4.5 ]
+[.01131 .61158 0 4.5 ]
+[ 0 0 0 0 ]
+[ 1 .61803 0 0 ]
+] MathScale
+% Start of Graphics
+1 setlinecap
+1 setlinejoin
+newpath
+0 g
+.25 Mabswid
+[ ] 0 setdash
+.22591 .29698 m
+.22591 .30323 L
+s
+[(2)] .22591 .28448 0 1 Mshowa
+.42801 .29698 m
+.42801 .30323 L
+s
+[(4)] .42801 .28448 0 1 Mshowa
+.63011 .29698 m
+.63011 .30323 L
+s
+[(6)] .63011 .28448 0 1 Mshowa
+.83222 .29698 m
+.83222 .30323 L
+s
+[(8)] .83222 .28448 0 1 Mshowa
+.125 Mabswid
+.07433 .29698 m
+.07433 .30073 L
+s
+.12486 .29698 m
+.12486 .30073 L
+s
+.17539 .29698 m
+.17539 .30073 L
+s
+.27644 .29698 m
+.27644 .30073 L
+s
+.32696 .29698 m
+.32696 .30073 L
+s
+.37749 .29698 m
+.37749 .30073 L
+s
+.47854 .29698 m
+.47854 .30073 L
+s
+.52906 .29698 m
+.52906 .30073 L
+s
+.57959 .29698 m
+.57959 .30073 L
+s
+.68064 .29698 m
+.68064 .30073 L
+s
+.73116 .29698 m
+.73116 .30073 L
+s
+.78169 .29698 m
+.78169 .30073 L
+s
+.88274 .29698 m
+.88274 .30073 L
+s
+.93327 .29698 m
+.93327 .30073 L
+s
+.98379 .29698 m
+.98379 .30073 L
+s
+.25 Mabswid
+0 .29698 m
+1 .29698 L
+s
+.02381 .06104 m
+.03006 .06104 L
+s
+[(-0.075)] .01131 .06104 1 0 Mshowa
+.02381 .13969 m
+.03006 .13969 L
+s
+[(-0.05)] .01131 .13969 1 0 Mshowa
+.02381 .21834 m
+.03006 .21834 L
+s
+[(-0.025)] .01131 .21834 1 0 Mshowa
+.02381 .37563 m
+.03006 .37563 L
+s
+[(0.025)] .01131 .37563 1 0 Mshowa
+.02381 .45428 m
+.03006 .45428 L
+s
+[(0.05)] .01131 .45428 1 0 Mshowa
+.02381 .53293 m
+.03006 .53293 L
+s
+[(0.075)] .01131 .53293 1 0 Mshowa
+.02381 .61158 m
+.03006 .61158 L
+s
+[(0.1)] .01131 .61158 1 0 Mshowa
+.125 Mabswid
+.02381 .07677 m
+.02756 .07677 L
+s
+.02381 .0925 m
+.02756 .0925 L
+s
+.02381 .10823 m
+.02756 .10823 L
+s
+.02381 .12396 m
+.02756 .12396 L
+s
+.02381 .15542 m
+.02756 .15542 L
+s
+.02381 .17115 m
+.02756 .17115 L
+s
+.02381 .18688 m
+.02756 .18688 L
+s
+.02381 .20261 m
+.02756 .20261 L
+s
+.02381 .23407 m
+.02756 .23407 L
+s
+.02381 .24979 m
+.02756 .24979 L
+s
+.02381 .26552 m
+.02756 .26552 L
+s
+.02381 .28125 m
+.02756 .28125 L
+s
+.02381 .31271 m
+.02756 .31271 L
+s
+.02381 .32844 m
+.02756 .32844 L
+s
+.02381 .34417 m
+.02756 .34417 L
+s
+.02381 .3599 m
+.02756 .3599 L
+s
+.02381 .39136 m
+.02756 .39136 L
+s
+.02381 .40709 m
+.02756 .40709 L
+s
+.02381 .42282 m
+.02756 .42282 L
+s
+.02381 .43855 m
+.02756 .43855 L
+s
+.02381 .47001 m
+.02756 .47001 L
+s
+.02381 .48574 m
+.02756 .48574 L
+s
+.02381 .50147 m
+.02756 .50147 L
+s
+.02381 .5172 m
+.02756 .5172 L
+s
+.02381 .54866 m
+.02756 .54866 L
+s
+.02381 .56439 m
+.02756 .56439 L
+s
+.02381 .58012 m
+.02756 .58012 L
+s
+.02381 .59585 m
+.02756 .59585 L
+s
+.02381 .04531 m
+.02756 .04531 L
+s
+.02381 .02958 m
+.02756 .02958 L
+s
+.02381 .01385 m
+.02756 .01385 L
+s
+.25 Mabswid
+.02381 0 m
+.02381 .61803 L
+s
+0 0 m
+1 0 L
+1 .61803 L
+0 .61803 L
+closepath
+clip
+newpath
+.5 Mabswid
+.02381 .29698 m
+.02499 .29698 L
+.02605 .29698 L
+.02729 .29698 L
+.02846 .29698 L
+.02954 .29698 L
+.03053 .29698 L
+.03163 .29698 L
+.03279 .29698 L
+.03395 .29699 L
+.0352 .29699 L
+.03638 .29699 L
+.03746 .297 L
+.03873 .297 L
+.03944 .29701 L
+.04011 .29702 L
+.04132 .29703 L
+.04262 .29706 L
+.04396 .2971 L
+.04519 .29715 L
+.04654 .29722 L
+.04797 .29732 L
+.04922 .29744 L
+.05038 .29758 L
+.05173 .29778 L
+.05302 .29802 L
+.0554 .29861 L
+.05757 .29937 L
+.0599 .30049 L
+.06244 .30215 L
+.06505 .30443 L
+.06749 .30722 L
+.07017 .31114 L
+.07306 .31651 L
+.07894 .33162 L
+.08433 .35061 L
+.09482 .39752 L
+.09993 .42058 L
+.10458 .43812 L
+.10684 .44466 L
+.10803 .44744 L
+.10929 .44983 L
+.11039 .4514 L
+.1116 .45255 L
+.1127 .45302 L
+.11373 .45293 L
+.11499 .45211 L
+.11619 .45056 L
+.11727 .44849 L
+.11844 .44547 L
+Mistroke
+.11971 .44128 L
+.12107 .43571 L
+.1235 .42271 L
+.12619 .40365 L
+.1291 .3773 L
+.13437 .31451 L
+.1442 .16618 L
+.14881 .10356 L
+.15134 .07512 L
+.15373 .05281 L
+.15509 .04228 L
+.15656 .03265 L
+.15779 .02612 L
+.15849 .02303 L
+.15914 .02056 L
+.16041 .01697 L
+.16106 .01577 L
+.16176 .01498 L
+.16302 .01492 L
+.16418 .01649 L
+.16541 .01997 L
+.16673 .02585 L
+.16797 .0336 L
+.16909 .04259 L
+.17185 .0732 L
+.17446 .11407 L
+.17716 .16921 L
+.17964 .23025 L
+.18526 .3832 L
+.18995 .49142 L
+.19258 .53583 L
+.19383 .55259 L
+.19498 .56575 L
+.19721 .58517 L
+.19839 .59241 L
+.19964 .59801 L
+.20072 .6012 L
+.20174 .60288 L
+.20286 .60332 L
+.20406 .60224 L
+.20536 .59936 L
+.20656 .59515 L
+.20789 .58893 L
+.20931 .5805 L
+.2122 .55784 L
+.21483 .53129 L
+.22471 .39292 L
+.22952 .3202 L
+.23402 .26195 L
+.23871 .21584 L
+Mistroke
+.2412 .19773 L
+.24388 .18298 L
+.24526 .17719 L
+.24677 .17222 L
+.24746 .1704 L
+.2482 .16877 L
+.24889 .16752 L
+.24952 .1666 L
+.25019 .16586 L
+.25092 .16533 L
+.25223 .16504 L
+.25343 .1655 L
+.25469 .16667 L
+.25588 .16839 L
+.25715 .17084 L
+.25945 .17671 L
+.26466 .19548 L
+.27428 .2394 L
+.28449 .28115 L
+.28981 .29658 L
+.29285 .30323 L
+.29569 .30817 L
+.29829 .31172 L
+.30067 .31427 L
+.30329 .3164 L
+.30605 .31804 L
+.30855 .31909 L
+.31082 .31977 L
+.31208 .32006 L
+.31344 .32031 L
+.31462 .32048 L
+.31591 .32064 L
+.31703 .32074 L
+.31823 .32083 L
+.3195 .32091 L
+.32069 .32096 L
+.32187 .321 L
+.32299 .32102 L
+.32399 .32104 L
+.32509 .32106 L
+.32577 .32106 L
+.32651 .32107 L
+.32715 .32108 L
+.32784 .32108 L
+.32913 .32108 L
+.33032 .32109 L
+.33099 .32109 L
+.3317 .32109 L
+.33298 .32109 L
+.33377 .32109 L
+Mistroke
+.33451 .32109 L
+.33517 .32109 L
+.3359 .32109 L
+.3371 .32109 L
+.33778 .32109 L
+.33842 .32109 L
+.3411 .32109 L
+.34343 .32109 L
+.34471 .32109 L
+.34591 .32109 L
+.34656 .32109 L
+.34726 .32109 L
+.34848 .32109 L
+.34973 .32109 L
+.35087 .32109 L
+.35212 .32109 L
+.35284 .32108 L
+.3535 .32108 L
+.3542 .32108 L
+.35484 .32108 L
+.35558 .32107 L
+.35628 .32107 L
+.35747 .32106 L
+.35874 .32104 L
+.35982 .32102 L
+.36101 .32099 L
+.36228 .32094 L
+.36366 .32087 L
+.36496 .32079 L
+.36615 .32069 L
+.36723 .32057 L
+.36838 .32042 L
+.37046 .32006 L
+.37173 .31977 L
+.37293 .31944 L
+.37517 .31864 L
+.37754 .31748 L
+.37973 .31606 L
+.38213 .31402 L
+.38467 .31121 L
+.3872 .30763 L
+.3896 .30341 L
+.3941 .29305 L
+.39895 .27806 L
+.40424 .2574 L
+.41367 .21409 L
+.41829 .19375 L
+.42255 .17836 L
+.42496 .1718 L
+.42618 .16925 L
+Mistroke
+.42751 .1671 L
+.42822 .16626 L
+.42886 .16567 L
+.42959 .16523 L
+.43029 .16504 L
+.43153 .16528 L
+.43224 .16576 L
+.43288 .16643 L
+.434 .16811 L
+.43504 .17032 L
+.43619 .17347 L
+.43743 .17774 L
+.43994 .18943 L
+.44225 .20383 L
+.44713 .24668 L
+.45247 .31249 L
+.45801 .39581 L
+.46323 .47455 L
+.46817 .53637 L
+.47096 .56328 L
+.47353 .58238 L
+.47457 .58849 L
+.47569 .59395 L
+.47692 .59856 L
+.47807 .60151 L
+.47936 .60318 L
+.48058 .60308 L
+.48168 .60151 L
+.48287 .59811 L
+.48416 .59235 L
+.48538 .58483 L
+.48671 .57409 L
+.48814 .55937 L
+.49107 .51865 L
+.49375 .46789 L
+.49862 .34709 L
+.50383 .20631 L
+.50646 .1456 L
+.50895 .09907 L
+.51119 .0667 L
+.51234 .05335 L
+.51361 .04115 L
+.51472 .03256 L
+.51591 .02532 L
+.51717 .01981 L
+.51835 .01651 L
+.51952 .01492 L
+.52063 .01488 L
+.52163 .01601 L
+.52272 .01844 L
+Mistroke
+.5234 .02055 L
+.52413 .02333 L
+.52545 .02966 L
+.52792 .04573 L
+.5308 .07105 L
+.53345 .10016 L
+.54341 .24439 L
+.54808 .31322 L
+.5525 .36749 L
+.55494 .39166 L
+.5576 .41312 L
+.56001 .42836 L
+.56224 .43901 L
+.56351 .44365 L
+.5647 .44712 L
+.56601 .44997 L
+.56675 .45115 L
+.56742 .45198 L
+.56871 .45289 L
+.56943 .45303 L
+.57011 .45294 L
+.57082 .45261 L
+.57147 .45211 L
+.57222 .45131 L
+.57293 .45033 L
+.57414 .4482 L
+.57542 .44535 L
+.57772 .43888 L
+.58291 .4193 L
+.59307 .37258 L
+.59807 .35115 L
+.60271 .33442 L
+.6069 .32241 L
+.61137 .31285 L
+.61392 .30875 L
+.61632 .30567 L
+.61846 .30349 L
+.6208 .30162 L
+.62317 .30019 L
+.62568 .29909 L
+.62799 .29836 L
+.63015 .29788 L
+.63147 .29766 L
+.63271 .29749 L
+.63383 .29737 L
+.63503 .29727 L
+.63633 .29719 L
+.63754 .29713 L
+.63883 .29708 L
+.63951 .29706 L
+Mistroke
+.64025 .29704 L
+.64097 .29702 L
+.64164 .29701 L
+.64297 .29699 L
+.64417 .29698 L
+.64545 .29698 L
+.64617 .29697 L
+.64696 .29697 L
+.6477 .29697 L
+.64838 .29697 L
+.64967 .29697 L
+.65032 .29697 L
+.65104 .29697 L
+.65236 .29697 L
+.65356 .29697 L
+.65627 .29696 L
+.66115 .29696 L
+.66234 .29696 L
+.66362 .29696 L
+.66484 .29696 L
+.66595 .29696 L
+.66713 .29696 L
+.66837 .29696 L
+.66965 .29696 L
+.67037 .29697 L
+.67105 .29697 L
+.67224 .29697 L
+.67337 .29698 L
+.67438 .29699 L
+.67548 .297 L
+.67668 .29702 L
+.67794 .29705 L
+.67902 .29708 L
+.68022 .29713 L
+.6816 .29721 L
+.68291 .2973 L
+.68409 .29741 L
+.68538 .29756 L
+.68678 .29777 L
+.68826 .29806 L
+.69093 .29878 L
+.69224 .29925 L
+.69365 .29986 L
+.6962 .3013 L
+.69868 .3032 L
+.70097 .30546 L
+.70568 .3121 L
+.70831 .31719 L
+.71072 .32279 L
+.71981 .35282 L
+Mistroke
+.73055 .40129 L
+.73528 .42232 L
+.73778 .43215 L
+.74048 .44112 L
+.7417 .44447 L
+.74298 .44747 L
+.74416 .44972 L
+.74527 .45132 L
+.7463 .45235 L
+.74741 .45293 L
+.74864 .4529 L
+.74975 .45223 L
+.75102 .45068 L
+.75218 .44847 L
+.75346 .44515 L
+.75481 .44058 L
+.75709 .43029 L
+.75959 .41504 L
+.76229 .39365 L
+.76477 .36955 L
+.77032 .30009 L
+.78036 .14822 L
+.78515 .08699 L
+.78777 .06045 L
+.79024 .04061 L
+.79255 .02684 L
+.79386 .02126 L
+.79505 .01759 L
+.79606 .01562 L
+.79717 .01472 L
+.79832 .01523 L
+.7994 .01713 L
+.80069 .02132 L
+.80142 .02465 L
+.8021 .02838 L
+.80334 .03692 L
+.80465 .0485 L
+.80692 .07515 L
+.80942 .11487 L
+.81209 .16946 L
+.81496 .24061 L
+.82015 .38225 L
+.82268 .44511 L
+.82538 .50106 L
+.82793 .54196 L
+.83025 .56926 L
+.83167 .58173 L
+.83298 .59053 L
+.83372 .59444 L
+.83441 .59741 L
+Mistroke
+.83513 .59985 L
+.83593 .60176 L
+.83662 .6028 L
+.83728 .60327 L
+.83851 .60282 L
+.8392 .60185 L
+.83983 .60051 L
+.84053 .59856 L
+.84128 .59595 L
+.84365 .58414 L
+.84498 .57526 L
+.8462 .56577 L
+.85082 .51892 L
+.85596 .44944 L
+.86137 .36602 L
+.86627 .29493 L
+.87091 .24066 L
+.87347 .21713 L
+.87625 .19688 L
+.87877 .18306 L
+.8799 .17825 L
+.8811 .17396 L
+.88225 .1707 L
+.8833 .16839 L
+.88435 .16669 L
+.88535 .16563 L
+.88651 .16505 L
+.88759 .1651 L
+.88877 .16578 L
+.89002 .16718 L
+.89125 .16917 L
+.89258 .17196 L
+.89498 .17854 L
+.89947 .19497 L
+.90893 .2381 L
+.91905 .2799 L
+.92204 .28934 L
+.92487 .29687 L
+.92762 .30291 L
+.93016 .30744 L
+.93252 .31084 L
+.93513 .31379 L
+.93774 .31604 L
+.94052 .31778 L
+.94277 .31881 L
+.94515 .31959 L
+.94717 .32007 L
+.94938 .32043 L
+.95064 .32059 L
+.95178 .3207 L
+Mistroke
+.95309 .3208 L
+.95433 .32087 L
+.95548 .32092 L
+.95654 .32096 L
+.9577 .32099 L
+.95893 .32101 L
+.96 .32103 L
+.96098 .32104 L
+.96211 .32105 L
+.96318 .32105 L
+.96417 .32105 L
+.96508 .32106 L
+.96609 .32106 L
+.96715 .32106 L
+.96822 .32106 L
+.96937 .32106 L
+.97045 .32106 L
+.97145 .32106 L
+.97255 .32106 L
+.97376 .32106 L
+.97502 .32106 L
+.97619 .32106 L
+Mfstroke
+% End of Graphics
+MathPictureEnd
+\
+\>"], "Graphics",
+  CellLabel->"From In[77]:=",
+  ImageSize->{288, 177.938},
+  ImageMargins->{{35, 0}, {0, 0}},
+  ImageRegion->{{0, 1}, {0, 1}},
+  ImageCache->GraphicsData["Bitmap", "\<\
+CF5dJ6E]HGAYHf4PAg9QL6QYHg<PAVmbKF5d0`40004P0000/B000`400?l00000o`00003oo`3IfMTQ
+0=WIf@00o`3IfMTQ0=WIf@00o`3IfMTQ0=WIf@00o`3IfMTQ0=WIf@00o`3IfMTQ0=WIf@00o`3IfMTQ
+0=WIf@00o`3IfMTQ0=WIf@00o`3IfMTQ0=WIf@009`3IfMT00`000000fMWI0=WIf@3f0=WIf@009`3I
+fMT00`000000fMWI0=WIf@3f0=WIf@009`3IfMT00`000000fMWI0=WIf@3f0=WIf@009`3IfMT00`00
+0000fMWI0=WIf@3f0=WIf@009`3IfMT200000200fMWI0P00001I0=WIf@800000A@3IfMT2000003<0
+fMWI000W0=WIf@030000003IfMT0fMWI01l0fMWI00<000000=WIf@000000F03IfMT3000004<0fMWI
+00<000000=WIf@000000<`3IfMT002L0fMWI00<000000=WIf@3IfMT07`3IfMT00`000000fMWI0000
+001H0=WIf@030000003IfMT0000004<0fMWI00<000000=WIf@000000<`3IfMT002L0fMWI00<00000
+0=WIf@3IfMT07`3IfMT00`000000fMWI0000001H0=WIf@030000003IfMT0000004<0fMWI00<00000
+0=WIf@000000<`3IfMT002L0fMWI0P00000O0=WIf@040000003IfMT0fMWI000005L0fMWI00@00000
+0=WIf@3IfMT00000@`3IfMT00`000000fMWI0000000c0=WIf@009`3IfMT00`000000fMWI0=WIf@0N
+0=WIf@040000003IfMT0fMWI000005L0fMWI00@000000=WIf@3IfMT00000@P3IfMT01@000000fMWI
+0=WIf@3IfMT000000380fMWI000W0=WIf@030000003IfMT0fMWI01h0fMWI00D000000=WIf@3IfMT0
+fMWI0000001F0=WIf@050000003IfMT0fMWI0=WIf@000000@@3IfMT01@000000fMWI0=WIf@3IfMT0
+00000380fMWI000W0=WIf@030000003IfMT0fMWI01h0fMWI00D000000=WIf@3IfMT0fMWI0000001F
+0=WIf@050000003IfMT0fMWI0=WIf@000000@@3IfMT01@000000fMWI0=WIf@3IfMT000000380fMWI
+000W0=WIf@8000007`3IfMT01@000000fMWI0=WIf@3IfMT0000005H0fMWI00D000000=WIf@3IfMT0
+fMWI000000110=WIf@050000003IfMT0fMWI0=WIf@000000<P3IfMT002L0fMWI00<000000=WIf@3I
+fMT07P3IfMT01@000000fMWI0=WIf@3IfMT0000005H0fMWI00D000000=WIf@3IfMT0fMWI00000011
+0=WIf@050000003IfMT0fMWI0=WIf@000000<P3IfMT000P0fMWI0P0000040=WIf@030000003IfMT0
+fMWI00<0fMWI0P0000040=WIf@030000003IfMT0fMWI0080fMWI0`0000050=WIf@030000003IfMT0
+fMWI01h0fMWI00D000000=WIf@3IfMT0fMWI0000001F0=WIf@050000003IfMT0fMWI0=WIf@000000
+@@3IfMT01@000000fMWI0=WIf@3IfMT000000380fMWI00070=WIf@040000003IfMT0fMWI000000P0
+fMWI00@000000=WIf@3IfMT000000`3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI
+0080fMWI00<000000=WIf@3IfMT07P3IfMT01@000000fMWI0=WIf@3IfMT0000005H0fMWI00D00000
+0=WIf@3IfMT0fMWI000000110=WIf@050000003IfMT0fMWI0=WIf@000000<P3IfMT000L0fMWI00@0
+00000=WIf@3IfMT00000203IfMT010000000fMWI0=WIf@0000040=WIf@030000003IfMT0fMWI00@0
+fMWI00<000000=WIf@3IfMT00P3IfMT2000001l0fMWI00D000000=WIf@3IfMT0fMWI0000001E0=WI
+f@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0?`3IfMT01@000000fMWI0=WIf@3IfMT0
+00000380fMWI00000`3IfMT000000000000200000080fMWI00@000000=WIf@3IfMT00000203IfMT0
+10000000fMWI0=WIf@0000040=WIf@040000003IfMT0fMWI0=WIf@<000001@3IfMT00`000000fMWI
+0=WIf@0M0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0D`3IfMT00`000000fMWI
+0=WIf@020=WIf@030000003IfMT0fMWI03l0fMWI00D000000=WIf@3IfMT0fMWI0000000b0=WIf@00
+1`3IfMT010000000fMWI0=WIf@0000080=WIf@040000003IfMT0fMWI000000D0fMWI00@000000=WI
+f@3IfMT000001`3IfMT00`000000fMWI0=WIf@0M0=WIf@030000003IfMT0fMWI0080fMWI00<00000
+0=WIf@3IfMT0D`3IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI03l0fMWI00D00000
+0=WIf@3IfMT0fMWI0000000b0=WIf@001`3IfMT010000000fMWI0=WIf@0000080=WIf@040000003I
+fMT0fMWI00000080fMWI00@000000=WIf@3IfMT000000P3IfMT00`000000fMWI0=WIf@050=WIf@03
+0000003IfMT0fMWI01d0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@1C0=WIf@03
+0000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0?P3IfMT00`000000fMWI0=WIf@020=WIf@03
+0000003IfMT0fMWI0300fMWI00080=WIf@8000002P3IfMT2000000<0fMWI100000020=WIf@@00000
+103IfMT2000001h0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@1C0=WIf@030000
+003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0?P3IfMT00`000000fMWI0=WIf@020=WIf@030000
+003IfMT0fMWI0300fMWI000W0=WIf@030000003IfMT0fMWI01d0fMWI00<000000=WIf@3IfMT00P3I
+fMT00`000000fMWI0=WIf@1C0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0?P3I
+fMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI0300fMWI000W0=WIf@030000003IfMT0
+fMWI01d0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@1C0=WIf@030000003IfMT0
+fMWI00<0fMWI00<000000=WIf@3IfMT0?@3IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0
+fMWI0300fMWI000W0=WIf@030000003IfMT0fMWI01`0fMWI00<000000=WIf@3IfMT00`3IfMT00`00
+0000fMWI0=WIf@1C0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT0?@3IfMT00`00
+0000fMWI0=WIf@020=WIf@030000003IfMT0fMWI0300fMWI000W0=WIf@8000007@3IfMT00`000000
+fMWI0=WIf@040=WIf@030000003IfMT0fMWI0580fMWI00<000000=WIf@3IfMT00`3IfMT00`000000
+fMWI0=WIf@0m0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT0;`3IfMT002L0fMWI
+00<000000=WIf@3IfMT0703IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI0580fMWI
+00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@0m0=WIf@030000003IfMT0fMWI00<0fMWI
+00<000000=WIf@3IfMT0;`3IfMT002L0fMWI00<000000=WIf@3IfMT0703IfMT00`000000fMWI0=WI
+f@040=WIf@030000003IfMT0fMWI0580fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WI
+f@0m0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT0;`3IfMT002L0fMWI00<00000
+0=WIf@3IfMT0703IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI0580fMWI00<00000
+0=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@0m0=WIf@030000003IfMT0fMWI00<0fMWI00<00000
+0=WIf@3IfMT0;`3IfMT002L0fMWI0P00000M0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WI
+f@3IfMT0DP3IfMT00`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI03d0fMWI00<000000=WI
+f@3IfMT00`3IfMT00`000000fMWI0=WIf@0_0=WIf@009`3IfMT00`000000fMWI0=WIf@0L0=WIf@03
+0000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0DP3IfMT00`000000fMWI0=WIf@030=WIf@03
+0000003IfMT0fMWI03d0fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@0_0=WIf@00
+9`3IfMT00`000000fMWI0=WIf@0L0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0
+DP3IfMT00`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI03d0fMWI00<000000=WIf@3IfMT0
+0`3IfMT00`000000fMWI0=WIf@0_0=WIf@009`3IfMT00`000000fMWI0=WIf@0L0=WIf@030000003I
+fMT0fMWI00@0fMWI00<000000=WIf@3IfMT0DP3IfMT00`000000fMWI0=WIf@030=WIf@030000003I
+fMT0fMWI03`0fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0_0=WIf@009`3IfMT2
+000001d0fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@1A0=WIf@030000003IfMT0
+fMWI00D0fMWI00<000000=WIf@3IfMT0>`3IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0
+fMWI02l0fMWI000W0=WIf@030000003IfMT0fMWI01`0fMWI00<000000=WIf@3IfMT0103IfMT00`00
+0000fMWI0=WIf@1A0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0>`3IfMT00`00
+0000fMWI0=WIf@040=WIf@030000003IfMT0fMWI02l0fMWI000>0=WIf@800000103IfMT00`000000
+fMWI0=WIf@030=WIf@8000000`3IfMT3000000D0fMWI00<000000=WIf@3IfMT0703IfMT00`000000
+fMWI0=WIf@040=WIf@030000003IfMT0fMWI0540fMWI00<000000=WIf@3IfMT01@3IfMT00`000000
+fMWI0=WIf@0k0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0;`3IfMT000d0fMWI
+00@000000=WIf@3IfMT00000203IfMT010000000fMWI0=WIf@0000050=WIf@030000003IfMT0fMWI
+0080fMWI00<000000=WIf@3IfMT06`3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI
+0540fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0k0=WIf@030000003IfMT0fMWI
+00@0fMWI00<000000=WIf@3IfMT0;`3IfMT000d0fMWI00@000000=WIf@3IfMT00000203IfMT01000
+0000fMWI0=WIf@0000050=WIf@030000003IfMT0fMWI0080fMWI0P00000L0=WIf@030000003IfMT0
+fMWI00H0fMWI00<000000=WIf@3IfMT0D03IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0
+fMWI03/0fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0^0=WIf@001`3IfMT40000
+0080fMWI00@000000=WIf@3IfMT00000203IfMT010000000fMWI0=WIf@0000020=WIf@<000001@3I
+fMT00`000000fMWI0=WIf@0K0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT0D03I
+fMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI03/0fMWI00<000000=WIf@3IfMT01@3I
+fMT00`000000fMWI0=WIf@0^0=WIf@003@3IfMT010000000fMWI0=WIf@0000080=WIf@040000003I
+fMT0fMWI00000080fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0K0=WIf@030000
+003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT0D03IfMT00`000000fMWI0=WIf@050=WIf@030000
+003IfMT0fMWI03/0fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0^0=WIf@003@3I
+fMT010000000fMWI0=WIf@0000080=WIf@040000003IfMT0fMWI00000080fMWI00<000000=WIf@3I
+fMT01@3IfMT00`000000fMWI0=WIf@0K0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3I
+fMT0D03IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI03/0fMWI00<000000=WIf@3I
+fMT01@3IfMT00`000000fMWI0=WIf@0^0=WIf@003P3IfMT2000000X0fMWI0P0000030=WIf@@00000
+103IfMT2000001`0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@1@0=WIf@030000
+003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0>`3IfMT00`000000fMWI0=WIf@050=WIf@030000
+003IfMT0fMWI02h0fMWI000W0=WIf@030000003IfMT0fMWI01/0fMWI00<000000=WIf@3IfMT01P3I
+fMT00`000000fMWI0=WIf@1@0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0>`3I
+fMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI02h0fMWI000W0=WIf@030000003IfMT0
+fMWI01/0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0?0=WIf@800000:`3IfMT3
+00000140fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0k0=WIf@030000003IfMT0
+fMWI00D0fMWI00<000000=WIf@3IfMT03`3IfMT2000001d0fMWI000W0=WIf@030000003IfMT0fMWI
+01/0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0>0=WIf@80000000<0fMWI0000
+003IfMT0:@3IfMT00`000000fMWI0000000A0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WI
+f@3IfMT0>`3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI00l0fMWI00<000000=WI
+f@000000703IfMT002L0fMWI0P00000L0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3I
+fMT03P3IfMT010000000fMWI0=WIf@00000Z0=WIf@030000003IfMT000000140fMWI00<000000=WI
+f@3IfMT01P3IfMT00`000000fMWI0=WIf@0j0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WI
+f@3IfMT03P3IfMT010000000fMWI0=WIf@00000L0=WIf@009`3IfMT00`000000fMWI0=WIf@0K0=WI
+f@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT03P3IfMT010000000fMWI0=WIf@00000Y
+0=WIf@050000003IfMT0fMWI0=WIf@000000403IfMT00`000000fMWI0=WIf@060=WIf@030000003I
+fMT0fMWI03T0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0>0=WIf@050000003I
+fMT0fMWI0=WIf@0000006`3IfMT002L0fMWI00<000000=WIf@3IfMT06`3IfMT00`000000fMWI0=WI
+f@060=WIf@030000003IfMT0fMWI00h0fMWI00@000000=WIf@3IfMT00000:@3IfMT01@000000fMWI
+0=WIf@3IfMT000000100fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0i0=WIf@03
+0000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT03P3IfMT01@000000fMWI0=WIf@3IfMT00000
+01/0fMWI000W0=WIf@030000003IfMT0fMWI01/0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000
+fMWI0=WIf@0>0=WIf@050000003IfMT0fMWI0=WIf@000000:03IfMT01@000000fMWI0=WIf@3IfMT0
+00000100fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0i0=WIf@030000003IfMT0
+fMWI00H0fMWI00<000000=WIf@3IfMT03P3IfMT01@000000fMWI0=WIf@3IfMT0000001/0fMWI000W
+0=WIf@800000703IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI00h0fMWI00D00000
+0=WIf@3IfMT0fMWI0000000W0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT03P3I
+fMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI03T0fMWI00<000000=WIf@3IfMT01P3I
+fMT00`000000fMWI0=WIf@0>0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0603I
+fMT002L0fMWI00<000000=WIf@3IfMT06`3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0
+fMWI00d0fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@0T0=WIf@030000003IfMT0
+fMWI0080fMWI00<000000=WIf@3IfMT03P3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0
+fMWI03T0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0=0=WIf@030000003IfMT0
+fMWI00<0fMWI00<000000=WIf@3IfMT0603IfMT002L0fMWI00<000000=WIf@3IfMT06`3IfMT00`00
+0000fMWI0=WIf@060=WIf@030000003IfMT0fMWI00d0fMWI00<000000=WIf@3IfMT00`3IfMT00`00
+0000fMWI0=WIf@0T0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT03@3IfMT00`00
+0000fMWI0=WIf@060=WIf@030000003IfMT0fMWI03T0fMWI00<000000=WIf@3IfMT01P3IfMT00`00
+0000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT0603IfMT002L0
+fMWI00<000000=WIf@3IfMT06`3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI00d0
+fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@0T0=WIf@030000003IfMT0fMWI00<0
+fMWI00<000000=WIf@3IfMT03@3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI03T0
+fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00<0
+fMWI00<000000=WIf@3IfMT0603IfMT002L0fMWI0P00000K0=WIf@030000003IfMT0fMWI00L0fMWI
+00<000000=WIf@3IfMT03@3IfMT00`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI02<0fMWI
+00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00H0fMWI
+00<000000=WIf@3IfMT0>@3IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI00`0fMWI
+00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@0H0=WIf@009`3IfMT00`000000fMWI0=WI
+f@0J0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WI
+f@050=WIf@030000003IfMT0fMWI0280fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WI
+f@0=0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT0>@3IfMT00`000000fMWI0=WI
+f@070=WIf@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WI
+f@0G0=WIf@00203IfMT2000000@0fMWI00<000000=WIf@3IfMT00`3IfMT2000000<0fMWI10000002
+0=WIf@<000001@3IfMT00`000000fMWI0=WIf@0J0=WIf@030000003IfMT0fMWI00L0fMWI00<00000
+0=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI0280fMWI00<00000
+0=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00H0fMWI00<00000
+0=WIf@3IfMT0>@3IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI00/0fMWI00<00000
+0=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0G0=WIf@001`3IfMT010000000fMWI0=WIf@000008
+0=WIf@040000003IfMT0fMWI00000080fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WI
+f@020=WIf@030000003IfMT0fMWI01X0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WI
+f@0<0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT08P3IfMT00`000000fMWI0=WI
+f@040=WIf@030000003IfMT0fMWI00d0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WI
+f@0i0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WI
+f@050=WIf@030000003IfMT0fMWI01L0fMWI00070=WIf@040000003IfMT0fMWI000000P0fMWI00@0
+00000=WIf@3IfMT000000`3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI0080fMWI
+0P00000K0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI
+0=WIf@050=WIf@030000003IfMT0fMWI0240fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI
+0=WIf@0=0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0>03IfMT00`000000fMWI
+0=WIf@070=WIf@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI
+0=WIf@0G0=WIf@0000<0fMWI0000000000000P0000020=WIf@040000003IfMT0fMWI000000P0fMWI
+00@000000=WIf@3IfMT00000103IfMT010000000fMWI0=WIf@3IfMT3000000D0fMWI00<000000=WI
+f@3IfMT06P3IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI00`0fMWI00<000000=WI
+f@3IfMT01@3IfMT00`000000fMWI0=WIf@0Q0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WI
+f@3IfMT03@3IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI03P0fMWI00<000000=WI
+f@3IfMT01`3IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WI
+f@3IfMT05`3IfMT000L0fMWI00@000000=WIf@3IfMT00000203IfMT010000000fMWI0=WIf@000005
+0=WIf@040000003IfMT0fMWI000000L0fMWI00<000000=WIf@3IfMT06P3IfMT00`000000fMWI0=WI
+f@070=WIf@030000003IfMT0fMWI00`0fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WI
+f@0Q0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WI
+f@070=WIf@030000003IfMT0fMWI03L0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WI
+f@0;0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT05`3IfMT000L0fMWI00@00000
+0=WIf@3IfMT00000203IfMT010000000fMWI0=WIf@0000020=WIf@040000003IfMT0fMWI00000080
+fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0J0=WIf@030000003IfMT0fMWI00L0
+fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI0200
+fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI00L0
+fMWI00<000000=WIf@3IfMT0=`3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI00/0
+fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0F0=WIf@00203IfMT2000000X0fMWI
+0P0000040=WIf@8000000`3IfMT4000000@0fMWI0P00000K0=WIf@030000003IfMT0fMWI00L0fMWI
+00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI01l0fMWI
+00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI00L0fMWI
+00<000000=WIf@3IfMT0=`3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI00/0fMWI
+00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0F0=WIf@009`3IfMT00`000000fMWI0=WI
+f@0J0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WI
+f@060=WIf@030000003IfMT0fMWI01l0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WI
+f@0<0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0=`3IfMT00`000000fMWI0=WI
+f@080=WIf@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WI
+f@0F0=WIf@009`3IfMT00`000000fMWI0=WIf@0J0=WIf@030000003IfMT0fMWI00L0fMWI00<00000
+0=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI01l0fMWI00<00000
+0=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI00P0fMWI00<00000
+0=WIf@3IfMT0=`3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI00/0fMWI00<00000
+0=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0F0=WIf@009`3IfMT00`000000fMWI0=WIf@0J0=WI
+f@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@080=WI
+f@030000003IfMT0fMWI01h0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0;0=WI
+f@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT0=`3IfMT00`000000fMWI0=WIf@080=WI
+f@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0E0=WI
+f@009`3IfMT2000001/0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0;0=WIf@03
+0000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT07@3IfMT00`000000fMWI0=WIf@080=WIf@03
+0000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0g0=WIf@03
+0000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@070=WIf@03
+0000003IfMT0fMWI01D0fMWI000W0=WIf@030000003IfMT0fMWI01X0fMWI00<000000=WIf@3IfMT0
+1`3IfMT00`000000fMWI0=WIf@070=WIf@D000002P3IfMT00`000000fMWI0=WIf@0M0=WIf@030000
+003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@0;0=WIf@030000
+003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT04P3IfMT2000002<0fMWI00<000000=WIf@3IfMT0
+203IfMT00`000000fMWI0=WIf@02000000T0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI
+0=WIf@0E0=WIf@009`3IfMT00`000000fMWI0=WIf@0J0=WIf@030000003IfMT0fMWI00L0fMWI00<0
+00000=WIf@3IfMT01`3IfMT01@000000fMWI0=WIf@3IfMT0000000X0fMWI00<000000=WIf@3IfMT0
+7@3IfMT00`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0
+2`3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI0140fMWI00@000000=WIf@3IfMT0
+00008P3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT000000080fMWI00<000000=WIf@3I
+fMT01P3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI01@0fMWI000W0=WIf@030000
+003IfMT0fMWI01X0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@080=WIf@040000
+003IfMT0fMWI000000/0fMWI00<000000=WIf@3IfMT0703IfMT00`000000fMWI0=WIf@05000000<0
+fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI0140
+fMWI00@000000=WIf@3IfMT000008P3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT00000
+0080fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI
+01@0fMWI000W0=WIf@8000006`3IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI00T0
+fMWI00<000000=WIf@0000002`3IfMT00`000000fMWI0=WIf@0L0=WIf@040000003IfMT0fMWI0000
+0080fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI
+00P0fMWI00<000000=WIf@3IfMT04@3IfMT3000002<0fMWI00<000000=WIf@3IfMT0203IfMT00`00
+0000fMWI0=WIf@02000000T0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0D0=WI
+f@009`3IfMT00`000000fMWI0=WIf@0J0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3I
+fMT02@3IfMT2000000/0fMWI00<000000=WIf@3IfMT06`3IfMT00`000000fMWI0=WIf@020=WIf@03
+0000003IfMT0000000@0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@080=WIf@03
+0000003IfMT0fMWI0140fMWI00<000000=WIf@3IfMT08`3IfMT00`000000fMWI0=WIf@080=WIf@03
+0000003IfMT000000080fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@090=WIf@03
+0000003IfMT0fMWI01@0fMWI000W0=WIf@030000003IfMT0fMWI01X0fMWI00<000000=WIf@3IfMT0
+203IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI008000002`3IfMT00`000000fMWI
+0=WIf@0K0=WIf@030000003IfMT0fMWI00<0fMWI0P0000040=WIf@030000003IfMT0fMWI00/0fMWI
+00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0A0=WIf@030000003IfMT0fMWI0280fMWI
+00<000000=WIf@3IfMT02@3IfMT00`000000fMWI000000020=WIf@030000003IfMT0fMWI00D0fMWI
+00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0C0=WIf@009`3IfMT00`000000fMWI0=WI
+f@0I0=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT01`3IfMT2000000030=WIf@00
+0000fMWI00/0fMWI00<000000=WIf@3IfMT06P3IfMT00`000000fMWI0=WIf@040=WIf@030000003I
+fMT0fMWI00<0fMWI00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@090=WIf@030000003I
+fMT0fMWI0140fMWI0`00000Q0=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT00P00
+00080=WIf@030000003IfMT0fMWI00X0fMWI00<000000=WIf@3IfMT04`3IfMT002L0fMWI0P00000J
+0=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0:
+0=WIf@030000003IfMT0fMWI01X0fMWI00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0:
+0=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT0=@3IfMT00`000000fMWI0=WIf@09
+0=WIf@030000003IfMT0fMWI00X0fMWI00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0C
+0=WIf@009`3IfMT00`000000fMWI0=WIf@0I0=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WI
+f@3IfMT02P3IfMT00`000000fMWI0=WIf@0:0=WIf@030000003IfMT0fMWI01X0fMWI00<000000=WI
+f@3IfMT02P3IfMT00`000000fMWI0=WIf@0:0=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WI
+f@3IfMT0=@3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00X0fMWI00<000000=WI
+f@3IfMT02`3IfMT00`000000fMWI0=WIf@0B0=WIf@009`3IfMT00`000000fMWI0=WIf@0I0=WIf@03
+0000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0;0=WIf@03
+0000003IfMT0fMWI01P0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@0:0=WIf@03
+0000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT0=@3IfMT00`000000fMWI0=WIf@090=WIf@03
+0000003IfMT0fMWI00X0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@0B0=WIf@00
+9`3IfMT00`000000fMWI0=WIf@0I0=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT0
+2@3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI01P0fMWI00<000000=WIf@3IfMT0
+2`3IfMT00`000000fMWI0=WIf@0:0=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT0
+=@3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00X0fMWI00<000000=WIf@3IfMT0
+2`3IfMT00`000000fMWI0=WIf@0B0=WIf@008@3IfMWo000000009`3IfMT00`000000fMWI0=WIf@06
+0=WIf@8000004@3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00P0fMWI0P00000?
+0=WIf@030000003IfMT0fMWI01H0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@03
+0=WIf@030000003IfMT0fMWI00X0fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@0?
+0=WIf@040000003IfMT0fMWI000000l0fMWI0P00000A0=WIf@030000003IfMT0fMWI00T0fMWI00D0
+00000=WIf@3IfMT0fMWI000000080=WIf@030000003IfMT0fMWI00`0fMWI00<000000=WIf@3IfMT0
+4@3IfMT002L0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0>0=WIf@030000003I
+fMT0fMWI00T0fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@0>0=WIf@030000003I
+fMT0fMWI01@0fMWI00<000000=WIf@3IfMT03@3IfMT00`000000fMWI0=WIf@0:0=WIf@030000003I
+fMT0fMWI00T0fMWI00<000000=WIf@3IfMT03P3IfMT00`000000fMWI0=WIf@0C0=WIf@030000003I
+fMT0fMWI00h0fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@0:0=WIf@030000003I
+fMT0fMWI00d0fMWI00<000000=WIf@3IfMT0403IfMT002L0fMWI00<000000=WIf@3IfMT0203IfMT0
+0`000000fMWI0=WIf@0>0=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT02@3IfMT0
+0`000000fMWI0=WIf@0>0=WIf@030000003IfMT0fMWI01<0fMWI00<000000=WIf@3IfMT03P3IfMT0
+0`000000fMWI0=WIf@0:0=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT03@3IfMT0
+0`000000fMWI0=WIf@0E0=WIf@030000003IfMT0fMWI00d0fMWI00<000000=WIf@3IfMT02P3IfMT0
+0`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00d0fMWI00<000000=WIf@3IfMT0403IfMT0
+02L0fMWI0P00000:0=WIf@030000003IfMT0fMWI00d0fMWI00<000000=WIf@3IfMT02@3IfMT00`00
+0000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00l0fMWI0P00000B0=WIf@800000403IfMT00`00
+0000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00X0fMWI00<000000=WIf@3IfMT03@3IfMT00`00
+0000fMWI0=WIf@0E0=WIf@030000003IfMT0fMWI00d0fMWI00<000000=WIf@3IfMT02P3IfMT00`00
+0000fMWI0=WIf@080=WIf@030000003IfMT0fMWI00l0fMWI0P00000@0=WIf@009`3IfMT00`000000
+fMWI0=WIf@090=WIf@030000003IfMT0fMWI00d0fMWI00<000000=WIf@3IfMT02@3IfMT00`000000
+fMWI0=WIf@090=WIf@030000003IfMT0fMWI0100fMWI0`00000=0=WIf@<000004P3IfMT00`000000
+fMWI0=WIf@090=WIf@030000003IfMT0fMWI00X0fMWI00<000000=WIf@3IfMT03@3IfMT00`000000
+fMWI0=WIf@0E0=WIf@030000003IfMT0fMWI00d0fMWI00<000000=WIf@3IfMT02P3IfMT00`000000
+fMWI0=WIf@080=WIf@030000003IfMT0fMWI0100fMWI1000000=0=WIf@009`3IfMT00`000000fMWI
+0=WIf@0:0=WIf@030000003IfMT0fMWI00`0fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI
+0=WIf@090=WIf@030000003IfMT0fMWI01<0fMWI3P00000D0=WIf@030000003IfMT0fMWI00T0fMWI
+00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI01L0fMWI
+00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@0:0=WIf@030000003IfMT0fMWI00P0fMWI
+00<000000=WIf@3IfMT04`3IfMT7000000L0fMWI000W0=WIf@030000003IfMT0fMWI00X0fMWI00<0
+00000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00T0fMWI00<0
+00000=WIf@3IfMT0=@3IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00X0fMWI00<0
+00000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@0G0=WIf@030000003IfMT0fMWI00`0fMWI00<0
+00000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI0240fMWI000W
+0=WIf@800000303IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI00T0fMWI00<00000
+0=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@0e0=WIf@030000003IfMT0fMWI00T0fMWI00<00000
+0=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI01T0fMWI00<00000
+0=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@0:0=WIf@030000003IfMT0fMWI00P0fMWI00<00000
+0=WIf@3IfMT08@3IfMT002L0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@0:0=WI
+f@030000003IfMT0fMWI00X0fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@0f0=WI
+f@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0;0=WI
+f@030000003IfMT0fMWI01T0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@0:0=WI
+f@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT08@3IfMT002L0fMWI00<000000=WIf@3I
+fMT02`3IfMT00`000000fMWI0=WIf@0:0=WIf@030000003IfMT0fMWI00X0fMWI00<000000=WIf@3I
+fMT02@3IfMT00`000000fMWI0=WIf@0f0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3I
+fMT02P3IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI01T0fMWI00<000000=WIf@3I
+fMT02P3IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3I
+fMT08@3IfMT002L0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@090=WIf@030000
+003IfMT0fMWI00X0fMWI00<000000=WIf@3IfMT02@3IfMT00`000000fMWI0=WIf@0f0=WIf@030000
+003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@090=WIf@030000
+003IfMT0fMWI01X0fMWI00<000000=WIf@3IfMT02P3IfMT00`000000fMWI0=WIf@0;0=WIf@030000
+003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT08@3IfMT002L0fMWI0P00000=0=WIf@030000003I
+fMT0fMWI00T0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@080=WIf@030000003I
+fMT0fMWI03H0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0;0=WIf@030000003I
+fMT0fMWI00T0fMWI00<000000=WIf@3IfMT06`3IfMT00`000000fMWI0=WIf@090=WIf@030000003I
+fMT0fMWI00/0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0Q0=WIf@009`3IfMT0
+0`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI00T0fMWI00<000000=WIf@3IfMT02`3IfMT0
+0`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI03H0fMWI00<000000=WIf@3IfMT0203IfMT0
+0`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT0703IfMT0
+0`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT01`3IfMT0
+0`000000fMWI0=WIf@0R0=WIf@009`3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI
+00T0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI
+03H0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI
+00P0fMWI00<000000=WIf@3IfMT0703IfMT00`000000fMWI0=WIf@090=WIf@030000003IfMT0fMWI
+00/0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0R0=WIf@009`3IfMT00`000000
+fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000
+fMWI0=WIf@070=WIf@030000003IfMT0fMWI03L0fMWI00<000000=WIf@3IfMT0203IfMT00`000000
+fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT0703IfMT00`000000
+fMWI0=WIf@090=WIf@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000
+fMWI0=WIf@0R0=WIf@009`3IfMT2000000h0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI
+0=WIf@0;0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0=`3IfMT00`000000fMWI
+0=WIf@080=WIf@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT0203IfMT00`000000fMWI
+0=WIf@0M0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI
+0=WIf@070=WIf@030000003IfMT0fMWI0280fMWI000W0=WIf@030000003IfMT0fMWI00d0fMWI00<0
+00000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI00L0fMWI00<0
+00000=WIf@3IfMT0=`3IfMT00`000000fMWI0=WIf@080=WIf@030000003IfMT0fMWI00/0fMWI00<0
+00000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0N0=WIf@030000003IfMT0fMWI00P0fMWI00<0
+00000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI0280fMWI0008
+0=WIf@800000103IfMT00`000000fMWI0=WIf@030=WIf@8000000`3IfMT400000080fMWI0`000005
+0=WIf@030000003IfMT0fMWI00d0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0<
+0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0=`3IfMT00`000000fMWI0=WIf@08
+0=WIf@030000003IfMT0fMWI00/0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0N
+0=WIf@030000003IfMT0fMWI00P0fMWI00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@07
+0=WIf@030000003IfMT0fMWI0280fMWI00070=WIf@040000003IfMT0fMWI000000P0fMWI00@00000
+0=WIf@3IfMT000000P3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI0080fMWI00<0
+00000=WIf@3IfMT03P3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI00`0fMWI00<0
+00000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0g0=WIf@030000003IfMT0fMWI00P0fMWI00<0
+00000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI01h0fMWI00<0
+00000=WIf@3IfMT0203IfMT00`000000fMWI0=WIf@0;0=WIf@030000003IfMT0fMWI00L0fMWI00<0
+00000=WIf@3IfMT08P3IfMT000L0fMWI00@000000=WIf@3IfMT00000203IfMT010000000fMWI0=WI
+f@0000030=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT00P3IfMT2000000l0fMWI
+00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI00L0fMWI
+00<000000=WIf@3IfMT0>03IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI00/0fMWI
+00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0O0=WIf@030000003IfMT0fMWI00L0fMWI
+00<000000=WIf@3IfMT02`3IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI0280fMWI
+00070=WIf@040000003IfMT0fMWI000000P0fMWI00@000000=WIf@3IfMT00000103IfMT010000000
+fMWI0=WIf@3IfMT3000000D0fMWI00<000000=WIf@3IfMT03P3IfMT00`000000fMWI0=WIf@060=WI
+f@030000003IfMT0fMWI00`0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0h0=WI
+f@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@060=WI
+f@030000003IfMT0fMWI01l0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0;0=WI
+f@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT08P3IfMT000L0fMWI00@000000=WIf@3I
+fMT00000203IfMT010000000fMWI0=WIf@0000050=WIf@040000003IfMT0fMWI000000L0fMWI00<0
+00000=WIf@3IfMT03P3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI00`0fMWI00<0
+00000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0h0=WIf@030000003IfMT0fMWI00L0fMWI00<0
+00000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI01l0fMWI00<0
+00000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI00L0fMWI00<0
+00000=WIf@3IfMT08P3IfMT000L0fMWI00@000000=WIf@3IfMT00000203IfMT010000000fMWI0=WI
+f@0000020=WIf@040000003IfMT0fMWI00000080fMWI00<000000=WIf@3IfMT01@3IfMT00`000000
+fMWI0=WIf@0?0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0303IfMT00`000000
+fMWI0=WIf@070=WIf@030000003IfMT0fMWI03P0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000
+fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0803IfMT00`000000
+fMWI0=WIf@060=WIf@030000003IfMT0fMWI00`0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000
+fMWI0=WIf@0R0=WIf@00203IfMT2000000X0fMWI0P0000040=WIf@8000000`3IfMT4000000@0fMWI
+0P00000@0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI
+0=WIf@070=WIf@030000003IfMT0fMWI03P0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI
+0=WIf@0<0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT08@3IfMT00`000000fMWI
+0=WIf@050=WIf@030000003IfMT0fMWI00`0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI
+0=WIf@0R0=WIf@009`3IfMT00`000000fMWI0=WIf@0?0=WIf@030000003IfMT0fMWI00D0fMWI00<0
+00000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@070=WIf@030000003IfMT0fMWI03P0fMWI00<0
+00000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI00D0fMWI00<0
+00000=WIf@3IfMT08@3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI00`0fMWI00<0
+00000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0R0=WIf@009`3IfMT00`000000fMWI0=WIf@0?
+0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@07
+0=WIf@030000003IfMT0fMWI03P0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0<
+0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT08@3IfMT00`000000fMWI0=WIf@05
+0=WIf@030000003IfMT0fMWI00`0fMWI00<000000=WIf@3IfMT01`3IfMT00`000000fMWI0=WIf@0R
+0=WIf@009`3IfMT200000100fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0<0=WI
+f@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0>03IfMT00`000000fMWI0=WIf@070=WI
+f@030000003IfMT0fMWI00`0fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0Q0=WI
+f@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0303IfMT00`000000fMWI0=WIf@070=WI
+f@030000003IfMT0fMWI0280fMWI000W0=WIf@030000003IfMT0fMWI0100fMWI00<000000=WIf@3I
+fMT0103IfMT00`000000fMWI0=WIf@0<0=WIf@030000003IfMT0fMWI00L0fMWI00<000000=WIf@3I
+fMT0>03IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI00d0fMWI00<000000=WIf@3I
+fMT01@3IfMT00`000000fMWI0=WIf@0Q0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3I
+fMT03@3IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI02<0fMWI000W0=WIf@030000
+003IfMT0fMWI0100fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0<0=WIf@030000
+003IfMT0fMWI00L0fMWI00<000000=WIf@3IfMT0>03IfMT00`000000fMWI0=WIf@060=WIf@030000
+003IfMT0fMWI00d0fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0S0=WIf@030000
+003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT03@3IfMT00`000000fMWI0=WIf@060=WIf@030000
+003IfMT0fMWI02<0fMWI000W0=WIf@030000003IfMT0fMWI0100fMWI00<000000=WIf@3IfMT00`3I
+fMT00`000000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT0>@3I
+fMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI00d0fMWI00<000000=WIf@3IfMT0103I
+fMT00`000000fMWI0=WIf@0S0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT03@3I
+fMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI02<0fMWI000W0=WIf@8000004@3IfMT0
+0`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI00d0fMWI00<000000=WIf@3IfMT01P3IfMT0
+0`000000fMWI0=WIf@0i0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT03P3IfMT0
+0`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI02<0fMWI00<000000=WIf@3IfMT00`3IfMT0
+0`000000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT08`3IfMT0
+02L0fMWI00<000000=WIf@3IfMT0403IfMT00`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI
+00d0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000fMWI0=WIf@0i0=WIf@030000003IfMT0fMWI
+00H0fMWI00<000000=WIf@3IfMT03P3IfMT00`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI
+02<0fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI
+00H0fMWI00<000000=WIf@3IfMT08`3IfMT002L0fMWI00<000000=WIf@3IfMT04@3IfMT00`000000
+fMWI0=WIf@020=WIf@030000003IfMT0fMWI00d0fMWI00<000000=WIf@3IfMT01P3IfMT00`000000
+fMWI0=WIf@0i0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT03P3IfMT00`000000
+fMWI0=WIf@020=WIf@030000003IfMT0fMWI02D0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000
+fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT08`3IfMT002L0fMWI
+00<000000=WIf@3IfMT04@3IfMT01@000000fMWI0=WIf@3IfMT000000100fMWI00<000000=WIf@3I
+fMT01P3IfMT00`000000fMWI0=WIf@0i0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3I
+fMT03P3IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI02D0fMWI00<000000=WIf@3I
+fMT00P3IfMT00`000000fMWI0=WIf@0=0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3I
+fMT08`3IfMT002L0fMWI0P00000B0=WIf@050000003IfMT0fMWI0=WIf@0000004@3IfMT00`000000
+fMWI0=WIf@050=WIf@030000003IfMT0fMWI03X0fMWI00<000000=WIf@3IfMT01@3IfMT00`000000
+fMWI0=WIf@0>0=WIf@050000003IfMT0fMWI0=WIf@000000:@3IfMT010000000fMWI0=WIf@00000@
+0=WIf@030000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT08`3IfMT002L0fMWI00<000000=WI
+f@3IfMT04P3IfMT010000000fMWI0=WIf@00000A0=WIf@030000003IfMT0fMWI00D0fMWI00<00000
+0=WIf@3IfMT0>P3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI00h0fMWI00D00000
+0=WIf@3IfMT0fMWI0000000Y0=WIf@040000003IfMT0fMWI00000100fMWI00<000000=WIf@3IfMT0
+1P3IfMT00`000000fMWI0=WIf@0S0=WIf@003P3IfMT2000000@0fMWI00<000000=WIf@3IfMT00`3I
+fMT2000000<0fMWI0`0000050=WIf@030000003IfMT0fMWI0180fMWI00@000000=WIf@3IfMT00000
+4@3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI03X0fMWI00<000000=WIf@3IfMT0
+1@3IfMT00`000000fMWI0=WIf@0?0=WIf@040000003IfMT0fMWI000002T0fMWI00@000000=WIf@3I
+fMT00000403IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI02<0fMWI000=0=WIf@04
+0000003IfMT0fMWI000000P0fMWI00@000000=WIf@3IfMT000001@3IfMT00`000000fMWI0=WIf@02
+0=WIf@030000003IfMT0fMWI0180fMWI00<000000=WIf@0000004P3IfMT00`000000fMWI0=WIf@05
+0=WIf@030000003IfMT0fMWI03X0fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0?
+0=WIf@030000003IfMT0000002X0fMWI0P0000000`3IfMT000000=WIf@0?0=WIf@030000003IfMT0
+fMWI00H0fMWI00<000000=WIf@3IfMT08`3IfMT000d0fMWI00@000000=WIf@3IfMT00000203IfMT0
+10000000fMWI0=WIf@0000050=WIf@030000003IfMT0fMWI0080fMWI0P00000D0=WIf@8000004P3I
+fMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI03X0fMWI00<000000=WIf@3IfMT01@3I
+fMT00`000000fMWI0=WIf@0@0=WIf@800000:`3IfMT200000140fMWI00<000000=WIf@3IfMT01P3I
+fMT00`000000fMWI0=WIf@0S0=WIf@003@3IfMT010000000fMWI0=WIf@0000080=WIf@040000003I
+fMT0fMWI00000080fMWI0`0000050=WIf@030000003IfMT0fMWI02L0fMWI00<000000=WIf@3IfMT0
+1@3IfMT00`000000fMWI0=WIf@0j0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0
+D03IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI02<0fMWI000=0=WIf@040000003I
+fMT0fMWI000000P0fMWI00@000000=WIf@3IfMT000000P3IfMT00`000000fMWI0=WIf@050=WIf@03
+0000003IfMT0fMWI02L0fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@0j0=WIf@03
+0000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0D03IfMT00`000000fMWI0=WIf@060=WIf@03
+0000003IfMT0fMWI02<0fMWI000=0=WIf@040000003IfMT0fMWI000000P0fMWI00@000000=WIf@3I
+fMT000000P3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI02L0fMWI00<000000=WI
+f@3IfMT0103IfMT00`000000fMWI0=WIf@0k0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WI
+f@3IfMT0D03IfMT00`000000fMWI0=WIf@060=WIf@030000003IfMT0fMWI02<0fMWI000>0=WIf@80
+00002P3IfMT2000000<0fMWI100000040=WIf@800000:03IfMT00`000000fMWI0=WIf@040=WIf@03
+0000003IfMT0fMWI03/0fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@1@0=WIf@03
+0000003IfMT0fMWI00H0fMWI00<000000=WIf@3IfMT08`3IfMT002L0fMWI00<000000=WIf@3IfMT0
+9`3IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI03/0fMWI00<000000=WIf@3IfMT0
+1@3IfMT00`000000fMWI0=WIf@1A0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT0
+8`3IfMT002L0fMWI00<000000=WIf@3IfMT09`3IfMT00`000000fMWI0=WIf@040=WIf@030000003I
+fMT0fMWI03/0fMWI00<000000=WIf@3IfMT01@3IfMT00`000000fMWI0=WIf@1A0=WIf@030000003I
+fMT0fMWI00D0fMWI00<000000=WIf@3IfMT08`3IfMT002L0fMWI00<000000=WIf@3IfMT09`3IfMT0
+0`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI03/0fMWI00<000000=WIf@3IfMT01@3IfMT0
+0`000000fMWI0=WIf@1A0=WIf@030000003IfMT0fMWI00D0fMWI00<000000=WIf@3IfMT08`3IfMT0
+02L0fMWI0P00000X0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0>`3IfMT00`00
+0000fMWI0=WIf@050=WIf@030000003IfMT0fMWI0540fMWI00<000000=WIf@3IfMT01@3IfMT00`00
+0000fMWI0=WIf@0S0=WIf@009`3IfMT00`000000fMWI0=WIf@0W0=WIf@030000003IfMT0fMWI00@0
+fMWI00<000000=WIf@3IfMT0>`3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0fMWI0540
+fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0T0=WIf@009`3IfMT00`000000fMWI
+0=WIf@0W0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0>`3IfMT00`000000fMWI
+0=WIf@050=WIf@030000003IfMT0fMWI0540fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI
+0=WIf@0T0=WIf@009`3IfMT00`000000fMWI0=WIf@0W0=WIf@030000003IfMT0fMWI00@0fMWI00<0
+00000=WIf@3IfMT0>`3IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI0580fMWI00<0
+00000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0T0=WIf@009`3IfMT2000002P0fMWI00<00000
+0=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0k0=WIf@030000003IfMT0fMWI00@0fMWI00<00000
+0=WIf@3IfMT0DP3IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI02@0fMWI000W0=WI
+f@030000003IfMT0fMWI02L0fMWI00<000000=WIf@3IfMT0103IfMT00`000000fMWI0=WIf@0k0=WI
+f@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0DP3IfMT00`000000fMWI0=WIf@040=WI
+f@030000003IfMT0fMWI02@0fMWI000W0=WIf@030000003IfMT0fMWI02L0fMWI00<000000=WIf@3I
+fMT0103IfMT00`000000fMWI0=WIf@0l0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3I
+fMT0DP3IfMT00`000000fMWI0=WIf@040=WIf@030000003IfMT0fMWI02@0fMWI000W0=WIf@030000
+003IfMT0fMWI02L0fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@0m0=WIf@030000
+003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT0DP3IfMT00`000000fMWI0=WIf@040=WIf@030000
+003IfMT0fMWI02@0fMWI000W0=WIf@800000:@3IfMT00`000000fMWI0=WIf@020=WIf@030000003I
+fMT0fMWI03d0fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@1B0=WIf@030000003I
+fMT0fMWI00@0fMWI00<000000=WIf@3IfMT0903IfMT002L0fMWI00<000000=WIf@3IfMT0:03IfMT0
+0`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI03d0fMWI00<000000=WIf@3IfMT00`3IfMT0
+0`000000fMWI0=WIf@1B0=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT0903IfMT0
+00P0fMWI0P0000040=WIf@030000003IfMT0fMWI00<0fMWI0P0000040=WIf@030000003IfMT0fMWI
+0080fMWI0`0000050=WIf@030000003IfMT0fMWI02P0fMWI00<000000=WIf@3IfMT00P3IfMT00`00
+0000fMWI0=WIf@0m0=WIf@030000003IfMT0fMWI00<0fMWI00<000000=WIf@3IfMT0D`3IfMT00`00
+0000fMWI0=WIf@030=WIf@030000003IfMT0fMWI02@0fMWI00070=WIf@040000003IfMT0fMWI0000
+00P0fMWI00@000000=WIf@3IfMT000000`3IfMT00`000000fMWI0=WIf@050=WIf@030000003IfMT0
+fMWI0080fMWI00<000000=WIf@3IfMT0:03IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0
+fMWI03d0fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@1C0=WIf@030000003IfMT0
+fMWI00<0fMWI00<000000=WIf@3IfMT0903IfMT000L0fMWI00@000000=WIf@3IfMT00000203IfMT0
+10000000fMWI0=WIf@0000040=WIf@030000003IfMT0fMWI00@0fMWI00<000000=WIf@3IfMT00P3I
+fMT2000002T0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@0m0=WIf@030000003I
+fMT0fMWI00<0fMWI00<000000=WIf@3IfMT0D`3IfMT00`000000fMWI0=WIf@030=WIf@030000003I
+fMT0fMWI02@0fMWI00070=WIf@040000003IfMT0fMWI000000P0fMWI00@000000=WIf@3IfMT00000
+103IfMT010000000fMWI0=WIf@3IfMT3000000D0fMWI00<000000=WIf@3IfMT0:03IfMT00`000000
+fMWI0=WIf@020=WIf@030000003IfMT0fMWI03d0fMWI00<000000=WIf@3IfMT00`3IfMT00`000000
+fMWI0=WIf@1C0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT09@3IfMT000L0fMWI
+00@000000=WIf@3IfMT00000203IfMT010000000fMWI0=WIf@0000050=WIf@040000003IfMT0fMWI
+000000L0fMWI00<000000=WIf@3IfMT0:03IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0
+fMWI03d0fMWI00<000000=WIf@3IfMT00`3IfMT00`000000fMWI0=WIf@1C0=WIf@030000003IfMT0
+fMWI0080fMWI00<000000=WIf@3IfMT09@3IfMT000L0fMWI00@000000=WIf@3IfMT00000203IfMT0
+10000000fMWI0=WIf@0000020=WIf@040000003IfMT0fMWI00000080fMWI00<000000=WIf@3IfMT0
+1@3IfMT00`000000fMWI0=WIf@0X0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0
+?@3IfMT00`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI05<0fMWI00<000000=WIf@3IfMT0
+0P3IfMT00`000000fMWI0=WIf@0U0=WIf@00203IfMT2000000X0fMWI0P0000030=WIf@@000000P3I
+fMT4000000@0fMWI0P00000Y0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0?@3I
+fMT00`000000fMWI0=WIf@030=WIf@030000003IfMT0fMWI05<0fMWI00<000000=WIf@3IfMT00P3I
+fMT00`000000fMWI0=WIf@0U0=WIf@009`3IfMT00`000000fMWI0=WIf@0X0=WIf@030000003IfMT0
+fMWI0080fMWI00<000000=WIf@3IfMT0?P3IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0
+fMWI05<0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@0U0=WIf@009`3IfMT00`00
+0000fMWI0=WIf@0X0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3IfMT0?P3IfMT00`00
+0000fMWI0=WIf@020=WIf@030000003IfMT0fMWI05<0fMWI00<000000=WIf@3IfMT00P3IfMT00`00
+0000fMWI0=WIf@0U0=WIf@009`3IfMT00`000000fMWI0=WIf@0X0=WIf@030000003IfMT0fMWI0080
+fMWI00<000000=WIf@3IfMT0?P3IfMT00`000000fMWI0=WIf@020=WIf@030000003IfMT0fMWI05<0
+fMWI00D000000=WIf@3IfMT0fMWI0000000X0=WIf@009`3IfMT2000002T0fMWI00<000000=WIf@3I
+fMT00P3IfMT00`000000fMWI0=WIf@0n0=WIf@030000003IfMT0fMWI0080fMWI00<000000=WIf@3I
+fMT0D`3IfMT01@000000fMWI0=WIf@3IfMT0000002P0fMWI000W0=WIf@030000003IfMT0fMWI02P0
+fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@0n0=WIf@030000003IfMT0fMWI0080
+fMWI00<000000=WIf@3IfMT0D`3IfMT01@000000fMWI0=WIf@3IfMT0000002P0fMWI000W0=WIf@03
+0000003IfMT0fMWI02P0fMWI00<000000=WIf@3IfMT00P3IfMT00`000000fMWI0=WIf@0n0=WIf@05
+0000003IfMT0fMWI0=WIf@000000EP3IfMT01@000000fMWI0=WIf@3IfMT0000002P0fMWI000W0=WI
+f@030000003IfMT0fMWI02P0fMWI00D000000=WIf@3IfMT0fMWI000000120=WIf@040000003IfMT0
+fMWI000005H0fMWI00D000000=WIf@3IfMT0fMWI0000000X0=WIf@009`3IfMT2000002X0fMWI00@0
+00000=WIf@3IfMT00000@P3IfMT010000000fMWI0=WIf@00001G0=WIf@040000003IfMT0fMWI0000
+02P0fMWI000W0=WIf@030000003IfMT0fMWI02T0fMWI00@000000=WIf@3IfMT00000@P3IfMT01000
+0000fMWI0=WIf@00001G0=WIf@040000003IfMT0fMWI000002P0fMWI000W0=WIf@030000003IfMT0
+fMWI02T0fMWI00@000000=WIf@3IfMT00000@P3IfMT010000000fMWI0=WIf@00001G0=WIf@040000
+003IfMT0fMWI000002P0fMWI000W0=WIf@030000003IfMT0fMWI02T0fMWI00<000000=WIf@000000
+@`3IfMT010000000fMWI0=WIf@00001G0=WIf@030000003IfMT0000002T0fMWI000W0=WIf@800000
+:P3IfMT00`000000fMWI000000130=WIf@040000003IfMT0fMWI000005L0fMWI00<000000=WIf@00
+0000:@3IfMT002L0fMWI00<000000=WIf@3IfMT0:@3IfMT00`000000fMWI000000140=WIf@800000
+F03IfMT3000002T0fMWI000D0=WIf@800000103IfMT00`000000fMWI0=WIf@020=WIf@@00000103I
+fMT00`000000fMWI0=WIf@0Z0=WIf@030000003IfMT0fMWI04<0fMWI0P00001I0=WIf@800000:@3I
+fMT001<0fMWI00@000000=WIf@3IfMT000002P3IfMT00`000000fMWI0=WIf@030=WIf@030000003I
+fMT0fMWI0?H0fMWI000C0=WIf@040000003IfMT0fMWI000000X0fMWI00<000000=WIf@3IfMT00`3I
+fMT200000?L0fMWI000C0=WIf@040000003IfMT0fMWI000000X0fMWI00<000000=WIf@3IfMT00`3I
+fMT00`000000fMWI0=WIf@3f0=WIf@004`3IfMT010000000fMWI0=WIf@00000:0=WIf@030000003I
+fMT0fMWI00<0fMWI00<000000=WIf@3IfMT0mP3IfMT001<0fMWI00@000000=WIf@3IfMT00000203I
+fMT300000?h0fMWI000D0=WIf@8000002`3IfMT00`000000fMWI0=WIf@3l0=WIf@00o`3IfMTQ0=WI
+f@00o`3IfMTQ0=WIf@00o`3IfMTQ0=WIf@00o`3IfMTQ0=WIf@00o`3IfMTQ0=WIf@00o`3IfMTQ0=WI
+f@00o`3IfMTQ0=WIf@00o`3IfMTQ0=WIf@00o`3IfMTQ0=WIf@00\
+\>"],
+  ImageRangeCache->{{{0, 287}, {176.938, 0}} -> {-1.52705, -0.105156, \
+0.0389807, 0.00125211}}],
+
+Cell[BoxData[
+    TagBox[\(\[SkeletonIndicator]  Graphics  \[SkeletonIndicator]\),
+      False,
+      Editable->False]], "Output",
+  CellLabel->"Out[77]="]
+}, Open  ]],
+
+Cell["\<\
+The two solution methods give the same solutions to the \
+differential equation, as expected.\
+\>", "Text"]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"4.0 for X",
+ScreenRectangle->{{0, 1600}, {0, 1200}},
+WindowSize->{1588, 1172},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+StyleDefinitions -> "ArticleModern.nb"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1739, 51, 1626, 45, 294, "Title"],
+
+Cell[CellGroupData[{
+Cell[3390, 100, 66, 2, 42, "Input"],
+Cell[3459, 104, 230, 4, 54, "Print"],
+Cell[3692, 110, 310, 5, 70, "Print"],
+Cell[4005, 117, 392, 7, 70, "Print"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4434, 129, 37, 0, 54, "Subsection"],
+Cell[4474, 131, 578, 18, 44, "Text"],
+
+Cell[CellGroupData[{
+Cell[5077, 153, 108, 2, 42, "Input"],
+Cell[5188, 157, 100, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5325, 164, 108, 2, 42, "Input"],
+Cell[5436, 168, 100, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5573, 175, 135, 3, 42, "Input"],
+Cell[5711, 180, 100, 2, 42, "Output"]
+}, Open  ]],
+Cell[5826, 185, 576, 21, 26, "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6439, 211, 44, 0, 54, "Subsection"],
+Cell[6486, 213, 437, 7, 44, "Text"],
+
+Cell[CellGroupData[{
+Cell[6948, 224, 106, 2, 42, "Input"],
+Cell[7057, 228, 96, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7190, 235, 77, 2, 42, "Input"],
+Cell[7270, 239, 692, 18, 42, "Output"]
+}, Open  ]],
+Cell[7977, 260, 271, 8, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[8273, 272, 81, 2, 42, "Input"],
+Cell[8357, 276, 73, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8467, 283, 81, 2, 42, "Input"],
+Cell[8551, 287, 73, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8661, 294, 128, 3, 42, "Input"],
+Cell[8792, 299, 128, 3, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8957, 307, 129, 3, 42, "Input"],
+Cell[9089, 312, 112, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9238, 319, 164, 3, 42, "Input"],
+Cell[9405, 324, 154, 3, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9596, 332, 211, 4, 42, "Input"],
+Cell[9810, 338, 199, 4, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10046, 347, 211, 4, 42, "Input"],
+Cell[10260, 353, 199, 4, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10496, 362, 211, 4, 42, "Input"],
+Cell[10710, 368, 199, 4, 42, "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10958, 378, 66, 0, 54, "Subsection"],
+Cell[11027, 380, 115, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[11167, 387, 96, 2, 42, "Input"],
+Cell[11266, 391, 467, 13, 60, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[11770, 409, 103, 2, 42, "Input"],
+Cell[11876, 413, 236, 6, 60, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12149, 424, 96, 2, 42, "Input"],
+Cell[12248, 428, 467, 13, 60, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12752, 446, 103, 2, 42, "Input"],
+Cell[12858, 450, 441, 12, 60, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[13336, 467, 96, 2, 42, "Input"],
+Cell[13435, 471, 1055, 26, 60, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14527, 502, 103, 2, 42, "Input"],
+Cell[14633, 506, 441, 12, 60, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[15111, 523, 96, 2, 42, "Input"],
+Cell[15210, 527, 1055, 26, 60, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[16302, 558, 104, 2, 42, "Input"],
+Cell[16409, 562, 441, 12, 60, "Output"]
+}, Open  ]],
+Cell[16865, 577, 314, 11, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[17204, 592, 168, 4, 42, "Input"],
+Cell[17375, 598, 2973, 72, 60, "Output"]
+}, Open  ]],
+Cell[20363, 673, 76, 0, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[20464, 677, 99, 2, 42, "Input"],
+Cell[20566, 681, 228, 4, 44, "Output"]
+}, Open  ]],
+Cell[20809, 688, 119, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[20953, 695, 96, 2, 42, "Input"],
+Cell[21052, 699, 560, 8, 74, "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[21661, 713, 28, 0, 54, "Subsection"],
+Cell[21692, 715, 471, 8, 44, "Text"],
+
+Cell[CellGroupData[{
+Cell[22188, 727, 93, 2, 42, "Input"],
+Cell[22284, 731, 81, 2, 42, "Output"]
+}, Open  ]],
+Cell[22380, 736, 47, 0, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[22452, 740, 99, 2, 42, "Input"],
+Cell[22554, 744, 86, 2, 42, "Output"]
+}, Open  ]],
+Cell[22655, 749, 52, 0, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[22732, 753, 146, 4, 42, "Input"],
+Cell[22881, 759, 74, 2, 42, "Output"]
+}, Open  ]],
+Cell[22970, 764, 95, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[23090, 771, 93, 2, 42, "Input"],
+Cell[23186, 775, 81, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[23304, 782, 103, 2, 42, "Input"],
+Cell[23410, 786, 96, 2, 60, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[23543, 793, 146, 4, 42, "Input"],
+Cell[23692, 799, 74, 2, 42, "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[23815, 807, 48, 0, 54, "Subsection"],
+Cell[23866, 809, 1018, 17, 62, "Text"],
+
+Cell[CellGroupData[{
+Cell[24909, 830, 160, 3, 42, "Input"],
+Cell[25072, 835, 146, 3, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[25255, 843, 150, 3, 42, "Input"],
+Cell[25408, 848, 136, 3, 42, "Output"]
+}, Open  ]],
+Cell[25559, 854, 240, 5, 26, "Text"],
+Cell[25802, 861, 100, 2, 42, "Input"],
+Cell[25905, 865, 101, 2, 42, "Input"],
+Cell[26009, 869, 92, 3, 26, "Text"],
+Cell[26104, 874, 138, 4, 42, "Input"],
+Cell[26245, 880, 146, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[26416, 887, 106, 2, 42, "Input"],
+Cell[26525, 891, 98, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[26660, 898, 116, 2, 42, "Input"],
+Cell[26779, 902, 152, 3, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[26968, 910, 83, 2, 42, "Input"],
+Cell[27054, 914, 74, 2, 42, "Output"]
+}, Open  ]],
+Cell[27143, 919, 309, 6, 42, "Input"],
+
+Cell[CellGroupData[{
+Cell[27477, 929, 82, 2, 42, "Input"],
+Cell[27562, 933, 74, 2, 42, "Output"]
+}, Open  ]],
+Cell[27651, 938, 91, 2, 42, "Input"],
+Cell[27745, 942, 68, 0, 26, "Text"],
+Cell[27816, 944, 75, 2, 42, "Input"],
+Cell[27894, 948, 104, 2, 42, "Input"],
+Cell[28001, 952, 98, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[28124, 959, 190, 4, 42, "Input"],
+Cell[28317, 965, 153, 3, 42, "Output"]
+}, Open  ]],
+Cell[28485, 971, 192, 4, 26, "Text"],
+Cell[28680, 977, 215, 5, 42, "Input"],
+Cell[28898, 984, 153, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[29076, 991, 110, 2, 42, "Input"],
+Cell[29189, 995, 110, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[29336, 1002, 100, 2, 42, "Input"],
+Cell[29439, 1006, 93, 2, 42, "Output"]
+}, Open  ]],
+Cell[29547, 1011, 69, 0, 26, "Text"],
+Cell[29619, 1013, 96, 2, 42, "Input"],
+Cell[29718, 1017, 162, 4, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[29905, 1025, 384, 7, 42, "Input"],
+Cell[30292, 1034, 336, 6, 46, "Output"]
+}, Open  ]],
+Cell[30643, 1043, 990, 18, 134, "Text"],
+Cell[31636, 1063, 163, 4, 42, "Input"],
+Cell[31802, 1069, 176, 4, 26, "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[32015, 1078, 76, 0, 54, "Subsection"],
+Cell[32094, 1080, 381, 6, 44, "Text"],
+Cell[32478, 1088, 178, 5, 42, "Input"],
+Cell[32659, 1095, 210, 6, 26, "Text"],
+Cell[32872, 1103, 518, 8, 44, "Text"],
+Cell[33393, 1113, 108, 2, 42, "Input"],
+
+Cell[CellGroupData[{
+Cell[33526, 1119, 103, 2, 42, "Input"],
+Cell[33632, 1123, 79, 2, 60, "Output"]
+}, Open  ]],
+Cell[33726, 1128, 54, 0, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[33805, 1132, 179, 5, 42, "Input"],
+Cell[33987, 1139, 68, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[34092, 1146, 179, 5, 42, "Input"],
+Cell[34274, 1153, 68, 2, 42, "Output"]
+}, Open  ]],
+Cell[34357, 1158, 238, 5, 42, "Input"],
+Cell[34598, 1165, 201, 4, 26, "Text"],
+Cell[34802, 1171, 222, 4, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[35049, 1179, 93, 2, 42, "Input"],
+Cell[35145, 1183, 236, 4, 66, "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[35430, 1193, 64, 0, 54, "Subsection"],
+Cell[35497, 1195, 316, 6, 26, "Text"],
+Cell[35816, 1203, 101, 2, 42, "Input"],
+
+Cell[CellGroupData[{
+Cell[35942, 1209, 96, 2, 42, "Input"],
+Cell[36041, 1213, 85, 2, 60, "Output"]
+}, Open  ]],
+Cell[36141, 1218, 182, 4, 26, "Text"],
+Cell[36326, 1224, 89, 2, 42, "Input"],
+Cell[36418, 1228, 59, 0, 26, "Text"],
+Cell[36480, 1230, 110, 2, 42, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[36627, 1237, 43, 0, 54, "Subsection"],
+Cell[36673, 1239, 113, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[36811, 1246, 91, 2, 42, "Input"],
+Cell[36905, 1250, 83, 2, 42, "Output"]
+}, Open  ]],
+Cell[37003, 1255, 152, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[37180, 1262, 99, 2, 42, "Input"],
+Cell[37282, 1266, 105, 2, 42, "Output"]
+}, Open  ]],
+Cell[37402, 1271, 141, 3, 26, "Text"],
+Cell[37546, 1276, 46, 0, 26, "Text"],
+Cell[37595, 1278, 89, 2, 42, "Input"],
+Cell[37687, 1282, 61, 0, 26, "Text"],
+Cell[37751, 1284, 131, 3, 42, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[37919, 1292, 32, 0, 54, "Subsection"],
+Cell[37954, 1294, 69, 0, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[38048, 1298, 200, 4, 42, "Input"],
+Cell[38251, 1304, 184, 3, 60, "Output"]
+}, Open  ]],
+Cell[38450, 1310, 45, 0, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[38520, 1314, 79, 2, 42, "Input"],
+Cell[38602, 1318, 71, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[38710, 1325, 79, 2, 42, "Input"],
+Cell[38792, 1329, 71, 2, 42, "Output"]
+}, Open  ]],
+Cell[38878, 1334, 75, 0, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[38978, 1338, 68, 2, 42, "Input"],
+Cell[39049, 1342, 60, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[39146, 1349, 72, 2, 42, "Input"],
+Cell[39221, 1353, 67, 2, 42, "Output"]
+}, Open  ]],
+Cell[39303, 1358, 43, 0, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[39371, 1362, 101, 2, 42, "Input"],
+Cell[39475, 1366, 74, 2, 42, "Output"]
+}, Open  ]],
+Cell[39564, 1371, 29, 0, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[39618, 1375, 152, 4, 42, "Input"],
+Cell[39773, 1381, 1419, 40, 58, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[41229, 1426, 89, 2, 42, "Input"],
+Cell[41321, 1430, 54916, 1247, 194, 10331, 691, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[96240, 2679, 155, 4, 42, "Output"]
+}, Open  ]],
+Cell[96410, 2686, 142, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[96577, 2693, 186, 5, 42, "Input"],
+Cell[96766, 2700, 68, 2, 42, "Output"]
+}, Open  ]],
+Cell[96849, 2705, 29, 0, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[96903, 2709, 165, 4, 42, "Input"],
+Cell[97071, 2715, 1680, 47, 58, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[98788, 2767, 89, 2, 42, "Input"],
+Cell[98880, 2771, 55584, 1290, 194, 11113, 736, "GraphicsData", "PostScript", \
+"Graphics"],
+Cell[154467, 4063, 155, 4, 42, "Output"]
+}, Open  ]],
+Cell[154637, 4070, 117, 3, 26, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

@@ -1,0 +1,222 @@
+<!--
+
+BODY {
+	margin-left: 2em;
+	margin-right: 2em;
+	color: black;
+	font-family: arial, verdana, helvetica, sans-serif;
+	text-align: left;
+	background: white;
+	background-image: url(/smcs/pix/background.jpg);
+	/* background-repeat: repeat-y; */
+	/* background-attachment: fixed; */
+	/* background-position: 2em 256px; */
+	/* background-position: center top; */
+}
+
+H1 {
+	color: #335588;
+	background: transparent;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 160%;
+	/* line-height: 160%; */
+}
+
+H2 {
+	color: #224466;
+	background: transparent;
+	font-size: 130%;
+	/* line-height: 145%; */
+}
+
+H3 {
+	font-size: 110%;
+	line-height: 135%;
+}
+
+H4 {
+	font-size: 100%;
+	line-height: 120%;
+}
+
+P {
+	text-align: left;
+/* 	line-height: 115%; */
+/*	padding-top: 0em;
+	padding-bottom: 0em; */
+}
+
+/* P:first-letter { font-size: 200%; float: left } */
+
+.footer {
+	color: black;
+	background: transparent;
+	font-size: 72%;
+	padding-top: 3ex;
+}
+
+ADDRESS {
+	color: white;
+	background: gray;
+}
+
+ADDRESS A {
+	color: yellow;
+	background: transparent;
+}
+
+P.warning {
+	color: red;
+	background: transparent;
+	font-style: italic;
+}
+
+.note {
+	color: red;
+	background: transparent;
+	font-weight: normal;
+}
+
+P.smallnote {
+	color: red;
+	background: transparent;
+	font-size: small;
+}
+
+P.titlequote {
+	font-style: italic;
+	color: green;
+	background: transparent;
+}
+
+HR {
+	padding-top: 0em;
+	padding-bottom: 0em;
+}
+
+PRE {
+	font-family: monospace;
+	font-size: 1em;
+}
+
+.center {
+	text-align: center;
+}
+
+.title {
+	text-align: center;
+	background: transparent;
+	color: blue;
+	font-size: 130%;
+	/* line-height: 180%; */
+}
+
+.directory {
+	text-align: right;
+	color: blue;
+	background: transparent;
+	font-size: 80%;
+}
+
+.toc {
+	text-align: right;
+	color: green;
+	background: transparent;
+	font-size: 80%;
+}
+
+.name {
+	color: maroon;
+	background: transparent;
+}
+
+UL LI {
+	list-style: disc;
+}
+
+DT, DL {
+	line-height: 115%;
+}
+
+TABLE {
+	font-family: arial, verdana, helvetica, sans-serif;
+	/* background: transparent; */
+}	
+
+THEAD TR TH {
+	color: black;
+	background: #EEEEEE;
+}
+
+TR TH {
+	background: #EEEEEE;
+}
+
+
+
+TR.head {
+	color: black;
+	background: #EEEEEE;
+}
+
+TR.subhead {
+	color: black;
+	background: #EEEEEE;
+}
+
+TR.divider {
+	color: #EEEEEF;		/* dividers have no text */
+	background: #EEEEEE;
+}
+
+TABLE.info_bar TR TD {
+ font-family: arial, helvetica, swiss, sans-serif;
+ font-size: 100%;
+}
+
+TABLE.info_bar TR TH {
+ font-weight: bold;
+ text-align: left;
+ background-color: #EEEEEE;
+ color: black;
+}
+
+TABLE.navbar {
+ background: #DDDDDD;
+}
+
+TABLE.navbar TR TD {
+ font-weight: normal;
+ text-align: center;
+ background: #EEEEEE;
+ font-color: black;
+ font-size: 86%;
+}
+
+TABLE.sitemap TR TH {
+ background: #EEEEEE;
+}
+
+.footnote {
+  padding-top: 3em;
+  font-size: 80%;
+  color: #888888;
+}
+
+DL DT {
+ font-weight: bold;
+ color: #003366;
+}
+
+DL.address DT, DD {
+ line-height: 110%;
+}
+
+FORM SELECT {
+ font-family: arial, helvetica, swiss, sans-serif;
+ font-size: 100%;
+}
+
+-->
+

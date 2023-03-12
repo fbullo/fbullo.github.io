@@ -1,0 +1,44 @@
+<html>
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css"
+href="http://motion.mee.ucsb.edu/book-gcms/css/mechanics-control.css">
+<title>Geometric Control of Mechanical Systems</title>
+</head>
+<h2>Search the text of
+<a href="http://motion.mee.ucsb.edu/book-gcms/"><i>Geometric Control of
+Mechanical Systems</i></a></h2>
+
+You can search the text of the book.<p>
+<form method="POST" action="http://penelope.mast.queensu.ca/~andrew/cgi-bin/book-search.cgi">
+<input name="keywords" size=40> Keywords<br>
+<input type="checkbox" name="case" value="true"> Case sensitive?
+(on means "true")<br>
+<input type="hidden" name="_dbconfig" value="mechanics-control.db">
+<input type="submit" value="submit"> <input type="reset" value="reset">
+</form>
+<p>
+Here are some tips.  See the paragraph following for an explanation of why
+these things are as they are.
+<ol>
+<li> To search for adjacent words (e.g., ``Riemannian manifold''), separate
+words with "\+" (e.g. ``Riemannian\+manifold''). 
+<li> To search for occurrences of multiple strings, enter a comma/space
+separated list of keywords.
+<li> To get an exact word match, add "\+\" to the beginning and end of the
+string (e.g., ``\+Riemann\+'' will find occurrences of the word ``Riemann'').
+<li> To match the beginning of a word, add "\+" to the beginning of the
+search string, and add "\w*\+" to the end (e.g., ``\+Riemann\w*\+'' will find
+all occurrences of words beginning with ``Riemann'').  Similar strategies
+will get matches at the end of words - the "\w*" is a wildcard.
+</ol>
+<p>
+The files being searched are not the full LaTeX files for the book.  Instead,
+these files are processed using the program <tt>delatex</tt> (among other
+things) to eliminate most of the LaTeX commands.  The words in the file are
+then arranged into a list with a "+" separating words.  There is no
+punctuation in the list.  If you know Perl, then the "+" separator will be
+helpful.  Note that <tt>delatex</tt> does not always do a perfect job of
+removing LaTeX commands.  This is particularly true for our book, since we
+use many LaTeX macros.  Therefore, you may get some spurious search results.
+</html>

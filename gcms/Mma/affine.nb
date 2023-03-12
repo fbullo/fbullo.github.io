@@ -1,0 +1,820 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 4.0,
+MathReader 4.0, or any compatible application. The data for the notebook 
+starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     15811,        606]*)
+(*NotebookOutlinePosition[     16491,        630]*)
+(*  CellTagsIndexPosition[     16447,        626]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+  "Demo for Affine.m\n",
+  StyleBox["Andrew D. Lewis\nDepartment of Mathematics and Statistics\n\
+Queen's University\nKingston ON K7L 3N6\nCanada\n\n", "Author"],
+  StyleBox["andrew@mast.queensu.ca", "Author",
+    FontFamily->"Courier",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  StyleBox["\n\n", "Author",
+    FontFamily->"Courier"],
+  StyleBox["This is a set of ", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  StyleBox["Mathematica", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Italic"],
+  StyleBox[" ", "Author",
+    FontFamily->"Courier"],
+  StyleBox["commands for performing basic operations in affine differential \
+geometry.  This is an initial implementation, and will hopefully be improved \
+upon as time goes by.\n\nReference: ", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontVariations->{"CompatibilityType"->0}],
+  StyleBox["Geometric Control of Mechanical Systems.  Modeling, Analysis, and \
+Design for Simple Mechanical Control Systems\n", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontVariations->{"CompatibilityType"->0}],
+  StyleBox["                      Francesco Bullo and Andrew D. Lewis\n       \
+                ", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontVariations->{"CompatibilityType"->0}],
+  StyleBox["http://penelope.mast.queensu.ca/smcs/\n       ", "Author",
+    FontFamily->"Courier",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontVariations->{"CompatibilityType"->0}],
+  StyleBox["January 2003", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontVariations->{"CompatibilityType"->0}]
+}], "Title"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(<< Affine.m\)], "Input",
+  CellLabel->"In[1]:="],
+
+Cell[BoxData[
+    \("\nPackage \"Tensors\" defines: ChangeBasis, ChangeCoordinates, \
+EvaluateTensor, InitializeTensor, ITen2Vec, IVec2Ten, LieDerivative, Ten2Vec, \
+TheJacobian, Vec2Ten."\)], "Print",
+  CellLabel->"From In[1]:="],
+
+Cell[BoxData[
+    \("\nPackage \"Affine\" defines: AlongCurve, CovariantDerivative, \
+CovariantDifferential, CurvatureTensor, Grad, LeviCivita, RicciCurvature, \
+RiemannFlat, RiemannSharp, ScalarCurvature, SectionalCurvature, Spray, \
+SymmetricProduct, TorsionTensor."\)], "Print",
+  CellLabel->"From In[1]:="]
+}, Open  ]],
+
+Cell[TextData[{
+  "Note that the package \\package{Tensors.m} is loaded.  Please see the \
+documentation for that package to use its features.  To get help, type ",
+  StyleBox["?command",
+    FontFamily->"Courier"]
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(?AlongCurve\)\)], "Input",
+  CellLabel->"In[2]:="],
+
+Cell[BoxData[
+    \("AlongCurve[A,Conn,c,t,Type,Deriv] returns the covariant derivative of \
+the tensor field A of type Type along the curve c.  t is the time parameter \
+which c must depend upon."\)], "Print",
+  CellLabel->"From In[2]:="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Riemannian geometry specifics", "Subsection"],
+
+Cell["\<\
+The metric can be used to convert vector fields to covector fields, \
+and vice versa, in the usual manner.  The rule is ``Sharp raises the index \
+(i.e., converts a covector field to a vector field) and flat lowers the index \
+(i.e., converts a vector field to a covector field).''\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(g\  = \ {{1, 0}, {0, r^2}}\)], "Input",
+  CellLabel->"In[3]:="],
+
+Cell[BoxData[
+    \({{1, 0}, {0, r\^2}}\)], "Output",
+  CellLabel->"Out[3]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \({{1, 0}, {0, r\^2}}\)], "Input",
+  CellLabel->"In[4]:="],
+
+Cell[BoxData[
+    \({{1, 0}, {0, r\^2}}\)], "Output",
+  CellLabel->"Out[4]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(alpha\  = \ {0, 1}\)], "Input",
+  CellLabel->"In[5]:="],
+
+Cell[BoxData[
+    \({0, 1}\)], "Output",
+  CellLabel->"Out[5]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(X\  = \ RiemannSharp[alpha, g]\)], "Input",
+  CellLabel->"In[6]:="],
+
+Cell[BoxData[
+    \({0, 1\/r\^2}\)], "Output",
+  CellLabel->"Out[6]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(RiemannFlat[X, g]\)], "Input",
+  CellLabel->"In[7]:="],
+
+Cell[BoxData[
+    \({0, 1}\)], "Output",
+  CellLabel->"Out[7]="]
+}, Open  ]],
+
+Cell["\<\
+A special instance of the flat map is the gradient, and there is a \
+special purpose function for it.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(f\  = \ r\ Cos[theta]\)], "Input",
+  CellLabel->"In[8]:="],
+
+Cell[BoxData[
+    \(r\ Cos[theta]\)], "Output",
+  CellLabel->"Out[8]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(q\  = \ {r, theta}\)], "Input",
+  CellLabel->"In[9]:="],
+
+Cell[BoxData[
+    \({r, theta}\)], "Output",
+  CellLabel->"Out[9]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Grad[f, g, q]\)], "Input",
+  CellLabel->"In[10]:="],
+
+Cell[BoxData[
+    \({Cos[theta], \(-\(Sin[theta]\/r\)\)}\)], "Output",
+  CellLabel->"Out[10]="]
+}, Open  ]],
+
+Cell["\<\
+The Levi-Civita Christoffel symbols can be computed using a set of \
+coordinates and the components of the Riemannian metric.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(conn\  = \ LeviCivita[g, q]\)], "Input",
+  CellLabel->"In[11]:="],
+
+Cell[BoxData[
+    \({{{0, 0}, {0, \(-r\)}}, {{0, 1\/r}, {1\/r, 0}}}\)], "Output",
+  CellLabel->"Out[11]="]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Affine differential geometry basics", "Subsection"],
+
+Cell["\<\
+The standard covariant derivative of vector fields is computed as \
+follows.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(X\  = \ {Cos[theta], r^2}\)], "Input",
+  CellLabel->"In[12]:="],
+
+Cell[BoxData[
+    \({Cos[theta], r\^2}\)], "Output",
+  CellLabel->"Out[12]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Y\  = \ {Sin[theta], 1/r}\)], "Input",
+  CellLabel->"In[13]:="],
+
+Cell[BoxData[
+    \({Sin[theta], 1\/r}\)], "Output",
+  CellLabel->"Out[13]="]
+}, Open  ]],
+
+Cell["\<\
+Then one computes the covariant derivative of $Y$ with respect to \
+$X$, using the Christoffel symbols for the connection.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(CovariantDerivative[X, Y, conn, q]\)], "Input",
+  CellLabel->"In[14]:="],
+
+Cell[BoxData[
+    \({\(\(-r\^3\) - Sin[theta]\)\/r, 
+      Cos[theta]\/r\^2 + 3\ r\ Sin[theta]}\)], "Output",
+  CellLabel->"Out[14]="]
+}, Open  ]],
+
+Cell["\<\
+The symmetric product is a useful operation for dealing with simple \
+mechanical control systems, and its function works much like the covariant \
+derivative.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(SymmetricProduct[X, Y, conn, q]\)], "Input",
+  CellLabel->"In[15]:="],
+
+Cell[BoxData[
+    \({r\^2\ \((\(-1\) + Cos[theta])\) + \(\(-r\^3\) - Sin[theta]\)\/r, 
+      Cos[theta]\/r\^2 + 4\ r\ Sin[theta]}\)], "Output",
+  CellLabel->"Out[15]="]
+}, Open  ]],
+
+Cell["\<\
+The covariant derivative of a general tensor can also be computed.  \
+See the documentation for \\package{Tensors.m} to see how tensors can be \
+defined, and how they are stored by our packages.  One should specify the \
+tensor one is covariantly differentiating, the Christoffel symbols of the \
+connection, the coordinates, and the type of the tensor.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(nablag\  = \ CovariantDifferential[g, conn, q, {0, 2}]\)], "Input",
+  CellLabel->"In[16]:="],
+
+Cell[BoxData[
+    \({{{0, 0}, {0, 0}}, {{0, 0}, {0, 0}}}\)], "Output",
+  CellLabel->"Out[16]="]
+}, Open  ]],
+
+Cell[TextData[{
+  "Note that, if the tensor is of type $(r,s)$, then what comes out is a \
+tensor of type $(r,s+1)$.  To produce the covariant derivative of the tensor \
+with respect to a vector field (i.e., a tensor field of type $(r,s)$), one \
+can use the ",
+  StyleBox["EvaluateTensor",
+    FontFamily->"Courier"],
+  " function that is part of the \\package{Tensors.m} package."
+}], "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(EvaluateTensor[nablag, {X}, {1, 2}, {{}, {1, 2}}]\)], "Input",
+  CellLabel->"In[17]:="],
+
+Cell[BoxData[
+    \({{0, 0}, {0, 0}}\)], "Output",
+  CellLabel->"Out[17]="]
+}, Open  ]],
+
+Cell["\<\
+In like manner one can compute the covariant derivative of a tensor \
+field along a curve.  This requires specifying the coordinate functions of \
+time that define the curve.  The variable parameterizing time is an argument, \
+so can be whatever is desired.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(gamma\  = \ {r[t], theta[t]}\)], "Input",
+  CellLabel->"In[18]:="],
+
+Cell[BoxData[
+    \({r[t], theta[t]}\)], "Output",
+  CellLabel->"Out[18]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Upsilon\  = \ D[gamma, t]\)], "Input",
+  CellLabel->"In[19]:="],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{
+          SuperscriptBox["r", "\[Prime]",
+            MultilineFunction->None], "[", "t", "]"}], ",", 
+        RowBox[{
+          SuperscriptBox["theta", "\[Prime]",
+            MultilineFunction->None], "[", "t", "]"}]}], "}"}]], "Output",
+  CellLabel->"Out[19]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(AlongCurve[Upsilon, conn, gamma, t, {1, 0}]\)], "Input",
+  CellLabel->"In[20]:="],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{
+          RowBox[{\(-r\), " ", 
+            SuperscriptBox[
+              RowBox[{
+                SuperscriptBox["theta", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}], "2"]}], "+", 
+          RowBox[{
+            SuperscriptBox["r", "\[Prime]\[Prime]",
+              MultilineFunction->None], "[", "t", "]"}]}], ",", 
+        RowBox[{
+          FractionBox[
+            RowBox[{"2", " ", 
+              RowBox[{
+                SuperscriptBox["r", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}], " ", 
+              RowBox[{
+                SuperscriptBox["theta", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}]}], "r"], "+", 
+          RowBox[{
+            SuperscriptBox["theta", "\[Prime]\[Prime]",
+              MultilineFunction->None], "[", "t", "]"}]}]}], "}"}]], "Output",\
+
+  CellLabel->"Out[20]="]
+}, Open  ]],
+
+Cell["\<\
+Note that the result in this case has been contrived to be the \
+components of the geodesic equations in second-order form.\
+\>", "Text"],
+
+Cell["\<\
+The geodesic spray can be computed by using velocity coordinates.\
+\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(v\  = \ D[gamma, t]\)], "Input",
+  CellLabel->"In[21]:="],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{
+          SuperscriptBox["r", "\[Prime]",
+            MultilineFunction->None], "[", "t", "]"}], ",", 
+        RowBox[{
+          SuperscriptBox["theta", "\[Prime]",
+            MultilineFunction->None], "[", "t", "]"}]}], "}"}]], "Output",
+  CellLabel->"Out[21]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Z\  = \ Spray[conn, gamma, v]\)], "Input",
+  CellLabel->"In[22]:="],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{
+          SuperscriptBox["r", "\[Prime]",
+            MultilineFunction->None], "[", "t", "]"}], ",", 
+        RowBox[{
+          SuperscriptBox["theta", "\[Prime]",
+            MultilineFunction->None], "[", "t", "]"}], ",", 
+        RowBox[{"r", " ", 
+          SuperscriptBox[
+            RowBox[{
+              SuperscriptBox["theta", "\[Prime]",
+                MultilineFunction->None], "[", "t", "]"}], "2"]}], ",", 
+        RowBox[{"-", 
+          FractionBox[
+            RowBox[{"2", " ", 
+              RowBox[{
+                SuperscriptBox["r", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}], " ", 
+              RowBox[{
+                SuperscriptBox["theta", "\[Prime]",
+                  MultilineFunction->None], "[", "t", "]"}]}], "r"]}]}], 
+      "}"}]], "Output",
+  CellLabel->"Out[22]="]
+}, Open  ]],
+
+Cell["\<\
+Note that what is returned are the components of a vector field on \
+the tangent bundle in natural coordinates.\
+\>", "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Torsion and curvature", "Subsection"],
+
+Cell["\<\
+These commands are all pretty basic.  Some of them reflect \
+mathematical constructions not defined in the text.  We refer the reader to \
+\\cite{SK/KN:63ab} for discussions of undefined terms.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(TorsionTensor[conn, q]\)], "Input",
+  CellLabel->"In[23]:="],
+
+Cell[BoxData[
+    \({{{0, 0}, {0, 0}}, {{0, 0}, {0, 0}}}\)], "Output",
+  CellLabel->"Out[23]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(CurvatureTensor[conn, q]\)], "Input",
+  CellLabel->"In[24]:="],
+
+Cell[BoxData[
+    \({{{{0, 0}, {0, 0}}, {{0, 0}, {0, 0}}}, {{{0, 0}, {0, 0}}, {{0, 0}, {0, 
+            0}}}}\)], "Output",
+  CellLabel->"Out[24]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(RicciCurvature[conn, q]\)], "Input",
+  CellLabel->"In[25]:="],
+
+Cell[BoxData[
+    \({{0, 0}, {0, 0}}\)], "Output",
+  CellLabel->"Out[25]="]
+}, Open  ]],
+
+Cell["\<\
+Scalar and sectional curvature are defined only for Levi-Civita \
+connections.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ScalarCurvature[g, q]\)], "Input",
+  CellLabel->"In[26]:="],
+
+Cell[BoxData[
+    \(0\)], "Output",
+  CellLabel->"Out[26]="]
+}, Open  ]],
+
+Cell["\<\
+The sectional curvature requires the specification of two \
+orthonormal tangent vectors to prescribe a two-dimensional subspace.\
+\>", \
+"Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(e1\  = \ {1, 0}\)], "Input",
+  CellLabel->"In[27]:="],
+
+Cell[BoxData[
+    \({1, 0}\)], "Output",
+  CellLabel->"Out[27]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(e2\  = \ {0, 1/r}\)], "Input",
+  CellLabel->"In[28]:="],
+
+Cell[BoxData[
+    \({0, 1\/r}\)], "Output",
+  CellLabel->"Out[28]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(SectionalCurvature[e1, e2, g, q]\)], "Input",
+  CellLabel->"In[29]:="],
+
+Cell[BoxData[
+    \(0\)], "Output",
+  CellLabel->"Out[29]="]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"4.0 for X",
+ScreenRectangle->{{0, 1600}, {0, 1200}},
+WindowSize->{1588, 1172},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+StyleDefinitions -> "ArticleModern.nb"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1739, 51, 1799, 48, 295, "Title"],
+
+Cell[CellGroupData[{
+Cell[3563, 103, 68, 2, 42, "Input"],
+Cell[3634, 107, 230, 4, 54, "Print"],
+Cell[3867, 113, 310, 5, 70, "Print"]
+}, Open  ]],
+Cell[4192, 121, 226, 5, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[4443, 130, 72, 2, 42, "Input"],
+Cell[4518, 134, 239, 4, 38, "Print"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4794, 143, 51, 0, 54, "Subsection"],
+Cell[4848, 145, 305, 5, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[5178, 154, 83, 2, 42, "Input"],
+Cell[5264, 158, 77, 2, 44, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5378, 165, 76, 2, 46, "Input"],
+Cell[5457, 169, 77, 2, 44, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5571, 176, 75, 2, 42, "Input"],
+Cell[5649, 180, 64, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5750, 187, 87, 2, 42, "Input"],
+Cell[5840, 191, 70, 2, 60, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5947, 198, 74, 2, 42, "Input"],
+Cell[6024, 202, 64, 2, 42, "Output"]
+}, Open  ]],
+Cell[6103, 207, 125, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[6253, 214, 78, 2, 42, "Input"],
+Cell[6334, 218, 71, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6442, 225, 75, 2, 42, "Input"],
+Cell[6520, 229, 68, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6625, 236, 71, 2, 42, "Input"],
+Cell[6699, 240, 95, 2, 60, "Output"]
+}, Open  ]],
+Cell[6809, 245, 149, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[6983, 252, 85, 2, 42, "Input"],
+Cell[7071, 256, 106, 2, 60, "Output"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7226, 264, 57, 0, 54, "Subsection"],
+Cell[7286, 266, 100, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[7411, 273, 83, 2, 42, "Input"],
+Cell[7497, 277, 77, 2, 44, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7611, 284, 83, 2, 42, "Input"],
+Cell[7697, 288, 77, 2, 60, "Output"]
+}, Open  ]],
+Cell[7789, 293, 146, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[7960, 300, 92, 2, 42, "Input"],
+Cell[8055, 304, 134, 3, 61, "Output"]
+}, Open  ]],
+Cell[8204, 310, 182, 4, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[8411, 318, 89, 2, 42, "Input"],
+Cell[8503, 322, 168, 3, 61, "Output"]
+}, Open  ]],
+Cell[8686, 328, 377, 6, 44, "Text"],
+
+Cell[CellGroupData[{
+Cell[9088, 338, 112, 2, 42, "Input"],
+Cell[9203, 342, 95, 2, 42, "Output"]
+}, Open  ]],
+Cell[9313, 347, 394, 8, 44, "Text"],
+
+Cell[CellGroupData[{
+Cell[9732, 359, 107, 2, 42, "Input"],
+Cell[9842, 363, 75, 2, 42, "Output"]
+}, Open  ]],
+Cell[9932, 368, 281, 5, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[10238, 377, 86, 2, 42, "Input"],
+Cell[10327, 381, 75, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10439, 388, 83, 2, 42, "Input"],
+Cell[10525, 392, 329, 9, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10891, 406, 101, 2, 42, "Input"],
+Cell[10995, 410, 949, 25, 60, "Output"]
+}, Open  ]],
+Cell[11959, 438, 147, 3, 26, "Text"],
+Cell[12109, 443, 91, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[12225, 450, 77, 2, 42, "Input"],
+Cell[12305, 454, 329, 9, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12671, 468, 87, 2, 42, "Input"],
+Cell[12761, 472, 899, 24, 60, "Output"]
+}, Open  ]],
+Cell[13675, 499, 135, 3, 26, "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[13847, 507, 43, 0, 54, "Subsection"],
+Cell[13893, 509, 217, 4, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[14135, 517, 80, 2, 42, "Input"],
+Cell[14218, 521, 95, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14350, 528, 82, 2, 42, "Input"],
+Cell[14435, 532, 148, 3, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14620, 540, 81, 2, 42, "Input"],
+Cell[14704, 544, 75, 2, 42, "Output"]
+}, Open  ]],
+Cell[14794, 549, 102, 3, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[14921, 556, 79, 2, 42, "Input"],
+Cell[15003, 560, 60, 2, 42, "Output"]
+}, Open  ]],
+Cell[15078, 565, 154, 4, 26, "Text"],
+
+Cell[CellGroupData[{
+Cell[15257, 573, 73, 2, 42, "Input"],
+Cell[15333, 577, 65, 2, 42, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[15435, 584, 75, 2, 42, "Input"],
+Cell[15513, 588, 68, 2, 60, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[15618, 595, 90, 2, 42, "Input"],
+Cell[15711, 599, 60, 2, 42, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

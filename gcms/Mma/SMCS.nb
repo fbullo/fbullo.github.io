@@ -1,0 +1,1041 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 4.0,
+MathReader 4.0, or any compatible application. The data for the notebook 
+starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     26189,        839]*)
+(*NotebookOutlinePosition[     26869,        863]*)
+(*  CellTagsIndexPosition[     26825,        859]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+  "Demo for SMCS.m\n",
+  StyleBox["Andrew D. Lewis\nDepartment of Mathematics and Statistics\n\
+Queen's University\nKingston ON K7L 3N6\nCanada\n\n", "Author"],
+  StyleBox["andrew@mast.queensu.ca", "Author",
+    FontFamily->"Courier",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  StyleBox["\n\n", "Author",
+    FontFamily->"Courier"],
+  StyleBox["This is a set of ", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Plain"],
+  StyleBox["Mathematica", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Italic"],
+  StyleBox[" ", "Author",
+    FontFamily->"Courier"],
+  StyleBox["commands for modeling of simple mechanical systems.  This is an \
+initial implementation, and will hopefully be improved upon as time goes by.\n\
+\nReference: ", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontVariations->{"CompatibilityType"->0}],
+  StyleBox["Geometric Control of Mechanical Systems.  Modeling, Analysis, and \
+Design for Simple Mechanical Control Systems\n", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontVariations->{"CompatibilityType"->0}],
+  StyleBox["                      Francesco Bullo and Andrew D. Lewis\n       \
+                ", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontVariations->{"CompatibilityType"->0}],
+  StyleBox["http://penelope.mast.queensu.ca/smcs/\n       August", "Author",
+    FontFamily->"Courier",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontVariations->{"CompatibilityType"->0}],
+  StyleBox[" 2004", "Author",
+    FontFamily->"Times",
+    FontWeight->"Plain",
+    FontSlant->"Plain",
+    FontVariations->{"CompatibilityType"->0}]
+}], "Title"],
+
+Cell[BoxData[
+    \(<< SMCS.m\)], "Input",
+  CellLabel->"In[1]:="],
+
+Cell["\<\
+Note that the packages \\package{Tensors.m} and \\package{Affine.m} \
+are loaded.  We refer the reader to their documentation for instructions on \
+using commands from these packages.\
+\>", "Text"],
+
+Cell[TextData[{
+  "To get help, type ",
+  StyleBox["?command",
+    FontFamily->"Courier"]
+}], "Text"],
+
+Cell[BoxData[
+    \(\(?OrthogonalChristoffelSymbols\)\)], "Input",
+  CellLabel->"In[2]:="],
+
+Cell[CellGroupData[{
+
+Cell["Rigid body modeling", "Subsection"],
+
+Cell["\<\
+The rolling disk is comprised of a single body.  Let us first \
+define the inertia tensor of the body.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Iten\  = \ {{Jspin, 0, 0}, {0, Jspin, 0}, {0, 0, Jroll}}\)], "Input",
+  CellLabel->"In[3]:="],
+
+Cell[TextData[{
+  "Now we define the forward kinematic map for the body by defining the \
+position of the center of mass from the spatial origin, and by defining the \
+orientation of the body frame relative to the spatial frame.  Thus this step \
+amounts to defining a vector in $\\real^3$ and a matrix in $\\SO{3}$.  In \
+specific examples, ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " can be useful in obtaining these expressions.  For the rolling disk, the \
+derivation of the orientation matrix is not entirely trivial, and we refer \
+the reader to \\fref{eg:rolling-diskQ} for details.  First we define the \
+configuration space coordinates and their velocities."
+}], "Text"],
+
+Cell[BoxData[
+    \(conf\  = \ {x[t], y[t], theta[t], phi[t]}\)], "Input",
+  CellLabel->"In[4]:="],
+
+Cell[BoxData[
+    \(vel\  = \ D[conf, t]\)], "Input",
+  CellLabel->"In[5]:="],
+
+Cell[TextData[{
+  "We define the coordinates as ``functions of time'' in ",
+  StyleBox["Mathematica.",
+    FontSlant->"Italic"],
+  "  We shall see that having the coordinates as functions is essential to \
+using some of the macros defined in \\package{SMCS.m}."
+}], "Text"],
+
+Cell["Now for the forward kinematic map.", "Text"],
+
+Cell[BoxData[
+    \(r\  = \ {x[t], y[t], rho}\)], "Input",
+  CellLabel->"In[6]:="],
+
+Cell[BoxData[
+    \(R\  = \ {{Cos[phi[t]] Cos[theta[t]], Sin[phi[t]] Cos[theta[t]], 
+          Sin[theta[t]]}, {Cos[phi[t]] Sin[theta[t]], 
+          Sin[phi[t]] Sin[theta[t]], \(-Cos[theta[t]]\)}, {\(-Sin[phi[t]]\), 
+          Cos[phi[t]], 0}}\)], "Input",
+  CellLabel->"In[7]:="],
+
+Cell["\<\
+It is now possible to compute a multitude of things, since, as we \
+emphasize in the text, the forward kinematic maps are key to much of our \
+modeling.  For example, one can compute body and spatial angular \
+velocities.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Simplify[BodyAngularVelocity[R, conf, t]]\)], "Input",
+  CellLabel->"In[8]:="],
+
+Cell[BoxData[
+    \(Simplify[SpatialAngularVelocity[R, conf, t]]\)], "Input",
+  CellLabel->"In[9]:="],
+
+Cell["\<\
+Note that we do require the coordinates to be functions of time \
+here, since time is one of the arguments of the angular velocity \
+commands.\
+\>", "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Kinetic energy and the kinetic energy metric", "Subsection"],
+
+Cell["\<\
+Now we compute the kinetic energy, translational and rotational, \
+for the body.  Again, the forward kinematic map is key, and again, we do \
+require the configuration space coordinates to be functions of time.\
+\>", \
+"Text"],
+
+Cell[BoxData[
+    \(ketran\  = \ KEtrans[r, conf, m, t]\)], "Input",
+  CellLabel->"In[10]:="],
+
+Cell[BoxData[
+    \(kerot\  = \ Simplify[KErot[R, conf, Iten, t]]\)], "Input",
+  CellLabel->"In[11]:="],
+
+Cell[TextData[{
+  "Note that, in the above computations, the argument ``",
+  StyleBox["m",
+    FontFamily->"Courier"],
+  "''",
+  " is the mass.  We can now obtain the total kinetic energy."
+}], "Text"],
+
+Cell[BoxData[
+    \(KE\  = \ Simplify[ketran + kerot]\)], "Input",
+  CellLabel->"In[12]:="],
+
+Cell["\<\
+Now we can compute the components of the kinetric energy \
+metric.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(metric\  = \ Simplify[KE2Metric[KE, vel]]\)], "Input",
+  CellLabel->"In[13]:="],
+
+Cell["\<\
+We can also compute the Christoffel symbols for the associated \
+Levi-Civita affine connection, although these are trivial in this case.\
+\>", \
+"Text"],
+
+Cell[BoxData[
+    \(lcgamma\  = \ LeviCivita[metric, conf]\)], "Input",
+  CellLabel->"In[14]:="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Force modeling", "Subsection"],
+
+Cell["\<\
+Now we consider the modeling of forces using the approach in the \
+text.  This is simple given the forward kinematic map.  For the rolling disk, \
+there are only control forces, and there are two of these.  First we consider \
+the force that spins the disk.  The Newtonian force and torque are first \
+defined.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(force1\  = \ {{0, 0, 0}}\)], "Input",
+  CellLabel->"In[15]:="],
+
+Cell["We now do the same for torques.", "Text"],
+
+Cell[BoxData[
+    \(torque1\  = \ {{0, 0, 1}}\)], "Input",
+  CellLabel->"In[16]:="],
+
+Cell["\<\
+Note that the Newtonian force and torque are a list of vectors in $\
+\\real^3$.  The length of the list is the number of bodies the force and \
+torque act on, with each entry in the list corresponding to the force and \
+torque exerted on a single one of the bodies.  In this case, there is just \
+one body, so the list has length one.  See \\fref{sec:snakeboardMma} for an \
+example with multiple bodies.\
+\>", "Text"],
+
+Cell["Next we create the Lagrangian force.", "Text"],
+
+Cell[BoxData[
+    \(F1\  = \ Simplify[Force[torque1, force1, {R}, {r}, conf, t]]\)], "Input",\
+
+  CellLabel->"In[17]:="],
+
+Cell["\<\
+Note that the first four arguments are lists whose length is the \
+number of bodies the Newtonian force and torque interact with.  Let us do the \
+same for the other control force that moves the wheels.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(force2\  = \ {{0, 0, 0}}\)], "Input",
+  CellLabel->"In[18]:="],
+
+Cell[BoxData[
+    \(torque2\  = \ {{\(-Sin[theta[t]]\), Cos[theta[t]], 0}}\)], "Input",
+  CellLabel->"In[19]:="],
+
+Cell[BoxData[
+    \(F2\  = \ Simplify[Force[torque2, force2, {R}, {r}, conf, t]]\)], "Input",\
+
+  CellLabel->"In[20]:="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Nonholonomic constraint modeling I", "Subsection"],
+
+Cell[TextData[{
+  "Next we turn to the modeling of nonholonomic constraints as described in \
+the text.  There are many ways one can do this.  For example, one can use the \
+constrained connection by computing its Christoffel symbols.  Let us \
+illustrate the steps.  The first step is to compute an orthogonal basis of \
+vector fields for which the first vector fields in the list are a basis for \
+the constraint distribution.  For the rolling disk, it turns out that there \
+is a global orthogonal basis for $\\dist{D}$.  This is generally not the \
+case.  For example, it might be the case that the constraint distribution \
+does not have constant rank.  And, if the constraint distribution ",
+  StyleBox["does",
+    FontSlant->"Italic"],
+  " have constant rank, there still might not be a global basis.  However, \
+since we are in luck here, we can proceed without misadventure.  ",
+  StyleBox["First we provide a set of covector fields that annihilate the \
+constraint distribution.",
+    FontVariations->{"CompatibilityType"->0}]
+}], "Text"],
+
+Cell[BoxData[
+    \(omega1\  = \ {1, 0, 0, \(-rho\)\ Cos[theta[t]]}\)], "Input",
+  CellLabel->"In[21]:="],
+
+Cell[BoxData[
+    \(omega2\  = \ {0, 1, 0, \(-rho\)\ Sin[theta[t]]}\)], "Input",
+  CellLabel->"In[22]:="],
+
+Cell["\<\
+By ``sharping'' these relative to the kinetic energy metric, we get \
+two vector fields that are $\\metric$-orthogonal to the constraint \
+distribution.  Then we need to ensure that these are $\\metric$-orthogonal.\
+\
+\>", "Text"],
+
+Cell[BoxData[
+    \(X3\  = \ RiemannSharp[omega1, metric]\)], "Input",
+  CellLabel->"In[23]:="],
+
+Cell[BoxData[
+    \(X4t\  = \ RiemannSharp[omega2, metric]\)], "Input",
+  CellLabel->"In[24]:="],
+
+Cell["\<\
+The next formula is the Gram\\textendash{}Schmidt Procedure to get \
+an orthogonal basis.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(X4\  = \ 
+      Simplify[X4t - \((X3 . metric . X4t)\) 
+            X3/\((X3 . metric . X3)\)]\)], "Input",
+  CellLabel->"In[25]:="],
+
+Cell[TextData[{
+  "Note that we will not actually do much with ",
+  StyleBox["X3",
+    FontFamily->"Courier"],
+  " and ",
+  StyleBox["X4",
+    FontFamily->"Courier"],
+  ", but we produce them anyway, just to show how one does these orthogonal \
+basis computations."
+}], "Text"],
+
+Cell["\<\
+Now we use the two vector fields defined in the text as being a \
+$\\metric$-orthogonal basis for the constraint distribution.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(X1\  = \ {rho\ Cos[theta[t]], rho\ Sin[theta[t]], 0, 1}\)], "Input",
+  CellLabel->"In[26]:="],
+
+Cell[BoxData[
+    \(X2\  = \ {0, 0, 1, 0}\)], "Input",
+  CellLabel->"In[27]:="],
+
+Cell[BoxData[
+    \(X\  = \ {X1, X2, X3, X4}\)], "Input",
+  CellLabel->"In[28]:="],
+
+Cell["\<\
+One can check that these vector fields are indeed orthogonal.\
+\>", \
+"Text"],
+
+Cell[BoxData[
+    \(Simplify[
+      Table[\((X[\([i]\)] . metric . X[\([j]\)])\)/\((X[\([i]\)] . metric . 
+              X[\([i]\)])\), {i, 4}, {j, 4}]]\)], "Input",
+  CellLabel->"In[29]:="],
+
+Cell[TextData[{
+  "One can now determine the components of the orthogonal projection onto \
+$\\dist{D}^\\perp$.  To do this, it is less cumbersome if we compute the \
+orthogonal projection onto $\\dist{D}$ first.  Note that this only requires \
+the basis for $\\dist{D}$, and that this basis needs to be orthonormal for \
+the macro ",
+  StyleBox["OrthogonalProjection",
+    FontFamily->"Courier"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(P\  = \ 
+      Simplify[OrthogonalProjection[{X1/Sqrt[X1 . metric . X1], 
+            X2/Sqrt[X2 . metric . X2]}, metric]]\)], "Input",
+  CellLabel->"In[30]:="],
+
+Cell["\<\
+Let us at least verify that this is actually the \
+$\\metric$-orthogonal projection onto $\\dist{D}$.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Table[Simplify[P . X[\([i]\)] - X[\([i]\)]], {i, 2}]\)], "Input",
+  CellLabel->"In[31]:="],
+
+Cell[BoxData[
+    \(Table[Simplify[P . X[\([i]\)]], {i, 3, 4}]\)], "Input",
+  CellLabel->"In[32]:="],
+
+Cell["Now we define the projection onto $\\dist{D}^\\perp$.", "Text"],
+
+Cell[BoxData[
+    \(Pperp\  = \ Simplify[IdentityMatrix[4] - P]\)], "Input",
+  CellLabel->"In[33]:="],
+
+Cell["\<\
+Let us record the orthogonal basis for $\\dist{D}$ for future \
+use.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Ddim\  = \ 2\)], "Input",
+  CellLabel->"In[34]:="],
+
+Cell[BoxData[
+    \(Dbasis\  = \ Table[X[\([i]\)], {i, Ddim}]\)], "Input",
+  CellLabel->"In[35]:="],
+
+Cell["\<\
+Now we compute the Christoffel symbols for the constrained \
+connection.  The identity matrix in the second argument seems to be out of \
+place here.  The meaning of this second argument, along with an example of \
+how it is used, can be found in \\fref{sec:snakeboardMma}.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(cgamma\  = \ 
+      ConstrainedConnection[lcgamma, IdentityMatrix[4], Pperp, 
+        conf]\)], "Input",
+  CellLabel->"In[36]:="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Nonholonomic constraint modeling II", "Subsection"],
+
+Cell["\<\
+In this section we illustrate the method for handling nonholonomic \
+constraints that normally works best in practice, namely using the orthogonal \
+Poincar\\'e representation.  Here we only compute the minimum number of \
+Christoffel symbols.  Fortunately, we have already done much of the work, \
+namely the computation of a $\\metric$-orthogonal basis for the constraint \
+distribution.  Therefore, we can directly compute the $2^3$ Christoffel \
+symbols that appear in the orthogonal Poincar\\'e representation.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(ogamma\  = \ 
+      OrthogonalChristoffelSymbols[Dbasis, metric, lcgamma, conf]\)], "Input",\
+
+  CellLabel->"In[37]:="],
+
+Cell["\<\
+It is possible to covariantly differentiate vector fields taking \
+values in the constraint distribution using the orthogonal Christoffel \
+symbols.  In fact, the command for doing this will work even if the vector \
+fields forming the basis for the constraint distribution are not orthogonal.  \
+To execute the command, one needs to represent vector fields with values in \
+the constraint distribution.  This is done by giving their components \
+relative to the basis vector fields.  Let us define two such vector fields in \
+general form.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(U\  = \ 
+      Table[\(Ucomp[i]\)[x[t], x[y], theta[t], phi[t]], {i, Ddim}]\)], "Input",\
+
+  CellLabel->"In[38]:="],
+
+Cell[BoxData[
+    \(V\  = \ 
+      Table[\(Vcomp[i]\)[x[t], x[y], theta[t], phi[t]], {i, Ddim}]\)], "Input",\
+
+  CellLabel->"In[39]:="],
+
+Cell[TextData[{
+  "Now we covariantly differentiate ",
+  StyleBox["V",
+    FontFamily->"Courier"],
+  " with respect to ",
+  StyleBox["U",
+    FontFamily->"Courier"],
+  "."
+}], "Text"],
+
+Cell[BoxData[
+    \(GeneralizedCovariantDerivative[U, V, Dbasis, ogamma, conf]\)], "Input",
+  CellLabel->"In[40]:="],
+
+Cell["\<\
+It is possible to use the generalized covariant derivative to \
+perform controllability computations.  An example of this is given in \
+\\fref{sec:snakeboardMma}.\
+\>", "Text"],
+
+Cell["\<\
+We also need to model the forces in the framework of \
+pseudo-velocities.  Two things must be done to do this.  First, the vector \
+forces need to be projected onto the constraint distribution.  Then the \
+resulting vector forces need to be represented in terms of the (not \
+necessarily $\\metric$-orthogonal) basis for the constraint distribution.  In \
+the case when the basis for $\\dist{D}$ is $\\metric$-orthogonal, there is a \
+command for this.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Y1o\  = \ OrthogonalForce[F1, Dbasis, metric]\)], "Input",
+  CellLabel->"In[41]:="],
+
+Cell[BoxData[
+    \(Y2o\  = \ Simplify[OrthogonalForce[F2, Dbasis, metric]]\)], "Input",
+  CellLabel->"In[42]:="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Equations of motion I", "Subsection"],
+
+Cell["\<\
+We will compute equations of motion in two different ways.  First \
+we use the Christoffel symbols for the constrained connection as above, and \
+just produce the full geodesic equations.  First we need to give the input \
+vector fields, properly projected onto the constraint distribution.\
+\>", \
+"Text"],
+
+Cell[BoxData[
+    \(Y1c\  = \ P . RiemannSharp[F1, metric]\)], "Input",
+  CellLabel->"In[43]:="],
+
+Cell[BoxData[
+    \(Y2c\  = \ P . RiemannSharp[F2, metric]\)], "Input",
+  CellLabel->"In[44]:="],
+
+Cell["\<\
+The total input is a linear combination of the two inputs, with the \
+coefficients being the controls.  Let us leave the controls as general for \
+the moment.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Yc\  = \ u1\ Y1c + u2\ Y2c\)], "Input",
+  CellLabel->"In[45]:="],
+
+Cell["Now we can produce the equations of motion.", "Text"],
+
+Cell[BoxData[
+    \(eqmot1\  = \ Simplify[ACCSequations[cgamma, Yc, conf, t]]\)], "Input",
+  CellLabel->"In[46]:="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Equations of motion II", "Subsection"],
+
+Cell["\<\
+Now we provide another means of producing the equations of motion, \
+using the Poincar\\'e representation.  Since this representation, in \
+principle, captures all possibilities, one must allow for both constrained \
+and unconstrained cases.  One of the differences will be that, in the \
+unconstrained case with the natural Christoffel symbols, the dependent \
+variables will be the configuration coordinates, and all equations will be \
+second-order.  For systems with constraints, and using generalized \
+Christoffel symbols, there will be pseudo-velocities, and the equations will \
+be first-order.  Things are further complicated by the fact that, in some \
+examples, some of the pseudo-velocities will be actual velocities.  Thus the \
+resulting equations of motion will be a mixture of first- and second-order \
+equations.  The difficulty is then to determine the correct state, taking \
+into account that some pseudo-velocities are actual velocities.  There is a \
+command for this, whose usage we now illustrate.  First one defines the \
+``full'' set of pseudo-velocities.  In this case there are two.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(pv\  = \ {pv1[t], pv2[t]}\)], "Input",
+  CellLabel->"In[47]:="],
+
+Cell["\<\
+Then one extracts the state for the equations, properly taking into \
+account that some of the pseudo-velocities are velocities.  The following \
+command does not require a $\\metric$-orthogonal basis for $\\dist{D}$.\
+\>", \
+"Text"],
+
+Cell[BoxData[
+    \(state\  = \ GetState[Dbasis, pv, conf, t]\)], "Input",
+  CellLabel->"In[48]:="],
+
+Cell["\<\
+Note that, in the rolling disk, all pseudo-velocities are actual \
+velocities, reflected by the fact that no pseudo-velocities appear in the \
+list of states.\
+\>", "Text"],
+
+Cell["\<\
+If the system were unconstrained and one wished to use the natural \
+representation, then one would proceed as follows.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(GetState[IdentityMatrix[4], {pv1[t], pv2[t], pv3[t], pv4[t]}, conf, 
+      t]\)], "Input",
+  CellLabel->"In[49]:="],
+
+Cell["\<\
+The first argument being the identity matrix corresponds to the \
+fact that the pssudo-velocities are all real velocities.  Then the state is \
+correctly returned as simply the configuration coordinates.  In such cases \
+one may want to not bother with listing the pseudo-velocities, in which case \
+an empty list will guarantee the correct result.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(GetState[IdentityMatrix[4], {}, conf, t]\)], "Input",
+  CellLabel->"In[50]:="],
+
+Cell["\<\
+A second difficulty arises with the treatment of forces.  In \
+unconstrained systems, one simply wants to use the natural representation of \
+the force.  For constrained systems using pseudo-velocities, one must \
+properly represent vector forces as above.  Therefore, the user is required \
+to define a vector force being applied to the system by giving its components \
+in the basis for $\\dist{D}$.  In this case, we have already done this.\
+\>", \
+"Text"],
+
+Cell[BoxData[
+    \(Yo\  = \ u1\ Y1o + u2\ Y2o\)], "Input",
+  CellLabel->"In[51]:="],
+
+Cell["\<\
+In the unconstrained case when using the natural representation, \
+one would simply use the list comprised on the components of the vector \
+force.\
+\>", "Text"],
+
+Cell[TextData[{
+  "Now we can formulate the equations of motion.  Note that one uses all \
+pseudo-velocities.  The program sorts out the state along the lines of the ",
+  StyleBox["GetState",
+    FontFamily->"Courier"],
+  " command above.  For an unconstrained system, an empty list of \
+pseudo-velocities will give the desired result.  Note that, for the following \
+command, the basis for $\\dist{D}$ need not be $\\metric$-orthogonal."
+}], "Text"],
+
+Cell[BoxData[
+    \(eqmot2\  = \ SMCSequations[ogamma, Yo, Dbasis, pv, conf, t]\)], "Input",\
+
+  CellLabel->"In[52]:="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Simulation", "Subsection"],
+
+Cell[TextData[{
+  "Once one has the equations of motion, one would like to be able to \
+numerically solve the equations.  In ",
+  StyleBox["Mathematica",
+    FontSlant->"Italic"],
+  " this is done using ",
+  StyleBox["NDSolve",
+    FontFamily->"Courier"],
+  ", but an interface has been provided that simplifies certain things.  \
+First let us give numerical values for the parameters."
+}], "Text"],
+
+Cell[BoxData[
+    \(params\  = \ {Jspin \[Rule] 2, Jroll \[Rule] 1, m \[Rule] 1/2, 
+        rho \[Rule] 1}\)], "Input",
+  CellLabel->"In[53]:="],
+
+Cell["Now define specific controls.", "Text"],
+
+Cell[BoxData[
+    \(u1\  = \ 2  Sin[3  t]\)], "Input",
+  CellLabel->"In[54]:="],
+
+Cell[BoxData[
+    \(u2\  = \ 2  Sin[2  t]\)], "Input",
+  CellLabel->"In[55]:="],
+
+Cell["Next define the initial and final times for the simulation.", "Text"],
+
+Cell[BoxData[
+    \(Ti\  = \ 0\)], "Input",
+  CellLabel->"In[56]:="],
+
+Cell[BoxData[
+    \(Tf\  = \ 3  Pi\)], "Input",
+  CellLabel->"In[57]:="],
+
+Cell["Now the initial conditions.", "Text"],
+
+Cell[BoxData[
+    \(qinit\  = \ \(vinit\  = \ {0, 0, 0, 0}\)\)], "Input",
+  CellLabel->"In[58]:="],
+
+Cell["\<\
+It is assumed that the initial velocity satisfies the constraint.\
+\
+\>", "Text"],
+
+Cell["Now simulate.", "Text"],
+
+Cell[BoxData[
+    \(sol1\  = \ 
+      ACCSsimulate[\((eqmot1 /. params)\), conf, qinit, vinit, t, Ti, 
+        Tf]\)], "Input",
+  CellLabel->"In[59]:="],
+
+Cell[BoxData[
+    \(Plot[x[t] /. sol1, {t, Ti, Tf}]\)], "Input",
+  CellLabel->"In[60]:="],
+
+Cell["\<\
+Now we simulate the system as a Poincar\\'e representation.  The \
+initial condition is given as initial configuration, plus a complete list of \
+initial pseudo-velocities.  The program converts this into a state initial \
+condition.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(pvinit\  = \ 
+      Table[vinit . metric . 
+            X[\([i]\)]/\((X[\([i]\)] . metric . X[\([i]\)])\), {i, 
+          Ddim}]\)], "Input",
+  CellLabel->"In[61]:="],
+
+Cell["Now simulate.", "Text"],
+
+Cell[BoxData[
+    \(sol2\  = \ 
+      SMCSsimulate[\((eqmot2 /. params)\), Dbasis, conf, pv, qinit, pvinit, 
+        t, Ti, Tf]\)], "Input",
+  CellLabel->"In[62]:="],
+
+Cell[BoxData[
+    \(Plot[x[t] /. sol2, {t, Ti, Tf}]\)], "Input",
+  CellLabel->"In[63]:="],
+
+Cell["\<\
+The two solution methods give the same solutions to the \
+differential equation, as expected.\
+\>", "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Other useful macros", "Subsection"],
+
+Cell["\<\
+The primary components of \\package{SMCS.m} are illustrated above.  \
+But there are a few other macros that are implemented that might be useful.  \
+Let us indicate what these are and what they do.\
+\>", "Text"],
+
+Cell["\<\
+There are macros that manage the isomorphism between $\\so{3}$ and \
+$\\real^3$.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(omegahat\  = \ Hat[{w1, w2, w3}]\)], "Input",
+  CellLabel->"In[64]:="],
+
+Cell[BoxData[
+    \(omega\  = \ Unhat[omegahat]\)], "Input",
+  CellLabel->"In[65]:="],
+
+Cell["\<\
+There is also an implementation of the Hessian.  The implementation \
+supposes that the function is being evaluated at a critical point, where the \
+matrix representative of the Hessian is simply the matrix of second partial \
+derivatives.\
+\>", "Text"],
+
+Cell[BoxData[
+    \(Hessian[f[x[t], y[t], theta[t], phi[t]], conf]\)], "Input",
+  CellLabel->"In[66]:="],
+
+Cell[TextData[{
+  "A generally useful macro is ",
+  StyleBox["SetEqual,",
+    FontFamily->"Courier"],
+  " which is used to set the components of two lists equal to one another in \
+the form of an equation."
+}], "Text"],
+
+Cell[BoxData[
+    \(list1\  = \ Table[l1[i], {i, 3}]\)], "Input",
+  CellLabel->"In[67]:="],
+
+Cell[BoxData[
+    \(list2\  = \ Table[l2[i], {i, 3}]\)], "Input",
+  CellLabel->"In[68]:="],
+
+Cell[BoxData[
+    \(SetEqual[list1, list2]\)], "Input",
+  CellLabel->"In[69]:="]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"4.0 for X",
+ScreenRectangle->{{0, 1600}, {0, 1200}},
+WindowSize->{1588, 1172},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+StyleDefinitions -> "ArticleModern.nb"
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1739, 51, 1774, 48, 295, "Title"],
+Cell[3516, 101, 66, 2, 42, "Input"],
+Cell[3585, 105, 207, 4, 26, "Text"],
+Cell[3795, 111, 101, 4, 26, "Text"],
+Cell[3899, 117, 90, 2, 42, "Input"],
+
+Cell[CellGroupData[{
+Cell[4014, 123, 41, 0, 54, "Subsection"],
+Cell[4058, 125, 126, 3, 26, "Text"],
+Cell[4187, 130, 113, 2, 42, "Input"],
+Cell[4303, 134, 694, 12, 44, "Text"],
+Cell[5000, 148, 98, 2, 42, "Input"],
+Cell[5101, 152, 77, 2, 42, "Input"],
+Cell[5181, 156, 273, 6, 26, "Text"],
+Cell[5457, 164, 50, 0, 26, "Text"],
+Cell[5510, 166, 82, 2, 42, "Input"],
+Cell[5595, 170, 281, 5, 42, "Input"],
+Cell[5879, 177, 245, 5, 26, "Text"],
+Cell[6127, 184, 98, 2, 42, "Input"],
+Cell[6228, 188, 101, 2, 42, "Input"],
+Cell[6332, 192, 166, 4, 26, "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6535, 201, 66, 0, 54, "Subsection"],
+Cell[6604, 203, 236, 5, 26, "Text"],
+Cell[6843, 210, 93, 2, 42, "Input"],
+Cell[6939, 214, 103, 2, 42, "Input"],
+Cell[7045, 218, 201, 6, 26, "Text"],
+Cell[7249, 226, 91, 2, 42, "Input"],
+Cell[7343, 230, 90, 3, 26, "Text"],
+Cell[7436, 235, 99, 2, 42, "Input"],
+Cell[7538, 239, 162, 4, 26, "Text"],
+Cell[7703, 245, 96, 2, 42, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[7836, 252, 36, 0, 54, "Subsection"],
+Cell[7875, 254, 334, 6, 26, "Text"],
+Cell[8212, 262, 82, 2, 42, "Input"],
+Cell[8297, 266, 47, 0, 26, "Text"],
+Cell[8347, 268, 83, 2, 42, "Input"],
+Cell[8433, 272, 428, 7, 44, "Text"],
+Cell[8864, 281, 52, 0, 26, "Text"],
+Cell[8919, 283, 120, 3, 42, "Input"],
+Cell[9042, 288, 226, 4, 26, "Text"],
+Cell[9271, 294, 82, 2, 42, "Input"],
+Cell[9356, 298, 112, 2, 42, "Input"],
+Cell[9471, 302, 120, 3, 42, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[9628, 310, 56, 0, 54, "Subsection"],
+Cell[9687, 312, 1048, 17, 62, "Text"],
+Cell[10738, 331, 105, 2, 42, "Input"],
+Cell[10846, 335, 105, 2, 42, "Input"],
+Cell[10954, 339, 240, 5, 26, "Text"],
+Cell[11197, 346, 95, 2, 42, "Input"],
+Cell[11295, 350, 96, 2, 42, "Input"],
+Cell[11394, 354, 113, 3, 26, "Text"],
+Cell[11510, 359, 152, 4, 42, "Input"],
+Cell[11665, 365, 277, 9, 26, "Text"],
+Cell[11945, 376, 150, 3, 26, "Text"],
+Cell[12098, 381, 113, 2, 42, "Input"],
+Cell[12214, 385, 79, 2, 42, "Input"],
+Cell[12296, 389, 82, 2, 42, "Input"],
+Cell[12381, 393, 87, 3, 26, "Text"],
+Cell[12471, 398, 190, 4, 42, "Input"],
+Cell[12664, 404, 415, 9, 44, "Text"],
+Cell[13082, 415, 180, 4, 42, "Input"],
+Cell[13265, 421, 125, 3, 26, "Text"],
+Cell[13393, 426, 110, 2, 42, "Input"],
+Cell[13506, 430, 100, 2, 42, "Input"],
+Cell[13609, 434, 69, 0, 26, "Text"],
+Cell[13681, 436, 101, 2, 42, "Input"],
+Cell[13785, 440, 92, 3, 26, "Text"],
+Cell[13880, 445, 70, 2, 42, "Input"],
+Cell[13953, 449, 99, 2, 42, "Input"],
+Cell[14055, 453, 297, 5, 26, "Text"],
+Cell[14355, 460, 149, 4, 42, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14541, 469, 57, 0, 54, "Subsection"],
+Cell[14601, 471, 539, 8, 44, "Text"],
+Cell[15143, 481, 139, 4, 42, "Input"],
+Cell[15285, 487, 564, 9, 44, "Text"],
+Cell[15852, 498, 135, 4, 42, "Input"],
+Cell[15990, 504, 135, 4, 42, "Input"],
+Cell[16128, 510, 183, 8, 26, "Text"],
+Cell[16314, 520, 116, 2, 42, "Input"],
+Cell[16433, 524, 186, 4, 26, "Text"],
+Cell[16622, 530, 476, 8, 44, "Text"],
+Cell[17101, 540, 103, 2, 42, "Input"],
+Cell[17207, 544, 113, 2, 42, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[17357, 551, 43, 0, 54, "Subsection"],
+Cell[17403, 553, 316, 6, 26, "Text"],
+Cell[17722, 561, 96, 2, 42, "Input"],
+Cell[17821, 565, 96, 2, 42, "Input"],
+Cell[17920, 569, 182, 4, 26, "Text"],
+Cell[18105, 575, 84, 2, 42, "Input"],
+Cell[18192, 579, 59, 0, 26, "Text"],
+Cell[18254, 581, 115, 2, 42, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[18406, 588, 44, 0, 54, "Subsection"],
+Cell[18453, 590, 1134, 16, 80, "Text"],
+Cell[19590, 608, 83, 2, 42, "Input"],
+Cell[19676, 612, 243, 5, 26, "Text"],
+Cell[19922, 619, 99, 2, 42, "Input"],
+Cell[20024, 623, 182, 4, 26, "Text"],
+Cell[20209, 629, 143, 3, 26, "Text"],
+Cell[20355, 634, 135, 3, 42, "Input"],
+Cell[20493, 639, 372, 6, 44, "Text"],
+Cell[20868, 647, 98, 2, 42, "Input"],
+Cell[20969, 651, 469, 8, 44, "Text"],
+Cell[21441, 661, 84, 2, 42, "Input"],
+Cell[21528, 665, 171, 4, 26, "Text"],
+Cell[21702, 671, 450, 8, 44, "Text"],
+Cell[22155, 681, 119, 3, 42, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[22311, 689, 32, 0, 54, "Subsection"],
+Cell[22346, 691, 398, 10, 26, "Text"],
+Cell[22747, 703, 144, 3, 42, "Input"],
+Cell[22894, 708, 45, 0, 26, "Text"],
+Cell[22942, 710, 79, 2, 42, "Input"],
+Cell[23024, 714, 79, 2, 42, "Input"],
+Cell[23106, 718, 75, 0, 26, "Text"],
+Cell[23184, 720, 68, 2, 42, "Input"],
+Cell[23255, 724, 72, 2, 42, "Input"],
+Cell[23330, 728, 43, 0, 26, "Text"],
+Cell[23376, 730, 98, 2, 42, "Input"],
+Cell[23477, 734, 91, 3, 26, "Text"],
+Cell[23571, 739, 29, 0, 26, "Text"],
+Cell[23603, 741, 152, 4, 42, "Input"],
+Cell[23758, 747, 89, 2, 42, "Input"],
+Cell[23850, 751, 257, 5, 26, "Text"],
+Cell[24110, 758, 186, 5, 42, "Input"],
+Cell[24299, 765, 29, 0, 26, "Text"],
+Cell[24331, 767, 165, 4, 42, "Input"],
+Cell[24499, 773, 89, 2, 42, "Input"],
+Cell[24591, 777, 117, 3, 26, "Text"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[24745, 785, 41, 0, 54, "Subsection"],
+Cell[24789, 787, 221, 4, 26, "Text"],
+Cell[25013, 793, 104, 3, 26, "Text"],
+Cell[25120, 798, 90, 2, 42, "Input"],
+Cell[25213, 802, 85, 2, 42, "Input"],
+Cell[25301, 806, 263, 5, 26, "Text"],
+Cell[25567, 813, 104, 2, 42, "Input"],
+Cell[25674, 817, 218, 6, 26, "Text"],
+Cell[25895, 825, 90, 2, 42, "Input"],
+Cell[25988, 829, 90, 2, 42, "Input"],
+Cell[26081, 833, 80, 2, 42, "Input"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+
