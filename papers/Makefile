@@ -10,6 +10,8 @@ FBtmp2=tmp2.bib
 
 default: html
 
+pub: html
+
 html: Makefile $(FBbibfile)
 	bibtool "--delete.field{funding}" "--delete.field{abstract}" "--delete.field{url}" "--delete.field{nopdf}" "--delete.field{nojournal}" "--delete.field{fbnote}" "--delete.field{annote}" "--delete.field{nourl}" -i $(FBbibfile) -o $(FBtmp2)
 	cat $(FBpreface) $(FBalias) $(FBtmp2) > $(FBtmp1)
