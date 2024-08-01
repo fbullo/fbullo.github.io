@@ -62,20 +62,18 @@
 }
 
 @article{BPD:61,
-  author =        {B. P. Demidovi\v{c}},
+  author =        {Boris Pavlovich Demidovi\v{c}},
   journal =       {Uspekhi Matematicheskikh Nauk},
   number =        {3(99)},
   pages =         {216},
-  title =         {Dissipativity of a nonlinear system of differential
-                   equations},
+  title =         {Dissipativity of a system of nonlinear differential
+                   equations in the large},
   volume =        {16},
   year =          {1961},
 }
 
 @book{NNK:63,
   author =        {N. N. Krasovski\u\i},
-  note =          {Translation of the 1959 edition in Russian by J. L.
-                   Brenner},
   publisher =     {Stanford University Press},
   title =         {Stability of Motion. Applications of Lyapunov's
                    Second Method to Differential Systems and Equations
@@ -234,6 +232,19 @@
                    exponential stability of neural networks are
                    obtained.},
   doi =           {10.1109/72.508941},
+}
+
+@article{MGN-HC:97,
+  author =        {M. G. Neubert and H. Caswell},
+  journal =       {Ecology},
+  number =        {3},
+  pages =         {653-665},
+  title =         {Alternatives to resilience for measuring the
+                   responses of ecological systems to perturbations},
+  volume =        {78},
+  year =          {1997},
+  doi =           {10.1890/0012-9658(1997)078[0653:atrfmt]2.0.co;2},
+  issn =          {0012-9658},
 }
 
 @article{WL-JJES:98,
@@ -614,9 +625,11 @@
 @article{SJ-AD-FB:20r,
   author =        {S. Jafarpour and A. Davydov and F. Bullo},
   journal =       {IEEE Transactions on Automatic Control},
-  note =          {To appear},
+  number =        {9},
+  pages =         {5653-5660},
   title =         {{Non-Euclidean} Contraction Theory for Monotone and
                    Positive Systems},
+  volume =        {68},
   year =          {2023},
   abstract =      {In this note we study strong contractivity of
                    monotone systems and equilibrium-contractivity of
@@ -722,7 +735,7 @@
   doi =           {10.1016/j.arcontrol.2021.10.001},
 }
 
-@article{PS-SH-CK:23,
+@article{PG-SH-CK:23,
   author =        {P. Giesl and S. Hafstein and C. Kawan},
   journal =       {Journal of Computational Dynamics},
   number =        {1},
@@ -731,6 +744,27 @@
                    contraction metrics},
   volume =        {10},
   year =          {2023},
+  abstract =      {Contraction analysis considers the distance between
+                   two adjacent trajectories. If this distance is
+                   contracting, then trajectories have the same
+                   long-term behavior. The main advantage of this
+                   analysis is that it is independent of the solutions
+                   under consideration. Using an appropriate metric,
+                   with respect to which the distance is contracting,
+                   one can show convergence to a unique equilibrium or,
+                   if attraction only occurs in certain directions, to a
+                   periodic orbit. Contraction analysis was originally
+                   considered for ordinary differential equations, but
+                   has been extended to discrete-time systems, control
+                   systems, delay equations and many other types of
+                   systems. Moreover, similar techniques can be applied
+                   for the estimation of the dimension of attractors and
+                   for the estimation of different notions of entropy
+                   (including topological entropy). This review attempts
+                   to link the references in both the mathematical and
+                   the engineering literature and, furthermore, point
+                   out the recent developments and algorithms in the
+                   computation of contraction metrics.},
   doi =           {10.3934/jcd.2022018},
 }
 
@@ -753,11 +787,10 @@
 
 @phdthesis{DW:22,
   author =        {D. Wu},
-  school =        {Thèse de doctorat de l’université Paris-Saclay et
-                   de Harbin Institute of Technology},
-  title =         {Analyse de contraction des syst{\`e}mes
-                   non-lin{\'e}aires sur des vari{\'e}t{\'e}s
-                   {Riemanniennes}},
+  school =        {Th{\`e}se de doctorat de l'universit{\'e}
+                   Paris-Saclay et de Harbin Institute of Technology},
+  title =         {Contraction Analysis of Nonlinear Systems on
+                   {Riemannian} Manifolds},
   year =          {2022},
 }
 
@@ -765,7 +798,7 @@
   author =        {J. W. Simpson-Porco and F. Bullo},
   journal =       {Systems \& Control Letters},
   pages =         {74-80},
-  title =         {Contraction Theory on {R}iemannian Manifolds},
+  title =         {Contraction Theory on {Riemannian} Manifolds},
   volume =        {65},
   year =          {2014},
   abstract =      {Contraction theory is a methodology for assessing the
@@ -870,8 +903,8 @@
 }
 
 @article{IRM-JJES:18,
-  author =        {Ian R. Manchester and Jean-Jacques E. Slotine},
-  journal =       {{IEEE} Control Systems Letters},
+  author =        {I. R. Manchester and J. J. E. Slotine},
+  journal =       {IEEE Control Systems Letters},
   number =        {3},
   pages =         {333--338},
   title =         {Robust Control Contraction Metrics: {A} Convex
@@ -1012,232 +1045,6 @@
   volume =        {67},
   year =          {2016},
   doi =           {10.1016/j.automatica.2016.01.018},
-}
-
-@book{FB:22,
-  author =        {F. Bullo},
-  edition =       {{1.6}},
-  month =         jan,
-  publisher =     {Kindle Direct Publishing},
-  title =         {Lectures on Network Systems},
-  year =          {2022},
-  isbn =          {978-1986425643},
-  url =           {http://motion.me.ucsb.edu/book-lns},
-}
-
-@book{RG:14,
-  author =        {R. Ghrist},
-  edition =       {1.0},
-  publisher =     {Createspace},
-  title =         {Elementary Applied Topology},
-  year =          {2014},
-  isbn =          {978-1502880857},
-}
-
-@article{PCV-SJ-FB:19r,
-  author =        {P. Cisneros-Velarde and S. Jafarpour and F. Bullo},
-  journal =       {IEEE Transactions on Automatic Control},
-  number =        {7},
-  pages =         {3560-3566},
-  title =         {Distributed and Time-Varying Primal-Dual Dynamics via
-                   Contraction Analysis},
-  volume =        {67},
-  year =          {2022},
-  doi =           {10.1109/TAC.2021.3103865},
-}
-
-@article{PCV-SJ-FB:20c,
-  author =        {P. Cisneros-Velarde and S. Jafarpour and F. Bullo},
-  journal =       {IEEE Transactions on Automatic Control},
-  number =        {12},
-  pages =         {6710-6715},
-  title =         {Contraction Theory for Dynamical Systems on {Hilbert}
-                   Spaces},
-  volume =        {67},
-  year =          {2022},
-  abstract =      {Contraction theory for dynamical systems on Euclidean
-                   spaces is well-established. For contractive (resp.
-                   semi-contractive) systems, the distance (resp.
-                   semi-distance) between any two trajectories decreases
-                   exponentially fast. For partially contractive
-                   systems, each trajectory converges exponentially fast
-                   to an invariant subspace. In this note, we develop
-                   contraction theory on Hilbert spaces. First, for
-                   time-invariant systems we establish the existence of
-                   a unique globally exponentially stable equilibrium
-                   and provide a novel integral condition for
-                   contractivity. Second, we introduce the notions of
-                   partial and semi-contraction and we provide various
-                   sufficient conditions for time-varying and
-                   time-invariant systems. Finally, we apply the theory
-                   on a reaction-diffusion system.},
-  doi =           {10.1109/TAC.2021.3133270},
-}
-
-@inproceedings{SJ-AD-AVP-FB:21f,
-  author =        {S. Jafarpour and A. Davydov and A. V. Proskurnikov and
-                   F. Bullo},
-  booktitle =     {Advances in Neural Information Processing Systems},
-  month =         dec,
-  title =         {Robust Implicit Networks via Non-{Euclidean}
-                   Contractions},
-  year =          {2021},
-  abstract =      {Implicit neural networks, a.k.a., deep equilibrium
-                   networks, are a class of implicit-depth learning
-                   models where function evaluation is performed by
-                   solving a fixed point equation. They generalize
-                   classic feedforward models and are equivalent to
-                   infinite-depth weight-tied feedforward networks.
-                   While implicit models show improved accuracy and
-                   significant reduction in memory consumption, they can
-                   suffer from ill-posedness and convergence
-                   instability. This paper provides a new framework to
-                   design well-posed and robust implicit neural networks
-                   based upon contraction theory for the non-Euclidean
-                   norm $\ell_\infty$. Our framework includes (i) a
-                   novel condition for well-posedness based on one-sided
-                   Lipschitz constants, (ii) an average iteration for
-                   computing fixed-points, and (iii) explicit estimates
-                   on input-output Lipschitz constants. Additionally, we
-                   design a training problem with the well-posedness
-                   condition and the average iteration as constraints
-                   and, to achieve robust models, with the input-output
-                   Lipschitz constant as a regularizer. Our
-                   $\ell_\infty$ well-posedness condition leads to a
-                   larger polytopic training search space than existing
-                   conditions and our average iteration enjoys
-                   accelerated convergence. Finally, we perform several
-                   numerical experiments for function estimation and
-                   digit classification through the MNIST data set. Our
-                   numerical results demonstrate improved accuracy and
-                   robustness of the implicit models with smaller
-                   input-output Lipschitz bounds.},
-  doi =           {10.48550/arXiv.2106.03194},
-}
-
-@inproceedings{AD-SJ-AVP-FB:21j,
-  address =       {Canc\'un, M\'exico},
-  author =        {A. Davydov and S. Jafarpour and A. V. Proskurnikov and
-                   F. Bullo},
-  booktitle =     {{IEEE} Conf.\ on Decision and Control},
-  month =         dec,
-  title =         {Non-{Euclidean} Monotone Operator Theory with
-                   Applications to Recurrent Neural Networks},
-  year =          {2022},
-  doi =           {10.1109/CDC51059.2022.9993197},
-}
-
-@inproceedings{AD-AVP-FB:21k,
-  address =       {Atlanta, USA},
-  author =        {A. Davydov and A. V. Proskurnikov and F. Bullo},
-  booktitle =     {{A}merican {C}ontrol {C}onference},
-  month =         may,
-  pages =         {1527-1534},
-  title =         {{Non-Euclidean} Contractivity of Recurrent Neural
-                   Networks},
-  year =          {2022},
-  doi =           {10.23919/ACC53348.2022.9867357},
-}
-
-@article{KDS-SJ-FB:18f,
-  author =        {K. D. Smith and S. Jafarpour and F. Bullo},
-  journal =       {IEEE Transactions on Automatic Control},
-  number =        {2},
-  pages =         {633-645},
-  title =         {Transient Stability of Droop-Controlled Inverter
-                   Networks with Operating Constraints},
-  volume =        {67},
-  year =          {2022},
-  abstract =      {Due to the rise of distributed energy resources, the
-                   control of networks of grid-forming inverters is now
-                   a pressing issue for power system operation. Droop
-                   control is a popular control strategy in the
-                   literature for frequency control of these inverters.
-                   In this paper, we analyze transient stability in
-                   droop-controlled inverter networks that are subject
-                   to multiple operating constraints. Using two
-                   physically-meaningful Lyapunov-like functions, we
-                   provide two sets of criteria (one mathematical and
-                   one computational) to certify that a post-fault
-                   trajectory achieves frequency synchronization while
-                   respecting operating constraints. We demonstrate two
-                   applications of these results on a modified IEEE RTS
-                   24 test case: estimating the scale of disturbances
-                   with respect to which the system is robust, and
-                   screening for contingencies that threaten transient
-                   stability.},
-  doi =           {10.1109/TAC.2021.3053552},
-}
-
-@article{GDP-KDS-FB-MEV:21m,
-  author =        {G. {De~Pasquale} and K. D. Smith and F. Bullo and
-                   M.~E. Valcher},
-  journal =       {IEEE Transactions on Automatic Control},
-  month =         dec,
-  title =         {Dual Seminorms, Ergodic Coefficients, and
-                   Semicontraction Theory},
-  year =          {2022},
-  doi =           {10.48550/arXiv.2201.03103},
-}
-
-@article{KDS-FB:22o,
-  author =        {K. D. Smith and F. Bullo},
-  journal =       {IEEE Control Systems Letters},
-  number =        {7},
-  pages =         {919-924},
-  title =         {Contractivity of the Method of Successive
-                   Approximations for Optimal Control},
-  year =          {2023},
-  abstract =      {Strongly contracting dynamical systems have numerous
-                   properties (e.g., incremental ISS), find widespread
-                   applications (e.g., in controls and learning), and
-                   their study is receiving increasing attention. This
-                   letter starts with the simple observation that, given
-                   a strongly contracting system, its adjoint dynamical
-                   system is also strongly contracting, with the same
-                   rate, with respect to the dual norm, under time
-                   reversal. As main implication of this dual
-                   contractivity, we show that the classic Method of
-                   Successive Approximations (MSA), an indirect method
-                   in optimal control, is a contraction mapping for
-                   short optimization intervals or large contraction
-                   rates. Consequently, we establish new convergence
-                   conditions for the MSA algorithm, which further imply
-                   uniqueness of the optimal control and sufficiency of
-                   Pontryagin’s minimum principle under additional
-                   assumptions.},
-  doi =           {10.1109/LCSYS.2022.3228723},
-}
-
-@article{VC-FB-GR:22k,
-  author =        {V. Centorrino and F. Bullo and G. Russo},
-  journal =       {Automatica},
-  month =         jul,
-  note =          {Submitted},
-  title =         {Modelling and Contractivity of Neural-Synaptic
-                   Networks with {Hebbian} Learning},
-  year =          {2022},
-  doi =           {10.48550/arXiv.2204.05382},
-}
-
-@article{RO-FB-MM:22h,
-  author =        {R. Ofir and F. Bullo and M. Margaliot},
-  journal =       {IEEE Control Systems Letters},
-  pages =         {2731-2736},
-  title =         {Minimum effort decentralized control design for
-                   contracting network systems},
-  volume =        {6},
-  year =          {2022},
-  abstract =      {We consider the problem of making a networked system
-                   contracting by designing ``minimal effort'' local
-                   controllers. Our method combines a hierarchical
-                   contraction characterization and a matrix-balancing
-                   approach to stabilizing a Metzler matrix via minimal
-                   diagonal perturbations. We demonstrate our approach
-                   by designing local controllers that render
-                   contractive a network of FitzHugh–Nagumo neurons
-                   with a general topology of interactions.},
-  doi =           {10.1109/LCSYS.2022.3176196},
 }
 
 @article{GR-MDB:09,
@@ -1555,8 +1362,8 @@
 }
 
 @article{HDN-TLV-KT-JJES:18,
-  author =        {H. D. {Nguyen} and T. L. {Vu} and K. {Turitsyn} and
-                   J.-J. E. {Slotine}},
+  author =        {H. D. Nguyen and T. L. Vu and K. Turitsyn and
+                   J.-J. E. Slotine},
   journal =       {IEEE Control Systems Letters},
   number =        {4},
   pages =         {755-760},
@@ -1569,12 +1376,22 @@
 
 @article{MTA-JJES:17,
   author =        {M. T. Angulo and J.-J. E. Slotine},
-  journal =       {{IEEE} Transactions on Automatic Control},
+  journal =       {IEEE Transactions on Automatic Control},
   number =        {8},
   pages =         {4080--4085},
   title =         {Qualitative Stability of Nonlinear Networked Systems},
   volume =        {62},
   year =          {2017},
+  abstract =      {In many large systems, such as those encountered in
+                   biology or economics, the dynamics are nonlinear and
+                   are only known very coarsely. It is often the case,
+                   however, that the signs (excitation or inhibition) of
+                   individual interactions are known. This technical
+                   note extends to nonlinear systems the classical
+                   criteria of linear sign stability introduced in the
+                   70's, yielding simple sufficient conditions to
+                   determine stability using only the sign patterns of
+                   the interactions.},
   doi =           {10.1109/tac.2016.2617780},
 }
 
@@ -1592,7 +1409,7 @@
 
 @article{SB-JJES:15,
   author =        {S. Bonnabel and J.-J. E. Slotine},
-  journal =       {{IEEE} Transactions on Automatic Control},
+  journal =       {IEEE Transactions on Automatic Control},
   number =        {2},
   pages =         {565--569},
   title =         {A Contraction Theory-Based Analysis of the Stability
@@ -1611,6 +1428,38 @@
                    convergence of gradient descent},
   volume =        {15},
   year =          {2020},
+  abstract =      {This paper considers the analysis of continuous time
+                   gradient-based optimization algorithms through the
+                   lens of nonlinear contraction theory. It demonstrates
+                   that in the case of a time-invariant objective, most
+                   elementary results on gradient descent based on
+                   convexity can be replaced by much more general
+                   results based on contraction. In particular, gradient
+                   descent converges to a unique equilibrium if its
+                   dynamics are contracting in any metric, with
+                   convexity of the cost corresponding to the special
+                   case of contraction in the identity metric. More
+                   broadly, contraction analysis provides new insights
+                   for the case of geodesically-convex optimization,
+                   wherein non-convex problems in Euclidean space can be
+                   transformed to convex ones posed over a Riemannian
+                   manifold. In this case, natural gradient descent
+                   converges to a unique equilibrium if it is
+                   contracting in any metric, with geodesic convexity of
+                   the cost corresponding to contraction in the natural
+                   metric. New results using semi-contraction provide
+                   additional insights into the topology of the set of
+                   optimizers in the case when multiple optima exist.
+                   Furthermore, they show how semi-contraction may be
+                   combined with specific additional information to
+                   reach broad conclusions about a dynamical system. The
+                   contraction perspective also easily extends to
+                   time-varying optimization settings and allows one to
+                   recursively build large optimization structures out
+                   of simpler elements. Extensions to natural
+                   primal-dual optimization and game-theoretic contexts
+                   further illustrate the potential reach of these new
+                   perspectives.},
   doi =           {10.1371/journal.pone.0236661},
 }
 
@@ -1669,6 +1518,254 @@
   doi =           {10.1109/CDC.2004.1428824},
 }
 
+@book{FB:24-LNS,
+  author =        {F. Bullo},
+  edition =       {{1.7}},
+  month =         apr,
+  publisher =     {Kindle Direct Publishing},
+  title =         {Lectures on Network Systems},
+  year =          {2024},
+  isbn =          {978-1986425643},
+  url =           {https://fbullo.github.io/lns},
+}
+
+@book{RG:14,
+  author =        {R. Ghrist},
+  edition =       {1.0},
+  publisher =     {Createspace},
+  title =         {Elementary Applied Topology},
+  year =          {2014},
+  isbn =          {978-1502880857},
+}
+
+@article{PCV-SJ-FB:19r,
+  author =        {P. Cisneros-Velarde and S. Jafarpour and F. Bullo},
+  journal =       {IEEE Transactions on Automatic Control},
+  number =        {7},
+  pages =         {3560-3566},
+  title =         {Distributed and Time-Varying Primal-Dual Dynamics via
+                   Contraction Analysis},
+  volume =        {67},
+  year =          {2022},
+  doi =           {10.1109/TAC.2021.3103865},
+}
+
+@article{PCV-SJ-FB:20c,
+  author =        {P. Cisneros-Velarde and S. Jafarpour and F. Bullo},
+  journal =       {IEEE Transactions on Automatic Control},
+  number =        {12},
+  pages =         {6710-6715},
+  title =         {Contraction Theory for Dynamical Systems on {Hilbert}
+                   Spaces},
+  volume =        {67},
+  year =          {2022},
+  abstract =      {Contraction theory for dynamical systems on Euclidean
+                   spaces is well-established. For contractive (resp.
+                   semi-contractive) systems, the distance (resp.
+                   semi-distance) between any two trajectories decreases
+                   exponentially fast. For partially contractive
+                   systems, each trajectory converges exponentially fast
+                   to an invariant subspace. In this note, we develop
+                   contraction theory on Hilbert spaces. First, for
+                   time-invariant systems we establish the existence of
+                   a unique globally exponentially stable equilibrium
+                   and provide a novel integral condition for
+                   contractivity. Second, we introduce the notions of
+                   partial and semi-contraction and we provide various
+                   sufficient conditions for time-varying and
+                   time-invariant systems. Finally, we apply the theory
+                   on a reaction-diffusion system.},
+  doi =           {10.1109/TAC.2021.3133270},
+}
+
+@inproceedings{SJ-AD-AVP-FB:21f,
+  author =        {S. Jafarpour and A. Davydov and A. V. Proskurnikov and
+                   F. Bullo},
+  booktitle =     {Advances in Neural Information Processing Systems},
+  month =         dec,
+  title =         {Robust Implicit Networks via Non-{Euclidean}
+                   Contractions},
+  year =          {2021},
+  abstract =      {Implicit neural networks, a.k.a., deep equilibrium
+                   networks, are a class of implicit-depth learning
+                   models where function evaluation is performed by
+                   solving a fixed point equation. They generalize
+                   classic feedforward models and are equivalent to
+                   infinite-depth weight-tied feedforward networks.
+                   While implicit models show improved accuracy and
+                   significant reduction in memory consumption, they can
+                   suffer from ill-posedness and convergence
+                   instability. This paper provides a new framework to
+                   design well-posed and robust implicit neural networks
+                   based upon contraction theory for the non-Euclidean
+                   norm $\ell_\infty$. Our framework includes (i) a
+                   novel condition for well-posedness based on one-sided
+                   Lipschitz constants, (ii) an average iteration for
+                   computing fixed-points, and (iii) explicit estimates
+                   on input-output Lipschitz constants. Additionally, we
+                   design a training problem with the well-posedness
+                   condition and the average iteration as constraints
+                   and, to achieve robust models, with the input-output
+                   Lipschitz constant as a regularizer. Our
+                   $\ell_\infty$ well-posedness condition leads to a
+                   larger polytopic training search space than existing
+                   conditions and our average iteration enjoys
+                   accelerated convergence. Finally, we perform several
+                   numerical experiments for function estimation and
+                   digit classification through the MNIST data set. Our
+                   numerical results demonstrate improved accuracy and
+                   robustness of the implicit models with smaller
+                   input-output Lipschitz bounds.},
+  doi =           {10.48550/arXiv.2106.03194},
+}
+
+@inproceedings{AD-SJ-AVP-FB:21j,
+  address =       {Canc\'un, M\'exico},
+  author =        {A. Davydov and S. Jafarpour and A. V. Proskurnikov and
+                   F. Bullo},
+  booktitle =     {{IEEE} Conf.\ on Decision and Control},
+  month =         dec,
+  title =         {Non-{Euclidean} Monotone Operator Theory with
+                   Applications to Recurrent Neural Networks},
+  year =          {2022},
+  doi =           {10.1109/CDC51059.2022.9993197},
+}
+
+@inproceedings{AD-AVP-FB:21k,
+  address =       {Atlanta, USA},
+  author =        {A. Davydov and A. V. Proskurnikov and F. Bullo},
+  booktitle =     {{A}merican {C}ontrol {C}onference},
+  month =         may,
+  pages =         {1527-1534},
+  title =         {{Non-Euclidean} Contractivity of Recurrent Neural
+                   Networks},
+  year =          {2022},
+  doi =           {10.23919/ACC53348.2022.9867357},
+}
+
+@article{KDS-SJ-FB:18f,
+  author =        {K. D. Smith and S. Jafarpour and F. Bullo},
+  journal =       {IEEE Transactions on Automatic Control},
+  number =        {2},
+  pages =         {633-645},
+  title =         {Transient Stability of Droop-Controlled Inverter
+                   Networks with Operating Constraints},
+  volume =        {67},
+  year =          {2022},
+  abstract =      {Due to the rise of distributed energy resources, the
+                   control of networks of grid-forming inverters is now
+                   a pressing issue for power system operation. Droop
+                   control is a popular control strategy in the
+                   literature for frequency control of these inverters.
+                   In this paper, we analyze transient stability in
+                   droop-controlled inverter networks that are subject
+                   to multiple operating constraints. Using two
+                   physically-meaningful Lyapunov-like functions, we
+                   provide two sets of criteria (one mathematical and
+                   one computational) to certify that a post-fault
+                   trajectory achieves frequency synchronization while
+                   respecting operating constraints. We demonstrate two
+                   applications of these results on a modified IEEE RTS
+                   24 test case: estimating the scale of disturbances
+                   with respect to which the system is robust, and
+                   screening for contingencies that threaten transient
+                   stability.},
+  doi =           {10.1109/TAC.2021.3053552},
+}
+
+@article{GDP-KDS-FB-MEV:21m,
+  author =        {G. {De~Pasquale} and K. D. Smith and F. Bullo and
+                   M.~E. Valcher},
+  journal =       {IEEE Transactions on Automatic Control},
+  number =        {5},
+  pages =         {3040-3053},
+  title =         {Dual Seminorms, Ergodic Coefficients, and
+                   Semicontraction Theory},
+  volume =        {69},
+  year =          {2024},
+  abstract =      {Dynamical systems that are contracting on a subspace
+                   are said to be semicontracting. Semicontraction
+                   theory is a useful tool in the study of consensus
+                   algorithms and dynamical flow systems such as Markov
+                   chains. To develop a comprehensive theory of
+                   semicontracting systems, we investigate seminorms on
+                   vector spaces and define two canonical notions:
+                   projection and distance seminorms. We show that the
+                   well-known $\ell_p$ ergodic coefficients are induced
+                   matrix seminorms and play a central role in stability
+                   problems. In particular, we formulate a duality
+                   theorem that explains why the Markov-Dobrushin
+                   coefficient is the rate of contraction for both
+                   averaging and conservation flows in discrete time.
+                   Moreover, we obtain parallel results for induced
+                   matrix log seminorms. Finally, we propose
+                   comprehensive theorems for strong semicontractivity
+                   of linear and non-linear time-varying dynamical
+                   systems with invariance and conservation properties
+                   both in discrete and continuous time.},
+  doi =           {10.1109/TAC.2023.3302788},
+}
+
+@article{KDS-FB:22o,
+  author =        {K. D. Smith and F. Bullo},
+  journal =       {IEEE Control Systems Letters},
+  pages =         {919-924},
+  title =         {Contractivity of the Method of Successive
+                   Approximations for Optimal Control},
+  volume =        {7},
+  year =          {2023},
+  abstract =      {Strongly contracting dynamical systems have numerous
+                   properties (e.g., incremental ISS), find widespread
+                   applications (e.g., in controls and learning), and
+                   their study is receiving increasing attention. This
+                   letter starts with the simple observation that, given
+                   a strongly contracting system, its adjoint dynamical
+                   system is also strongly contracting, with the same
+                   rate, with respect to the dual norm, under time
+                   reversal. As main implication of this dual
+                   contractivity, we show that the classic Method of
+                   Successive Approximations (MSA), an indirect method
+                   in optimal control, is a contraction mapping for
+                   short optimization intervals or large contraction
+                   rates. Consequently, we establish new convergence
+                   conditions for the MSA algorithm, which further imply
+                   uniqueness of the optimal control and sufficiency of
+                   Pontryagin’s minimum principle under additional
+                   assumptions.},
+  doi =           {10.1109/LCSYS.2022.3228723},
+}
+
+@article{VC-FB-GR:22k,
+  author =        {V. Centorrino and F. Bullo and G. Russo},
+  journal =       {Automatica},
+  pages =         {111636},
+  title =         {Modelling and Contractivity of Neural-Synaptic
+                   Networks with {Hebbian} Learning},
+  volume =        {164},
+  year =          {2024},
+  doi =           {10.1016/j.automatica.2024.111636},
+}
+
+@article{RO-FB-MM:22h,
+  author =        {R. Ofir and F. Bullo and M. Margaliot},
+  journal =       {IEEE Control Systems Letters},
+  pages =         {2731-2736},
+  title =         {Minimum Effort Decentralized Control Design for
+                   Contracting Network Systems},
+  volume =        {6},
+  year =          {2022},
+  abstract =      {We consider the problem of making a networked system
+                   contracting by designing ``minimal effort'' local
+                   controllers. Our method combines a hierarchical
+                   contraction characterization and a matrix-balancing
+                   approach to stabilizing a Metzler matrix via minimal
+                   diagonal perturbations. We demonstrate our approach
+                   by designing local controllers that render
+                   contractive a network of FitzHugh–Nagumo neurons
+                   with a general topology of interactions.},
+  doi =           {10.1109/LCSYS.2022.3176196},
+}
+
 @article{RC:1930,
   author =        {Caccioppoli, Renato},
   journal =       {Rendiconti dell'Accademia Nazionale dei Lincei},
@@ -1714,6 +1811,27 @@
   volume =        {110},
   year =          {1985},
   doi =           {10.1016/0022-247X(85)90306-3},
+}
+
+@article{JER-AAT:24,
+  author =        {J. E. Rauch and A. A. Toda},
+  journal =       {Qeios},
+  title =         {Visualizing the Contraction Mapping Theorem},
+  year =          {2024},
+  abstract =      {We visualize the process of value function iteration
+                   and convergence. We also clarify the conditions under
+                   which value function iteration converges to a unique
+                   value function, which are often glossed over in
+                   practice.},
+  doi =           {10.32388/jso1m3},
+}
+
+@book{HLR:88,
+  author =        {H. L. Royden},
+  publisher =     {Macmillan},
+  title =         {Real Analysis},
+  year =          {1988},
+  isbn =          {9780134689494},
 }
 
 @article{GB:57,
@@ -1797,7 +1915,6 @@
 @article{ACR:63,
   author =        {A. C. Thompson},
   journal =       {Proceedings of the American Mathematical Society},
-  month =         jun,
   number =        {3},
   pages =         {438},
   title =         {On Certain Contraction Mappings in a Partially
@@ -1832,7 +1949,7 @@
 }
 
 @article{JL-YL:07,
-  author =        {Jimmie Lawson and Yongdo Lim},
+  author =        {J. Lawson and Y. Lim},
   journal =       {SIAM Journal on Control and Optimization},
   number =        {3},
   pages =         {930--951},
@@ -1855,6 +1972,50 @@
   doi =           {10.1088/0951-7715/21/4/011},
 }
 
+@article{SS-RH:15,
+  author =        {S. Sra and R. Hosseini},
+  journal =       {SIAM Journal on Optimization},
+  number =        {1},
+  pages =         {713-739},
+  title =         {Conic Geometric Optimization on the Manifold of
+                   Positive Definite Matrices},
+  volume =        {25},
+  year =          {2015},
+  doi =           {10.1137/140978168},
+}
+
+@book{AA-NJ-SMK-WS:22,
+  author =        {A. Agarwal and N. Jiang and S. M. Kakade and W. Sun},
+  publisher =     {CS Dept., UW Seattle},
+  title =         {Reinforcement Learning: Theory and Algorithms},
+  year =          {2022},
+  url =           {https://rltheorybook.github.io/},
+}
+
+@article{JAY:69,
+  author =        {J. A. Yorke},
+  journal =       {Proceedings of the American Mathematical Society},
+  number =        {2},
+  pages =         {509--512},
+  title =         {Periods of periodic solutions and the {Lipschitz}
+                   constant},
+  volume =        {22},
+  year =          {1969},
+  doi =           {10.2307/2037090},
+}
+
+@article{AL-JAY:76,
+  author =        {A. Lajmanovich and J. A. Yorke},
+  journal =       {Mathematical Biosciences},
+  number =        {3},
+  pages =         {221--236},
+  title =         {A deterministic model for gonorrhea in a
+                   nonhomogeneous population},
+  volume =        {28},
+  year =          {1976},
+  doi =           {10.1016/0025-5564(76)90125-5},
+}
+
 @article{SML:58,
   author =        {S. M. Lozinskii},
   journal =       {Izvestiya Vysshikh Uchebnykh Zavedenii. Matematika},
@@ -1875,98 +2036,6 @@
   title =         {Stability and error bounds in the numerical
                    integration of ordinary differential equations},
   year =          {1958},
-}
-
-@book{WAC:1965,
-  author =        {W. A. Coppel},
-  publisher =     {Heath},
-  title =         {Stability and Asymptotic Behavior of Differential
-                   Equations},
-  year =          {1965},
-  isbn =          {0669190187},
-}
-
-@book{SB-LV:04,
-  author =        {S. Boyd and L. Vandenberghe},
-  publisher =     {Cambridge University Press},
-  title =         {Convex Optimization},
-  year =          {2004},
-  isbn =          {0521833787},
-}
-
-@misc{MG-SB:11-cvx,
-  author =        {M. Grant and S. Boyd},
-  month =         mar,
-  title =         {{CVX}: Matlab Software for Disciplined Convex
-                   Programming, version 2.1},
-  year =          {2014},
-  url =           {http://cvxr.com/cvx},
-}
-
-@book{SB-LEG-EF-VB:94,
-  author =        {S. Boyd and L. {El~Ghaoui} and E. Feron and
-                   V. Balakrishnan},
-  publisher =     {SIAM},
-  title =         {Linear Matrix Inequalities in System and Control
-                   Theory},
-  year =          {1994},
-  isbn =          {089871334X},
-}
-
-@article{OP-MV:06,
-  author =        {O. Pastravanu and M. Voicu},
-  journal =       {Linear Algebra and its Applications},
-  number =        {2},
-  pages =         {299-310},
-  title =         {Generalized matrix diagonal stability and linear
-                   dynamical systems},
-  volume =        {419},
-  year =          {2006},
-  abstract =      {Let A=(aij) be a real square matrix and p in 1,
-                   infinity. We present two analogous developments. One
-                   for Schur stability and the discrete-time dynamical
-                   system x(t+1)=Ax(t), and the other for Hurwitz
-                   stability and the continuous-time dynamical system
-                   x'(t)=Ax(t). Here is a description of the latter
-                   development. For A, we define and study Hurwitz
-                   diagonal stability with respect to p-norms,
-                   abbreviated HDSp. HDS2 is the usual concept of
-                   diagonal stability. A is HDSp implies Re lambda <0
-                   for every eigenvalue, which means A is Hurwitz
-                   stable, abbreviated HS. When the off-diagonal
-                   elements of A are nonnegative, A is HS iff A is HDSp
-                   for all p. For the dynamical system x'(t)=Ax(t), we
-                   define diagonally invariant exponential stability
-                   relative to the p-norm, abbreviated DIESp, meaning
-                   there exist time-dependent sets, which decrease
-                   exponentially and are invariant with respect to the
-                   system. We show that DIESp is a special type of
-                   exponential stability and the dynamical system has
-                   this property iff A is HDSp.},
-  doi =           {10.1016/j.laa.2006.04.021},
-}
-
-@article{PJM:77,
-  author =        {P. J. Moylan},
-  journal =       {Linear Algebra and its Applications},
-  number =        {1},
-  pages =         {53-58},
-  title =         {Matrices with positive principal minors},
-  volume =        {17},
-  year =          {1977},
-  abstract =      {A new necessary and sufficient condition is given for
-                   all principal minors of a square matrix to be
-                   positive. A special subclass of such matrices, called
-                   quasidominant matrices, is also examined.},
-  doi =           {10.1016/0024-3795(77)90040-4},
-}
-
-@book{RAH-CRJ:94,
-  author =        {R. A. Horn and C. R. Johnson},
-  publisher =     {Cambridge University Press},
-  title =         {Topics in Matrix Analysis},
-  year =          {1994},
-  isbn =          {0521467136},
 }
 
 @book{RAH-CRJ:12,
@@ -2023,6 +2092,52 @@
   isbn =          {978-0-12-212050-3},
 }
 
+@book{FB:24-CTDS,
+  author =        {F. Bullo},
+  edition =       {{1.2}},
+  publisher =     {Kindle Direct Publishing},
+  title =         {Contraction Theory for Dynamical Systems},
+  year =          {2024},
+  isbn =          {979-8836646806},
+  url =           {https://fbullo.github.io/ctds},
+}
+
+@book{WAC:1965,
+  author =        {W. A. Coppel},
+  publisher =     {Heath},
+  title =         {Stability and Asymptotic Behavior of Differential
+                   Equations},
+  year =          {1965},
+  isbn =          {0669190187},
+}
+
+@misc{MG-SB:11-cvx,
+  author =        {M. Grant and S. Boyd},
+  month =         mar,
+  title =         {{CVX}: Matlab Software for Disciplined Convex
+                   Programming, version 2.1},
+  year =          {2014},
+  url =           {http://cvxr.com/cvx},
+}
+
+@book{SB-LV:04,
+  author =        {S. Boyd and L. Vandenberghe},
+  publisher =     {Cambridge University Press},
+  title =         {Convex Optimization},
+  year =          {2004},
+  isbn =          {0521833787},
+}
+
+@book{SB-LEG-EF-VB:94,
+  author =        {S. Boyd and L. {El~Ghaoui} and E. Feron and
+                   V. Balakrishnan},
+  publisher =     {SIAM},
+  title =         {Linear Matrix Inequalities in System and Control
+                   Theory},
+  year =          {1994},
+  isbn =          {089871334X},
+}
+
 @article{JS-CW:62,
   author =        {Stoer, J. and Witzgall, C.},
   journal =       {Numerische Mathematik},
@@ -2043,6 +2158,39 @@
   volume =        {249},
   year =          {1996},
   doi =           {10.1016/0024-3795(95)00360-6},
+}
+
+@article{OP-MV:06,
+  author =        {O. Pastravanu and M. Voicu},
+  journal =       {Linear Algebra and its Applications},
+  number =        {2},
+  pages =         {299-310},
+  title =         {Generalized matrix diagonal stability and linear
+                   dynamical systems},
+  volume =        {419},
+  year =          {2006},
+  abstract =      {Let A=(aij) be a real square matrix and p in 1,
+                   infinity. We present two analogous developments. One
+                   for Schur stability and the discrete-time dynamical
+                   system x(t+1)=Ax(t), and the other for Hurwitz
+                   stability and the continuous-time dynamical system
+                   x'(t)=Ax(t). Here is a description of the latter
+                   development. For A, we define and study Hurwitz
+                   diagonal stability with respect to p-norms,
+                   abbreviated HDSp. HDS2 is the usual concept of
+                   diagonal stability. A is HDSp implies Re lambda <0
+                   for every eigenvalue, which means A is Hurwitz
+                   stable, abbreviated HS. When the off-diagonal
+                   elements of A are nonnegative, A is HS iff A is HDSp
+                   for all p. For the dynamical system x'(t)=Ax(t), we
+                   define diagonally invariant exponential stability
+                   relative to the p-norm, abbreviated DIESp, meaning
+                   there exist time-dependent sets, which decrease
+                   exponentially and are invariant with respect to the
+                   system. We show that DIESp is a special type of
+                   exponential stability and the dynamical system has
+                   this property iff A is HDSp.},
+  doi =           {10.1016/j.laa.2006.04.021},
 }
 
 @article{WB:81,
@@ -2112,6 +2260,39 @@
   doi =           {10.1016/j.amc.2014.04.053},
 }
 
+@article{AD-AVP-FB:22q,
+  author =        {A. Davydov and A. V. Proskurnikov and F. Bullo},
+  journal =       {IEEE Transactions on Automatic Control},
+  note =          {To appear},
+  title =         {{Non-Euclidean} Contraction Analysis of
+                   Continuous-Time Neural Networks},
+  year =          {2024},
+  doi =           {10.1109/TAC.2024.3422217},
+}
+
+@article{GPB-AB-RJP:78,
+  author =        {G. P. Barker and A. Berman and R. J. Plemmons},
+  journal =       {Linear and Multilinear Algebra},
+  number =        {4},
+  pages =         {249-256},
+  title =         {Positive diagonal solutions to the {L}yapunov
+                   equations},
+  volume =        {5},
+  year =          {1978},
+  doi =           {10.1080/03081087808817203},
+}
+
+@article{VAY:71,
+  author =        {V. A. Yakubovich},
+  journal =       {Vestnik Leningrad University},
+  note =          {(In Russian)},
+  pages =         {62--77},
+  title =         {S-procedure in nonlinear control theory},
+  volume =        {1},
+  year =          {1971},
+  url =           {http://tcyber.ru/tk_media/library/papers_v/096r.djvu},
+}
+
 @article{GS:06,
   author =        {G. S{\"o}derlind},
   journal =       {BIT Numerical Mathematics},
@@ -2140,7 +2321,7 @@
 }
 
 @incollection{GD:1976,
-  author =        {Dahlquist, Germund},
+  author =        {G. Dahlquist},
   booktitle =     {Numerical Analysis},
   editor =        {Watson, G. A.},
   pages =         {60--72},
@@ -2197,12 +2378,12 @@
   isbn =          {0486462854},
 }
 
-@techreport{ADL:10,
+@article{ADL:23,
   author =        {A. D. Lewis},
-  institution =   {Queen’s University, Kingston, Ontario, Canada},
+  journal =       {Queen's University, Kingston, Ontario, Canada},
   title =         {A top nine list: {M}ost popular induced matrix norms},
-  year =          {2010},
-  url =           {https://mast.queensu.ca/~andrew/notes/pdf/2010a.pdf},
+  year =          {2023},
+  doi =           {10.48550/arXiv.2309.07190},
 }
 
 @article{IH-BGC:99,
@@ -2333,7 +2514,7 @@
 
 @article{RV:20,
   author =        {R. Vrabel},
-  journal =       {{IEEE} Transactions on Automatic Control},
+  journal =       {IEEE Transactions on Automatic Control},
   number =        {4},
   pages =         {1647--1651},
   title =         {A Note on Uniform Exponential Stability of Linear
@@ -2341,6 +2522,29 @@
   volume =        {65},
   year =          {2020},
   doi =           {10.1109/tac.2019.2927949},
+}
+
+@article{PJM:77,
+  author =        {P. J. Moylan},
+  journal =       {Linear Algebra and its Applications},
+  number =        {1},
+  pages =         {53-58},
+  title =         {Matrices with positive principal minors},
+  volume =        {17},
+  year =          {1977},
+  abstract =      {A new necessary and sufficient condition is given for
+                   all principal minors of a square matrix to be
+                   positive. A special subclass of such matrices, called
+                   quasidominant matrices, is also examined.},
+  doi =           {10.1016/0024-3795(77)90040-4},
+}
+
+@book{RAH-CRJ:94,
+  author =        {R. A. Horn and C. R. Johnson},
+  publisher =     {Cambridge University Press},
+  title =         {Topics in Matrix Analysis},
+  year =          {1994},
+  isbn =          {0521467136},
 }
 
 @article{ED:75,
@@ -2458,8 +2662,29 @@
   doi =           {10.1137/20M131802X},
 }
 
+@article{RJC-JRF:24,
+  author =        {R. J. Caverly and J. R. Forbes},
+  journal =       {arXiv preprint arXiv:1903.08599},
+  title =         {{LMI} properties and applications in systems,
+                   stability, and control theory},
+  volume =        {v4},
+  year =          {2024},
+  doi =           {10.48550/arXiv.2109.06025},
+}
+
+@article{IP-TT:07,
+  author =        {I. P{\'o}lik and T. Terlaky},
+  journal =       {SIAM Review},
+  number =        {3},
+  pages =         {371-418},
+  title =         {A Survey of the {S}-Lemma},
+  volume =        {49},
+  year =          {2007},
+  doi =           {10.1137/S003614450444614X},
+}
+
 @article{GGD:83,
-  author =        {Germund Dahlquist},
+  author =        {G. Dahlquist},
   journal =       {Linear Algebra and its Applications},
   pages =         {199-216},
   title =         {On matrix majorants and minorants, with applications
@@ -2489,18 +2714,6 @@
   doi =           {10.1007/bf01934997},
 }
 
-@article{GG-SK:92,
-  author =        {G. Giorgi and S. Koml{\'o}si},
-  journal =       {Rivista di Matematica Per Le Scienze Economiche e
-                   Sociali},
-  number =        {1},
-  pages =         {3--30},
-  title =         {Dini derivatives in optimization --- {Part I}},
-  volume =        {15},
-  year =          {1992},
-  doi =           {10.1007/BF02086523},
-}
-
 @article{FLB-JS-CW:61,
   author =        {F. L. Bauer and J. Stoer and C. Witzgall},
   journal =       {Numerische Mathematik},
@@ -2518,66 +2731,6 @@
   title =         {Matrix Mathematics},
   year =          {2009},
   isbn =          {0691140391},
-}
-
-@article{APM-ESP:86,
-  author =        {A. P Molchanov and E. S. Pyatnitsky},
-  journal =       {Automation and Remote Control},
-  note =          {(In Russian)},
-  pages =         {38-49},
-  title =         {Lyapunov functions defining necessary and sufficient
-                   conditions for the absolute stability of nonlinear
-                   nonstationary control systems},
-  volume =        {5},
-  year =          {1986},
-  url =           {http://mi.mathnet.ru/eng/at6230},
-}
-
-@article{HK-JA-PS:92,
-  author =        {H. {Kiendl} and J. {Adamy} and P. {Stelzner}},
-  journal =       {IEEE Transactions on Automatic Control},
-  number =        {6},
-  pages =         {839-842},
-  title =         {Vector norms as {Lyapunov} functions for linear
-                   systems},
-  volume =        {37},
-  year =          {1992},
-  doi =           {10.1109/9.256362},
-}
-
-@article{AP:97,
-  author =        {A. {Polanski}},
-  journal =       {IEEE Transactions on Automatic Control},
-  number =        {7},
-  pages =         {1013-1016},
-  title =         {Lyapunov function construction by linear programming},
-  volume =        {42},
-  year =          {1997},
-  doi =           {10.1109/9.599986},
-}
-
-@article{KL-AP-RR:98,
-  author =        {K. Loskot and A. Polanski and R. Rudnicki},
-  journal =       {IEEE Transactions on Automatic Control},
-  number =        {2},
-  pages =         {289-291},
-  title =         {{Further comments on "Vector norms as {Lyapunov}
-                   functions for linear systems"}},
-  volume =        {43},
-  year =          {1998},
-  doi =           {10.1109/9.661083},
-}
-
-@article{CM-CVL:03,
-  author =        {C. Moler and C. V. Loan},
-  journal =       {SIAM Review},
-  number =        {1},
-  pages =         {3-49},
-  title =         {Nineteen Dubious Ways to Compute the Exponential of a
-                   Matrix, Twenty-Five Years Later},
-  volume =        {45},
-  year =          {2003},
-  doi =           {10.1137/S00361445024180},
 }
 
 @article{CRJ:75,
@@ -2622,6 +2775,91 @@
                    P-matrices invariant. Some new results and extensions
                    of results regarding P-matrices are included.},
   isbn =          {1590339150},
+}
+
+@article{GQ-NL:19,
+  author =        {G. Qu and N. Li},
+  journal =       {IEEE Control Systems Letters},
+  number =        {1},
+  pages =         {43-48},
+  title =         {On the Exponential Stability of Primal-Dual Gradient
+                   Dynamics},
+  volume =        {3},
+  year =          {2019},
+  doi =           {10.1109/LCSYS.2018.2851375},
+}
+
+@inproceedings{JW-NE:11,
+  address =       {Orlando, USA},
+  author =        {J. Wang and N. Elia},
+  booktitle =     {{IEEE} Conf.\ on Decision and Control and European
+                   Control Conference},
+  pages =         {3800-3805},
+  title =         {A control perspective for centralized and distributed
+                   convex optimization},
+  year =          {2011},
+  doi =           {10.1109/CDC.2011.6161503},
+}
+
+@unpublished{FD:18,
+  author =        {F. D{\"o}rfler},
+  journal =       {Accessed on June 2023},
+  note =          {{Advanced Topics in Control 2018: Distributed Systems
+                   \& Control}},
+  title =         {Distributed consensus-based optimization},
+  year =          {2018},
+}
+
+@article{JC-SKN:19,
+  author =        {J. Cort{\'e}s and S. K. Niederl{\"a}nder},
+  journal =       {Journal of Nonlinear Science},
+  number =        {4},
+  pages =         {1247--1272},
+  title =         {Distributed Coordination for Nonsmooth Convex
+                   Optimization via Saddle-Point Dynamics},
+  volume =        {29},
+  year =          {2019},
+  doi =           {10.1007/s00332-018-9516-4},
+}
+
+@article{GG-SK:92,
+  author =        {G. Giorgi and S. Koml{\'o}si},
+  journal =       {Rivista di Matematica Per Le Scienze Economiche e
+                   Sociali},
+  number =        {1},
+  pages =         {3--30},
+  title =         {Dini derivatives in optimization --- {Part I}},
+  volume =        {15},
+  year =          {1992},
+  doi =           {10.1007/BF02086523},
+}
+
+@article{CM-CVL:03,
+  author =        {C. Moler and C. V. Loan},
+  journal =       {SIAM Review},
+  number =        {1},
+  pages =         {3-49},
+  title =         {Nineteen Dubious Ways to Compute the Exponential of a
+                   Matrix, Twenty-Five Years Later},
+  volume =        {45},
+  year =          {2003},
+  doi =           {10.1137/S00361445024180},
+}
+
+@unpublished{AVP-FB:22n,
+  author =        {A. V. Proskurnikov and F. Bullo},
+  note =          {Working Document},
+  title =         {Regular pairings on normed spaces: linking two
+                   concepts of a semi-inner product},
+  year =          {2022},
+}
+
+@book{KD:85,
+  author =        {K. Deimling},
+  publisher =     {Springer},
+  title =         {Nonlinear Functional Analysis},
+  year =          {1985},
+  isbn =          {3-540-13928-1},
 }
 
 @unpublished{SJ:19-personal,
@@ -2695,6 +2933,133 @@
   title =         {Feedback Control Theory},
   year =          {1990},
   isbn =          {0486469336},
+}
+
+@inbook{GC-NO-DB:22,
+  author =        {G. Chou and N. Ozay and D. Berenson},
+  booktitle =     {Springer Proceedings in Advanced Robotics},
+  pages =         {349-367},
+  publisher =     {Springer International Publishing},
+  title =         {Safe Output Feedback Motion Planning from Images via
+                   Learned Perception Modules and Contraction Theory},
+  year =          {2022},
+  doi =           {10.1007/978-3-031-21090-7_21},
+  isbn =          {9783031210907},
+}
+
+@article{PZ-AL-KA-AG-MP-NH:22,
+  author =        {P. Zhao and A. Lakshmanan and K. Ackerman and
+                   A. Gahlawat and M. Pavone and N. Hovakimyan},
+  journal =       {IEEE Robotics and Automation Letters},
+  number =        {2},
+  pages =         {5528--5535},
+  title =         {Tube-certified trajectory tracking for nonlinear
+                   systems with robust control contraction metrics},
+  volume =        {7},
+  year =          {2022},
+  abstract =      {This letter presents an approach to guaranteed
+                   trajectory tracking for nonlinear control-affine
+                   systems subject to external disturbances based on
+                   robust control contraction metrics (CCM) that aims to
+                   minimize the L gain from the disturbances to
+                   nominal-actual trajectory deviations. The guarantee
+                   is in the form of invariant tubes, computed offline
+                   and valid for any nominal trajectories, in which the
+                   actual states and inputs of the system are guaranteed
+                   to stay despite disturbances. Under mild assumptions,
+                   we prove that the proposed robust CCM (RCCM) approach
+                   yields tighter tubes than an existing approach based
+                   on CCM and input-to-state stability analysis. We show
+                   how the RCCM-based tracking controller together with
+                   tubes can be incorporated into a feedback motion
+                   planning framework to plan safe trajectories for
+                   robotic systems. Simulation results illustrate the
+                   effectiveness of the proposed method and empirically
+                   demonstrate reduced conservatism compared to the
+                   CCM-based approach.},
+  doi =           {10.1109/lra.2022.3153712},
+}
+
+@article{NR-MK-SSK-NM:22,
+  author =        {N. Rezazadeh and M. Kolarich and S. S. Kia and
+                   N. Mehr},
+  journal =       {IEEE Robotics and Automation Letters},
+  number =        {2},
+  pages =         {2905-2912},
+  publisher =     {Institute of Electrical and Electronics Engineers
+                   (IEEE)},
+  title =         {Learning Contraction Policies From Offline Data},
+  volume =        {7},
+  year =          {2022},
+  doi =           {10.1109/lra.2022.3145100},
+}
+
+@article{SS-BL-AM-JJES-MP:23,
+  author =        {Singh, S. and Landry, B. and Majumdar, A. and
+                   Slotine, J-J. E. and Pavone, M.},
+  journal =       {International Journal of Robotics Research},
+  number =        {9},
+  pages =         {655-688},
+  title =         {Robust feedback motion planning via contraction
+                   theory},
+  volume =        {42},
+  year =          {2023},
+  abstract =      {We present a framework for online generation of
+                   robust motion plans for robotic systems with
+                   nonlinear dynamics subject to bounded disturbances,
+                   control constraints, and online state constraints
+                   such as obstacles. In an offline phase, one computes
+                   the structure of a feedback controller that can be
+                   efficiently implemented online to track any feasible
+                   nominal trajectory. The offline phase leverages
+                   contraction theory, specifically, Control Contraction
+                   Metrics, and convex optimization to characterize a
+                   fixed-size “tube” that the state is guaranteed to
+                   remain within while tracking a nominal trajectory
+                   (representing the center of the tube). In the online
+                   phase, when the robot is faced with obstacles, a
+                   motion planner uses such a tube as a robustness
+                   margin for collision checking, yielding nominal
+                   trajectories that can be safely executed, that is,
+                   tracked without collisions under disturbances. In
+                   contrast to recent work on robust online planning
+                   using funnel libraries, our approach is not
+                   restricted to a fixed library of maneuvers computed
+                   offline and is thus particularly well-suited to
+                   applications such as UAV flight in densely cluttered
+                   environments where complex maneuvers may be required
+                   to reach a goal. We demonstrate our approach through
+                   numerical simulations of planar and 3D quadrotors,
+                   and hardware results on a quadrotor platform
+                   navigating a complex obstacle environment while
+                   subject to aerodynamic disturbances. The results
+                   demonstrate the ability of our approach to jointly
+                   balance motion safety and efficiency for agile
+                   robotic systems.},
+  doi =           {10.1177/02783649231186165},
+}
+
+@inproceedings{MG-DA-VA:23,
+  author =        {M. Giaccagli and D. Astolfi and V. Andrieu},
+  booktitle =     {{IEEE} Conf.\ on Decision and Control},
+  month =         dec,
+  title =         {Further Results on Incremental Input-to-State
+                   Stability Based on Contraction-Metric Analysis},
+  year =          {2023},
+  doi =           {10.1109/cdc49753.2023.10384172},
+}
+
+@article{MG-SZ-DA-VA-GC:24,
+  author =        {M. Giaccagli and S. Zoboli and D. Astolfi and
+                   V. Andrieu and G. Casadei},
+  journal =       {IEEE Transactions on Automatic Control},
+  note =          {To appear},
+  pages =         {1-8},
+  title =         {Synchronization in Networks of Nonlinear Systems:
+                   Contraction Analysis via Riemannian Metrics and
+                   Deep-Learning for Feedback Estimation},
+  year =          {2024},
+  doi =           {10.1109/tac.2024.3407015},
 }
 
 @book{AFF:88,
@@ -2823,7 +3188,7 @@
 
 @article{VF-SM-DNC:96,
   author =        {V. Fromion and S. Monaco and D. Normand-Cyrot},
-  journal =       {{IEEE} Transactions on Automatic Control},
+  journal =       {IEEE Transactions on Automatic Control},
   number =        {5},
   pages =         {721--723},
   title =         {Asymptotic properties of incrementally stable
@@ -2876,12 +3241,13 @@
   doi =           {10.2140/pjm.1964.14.243},
 }
 
-@misc{SC-MA:13,
+@article{SC-MA:13,
   author =        {S. Coogan and M. Arcak},
+  journal =       {arXiv preprint arXiv:1308.0586},
   title =         {A note on norm-based {Lyapunov} functions via
                    contraction analysis},
   year =          {2013},
-  url =           {https://arxiv.org/pdf/1308.0586},
+  doi =           {10.48550/arXiv.1308.0586},
 }
 
 @article{RAS:86b,
@@ -2894,6 +3260,18 @@
   volume =        {120},
   year =          {1986},
   doi =           {10.1016/0022-247x(86)90189-7},
+}
+
+@article{PG:15,
+  author =        {P. Giesl},
+  journal =       {Journal of Mathematical Analysis and Applications},
+  number =        {2},
+  pages =         {1380--1403},
+  title =         {Converse theorems on contraction metrics for an
+                   equilibrium},
+  volume =        {424},
+  year =          {2015},
+  doi =           {10.1016/j.jmaa.2014.12.010},
 }
 
 @article{JJES-WL:01,
@@ -3174,84 +3552,277 @@
 
 @article{MR-RW-IRM:20,
   author =        {M. Revay and R. Wang and I. R. Manchester},
+  journal =       {arXiv preprint arXiv:2010.01732},
   title =         {Lipschitz Bounded Equilibrium Networks},
   year =          {2020},
-  url =           {https://arxiv.org/abs/2010.01732},
+  doi =           {10.48550/arXiv.2010.01732},
 }
 
-@misc{LK-ME-JJES:21,
+@inproceedings{LK-ME-JJES:22,
   author =        {L. Kozachkov and M. Ennis and J.-J. E. Slotine},
+  booktitle =     {Advances in Neural Information Processing Systems},
+  month =         dec,
   title =         {{RNNs} of {RNNs}: {Recursive} Construction of Stable
                    Assemblies of Recurrent Neural Networks},
-  year =          {2021},
-  url =           {https://arxiv.org/abs/2106.08928},
+  year =          {2022},
+  abstract =      {Recurrent neural networks (RNNs) are widely used
+                   throughout neuroscience as models of local neural
+                   activity. Many properties of single RNNs are well
+                   characterized theoretically, but experimental
+                   neuroscience has moved in the direction of studying
+                   multiple interacting areas, and RNN theory needs to
+                   be likewise extended. We take a constructive approach
+                   towards this problem, leveraging tools from nonlinear
+                   control theory and machine learning to characterize
+                   when combinations of stable RNNs will themselves be
+                   stable. Importantly, we derive conditions which allow
+                   for massive feedback connections between interacting
+                   RNNs. We parameterize these conditions for easy
+                   optimization using gradient-based techniques, and
+                   show that stability-constrained "networks of
+                   networks" can perform well on challenging
+                   sequential-processing benchmark tasks. Altogether,
+                   our results provide a principled approach towards
+                   understanding distributed, modular function in the
+                   brain.},
+  doi =           {10.48550/arXiv.2106.08928},
 }
 
-@article{MAK-SGK:1955,
-  author =        {M. A. Krasnoselski{\"\i} and S. G. Krein},
-  booktitle =     {Dokl. Akad. Nauk SSSR},
+@book{AIL:57,
+  author =        {Lur{'}e, A. I.},
+  publisher =     {Her Majesty's Stationery Office},
+  title =         {Some non-linear problems in the theory of automatic
+                   control},
+  year =          {1957},
+}
+
+@article{GZ-PLF:68,
+  author =        {G. Zames and P. L. Falb},
+  journal =       {{SIAM} Journal on Control},
   number =        {1},
-  pages =         {13--16},
-  title =         {Nonlocal existence theorems and uniqueness theorems
-                   for systems of ordinary differential equations},
-  volume =        {102},
-  year =          {1955},
+  pages =         {89--108},
+  title =         {Stability Conditions for Systems with Monotone and
+                   Slope-Restricted Nonlinearities},
+  volume =        {6},
+  year =          {1968},
+  doi =           {10.1137/0306007},
 }
 
-@book{RPA-VL:93,
-  author =        {R. P. Agarwal and V. Lakshmikantham},
-  publisher =     {World Scientific},
-  title =         {Uniqueness and nonuniqueness criteria for ordinary
-                   differential equations},
-  year =          {1993},
+@article{VAY:64,
+  author =        {V. A. Yakubovich},
+  journal =       {Avtomatika i Telemekhanika},
+  note =          {(In Russian)},
+  number =        {7},
+  pages =         {1017-1029},
+  title =         {Method of matrix inequalities in theory of nonlinear
+                   control systems stability. {I.} {F}orced oscillations
+                   absolute stability},
+  volume =        {25},
+  year =          {1964},
+  url =           {http://mi.mathnet.ru/eng/at11685},
 }
 
-@book{KD:85,
-  author =        {K. Deimling},
-  publisher =     {Springer},
-  title =         {Nonlinear Functional Analysis},
-  year =          {1985},
-  isbn =          {3-540-13928-1},
+@article{MRL:06,
+  author =        {Liberzon, M. R.},
+  journal =       {Automation and Remote Control},
+  number =        {10},
+  pages =         {1610-1644},
+  title =         {Essays on the absolute stability theory},
+  volume =        {67},
+  year =          {2006},
+  doi =           {10.1134/s0005117906100043},
 }
 
-@article{JL-XL-WCX-HZ:11,
-  author =        {J. Liu and X. Liu and W.-C. Xie and H. Zhang},
+@inproceedings{AF:20,
+  author =        {Fradkov, Alexander},
+  booktitle =     {{E}uropean {C}ontrol {C}onference},
+  month =         may,
+  title =         {Early ideas of the absolute stability theory},
+  year =          {2020},
+  doi =           {10.23919/ecc51009.2020.9143937},
+}
+
+@article{BA-MC:11,
+  author =        {B. A{\c{c}}{\i}kme{\c{s}}e and M. Corless},
   journal =       {Automatica},
-  number =        {12},
-  pages =         {2689-2696},
-  title =         {Stochastic consensus seeking with communication
-                   delays},
+  number =        {7},
+  pages =         {1339--1348},
+  title =         {Observers for systems with nonlinearities satisfying
+                   incremental quadratic constraints},
   volume =        {47},
   year =          {2011},
-  abstract =      {This paper investigates the consensus problem of
-                   dynamical networks of multi-agents where each agent
-                   can only obtain noisy and delayed measurements of the
-                   states of its neighbors due to environmental
-                   uncertainties and communication delays. We consider
-                   general networks with fixed topology and with
-                   switching (dynamically changing) topology, propose
-                   consensus protocols that take into account both the
-                   noisy measurements and the communication time-delays,
-                   and study mean square average-consensus for
-                   multi-agent systems networked in an uncertain
-                   environment and with uniform communication
-                   time-varying delays. Using tools from differential
-                   equations and stochastic calculus, together with
-                   results from matrix theory and algebraic graph
-                   theory, we establish sufficient conditions under
-                   which the proposed consensus protocols lead to mean
-                   square average-consensus. Simulations are also
-                   provided to demonstrate the theoretical results.},
-  doi =           {10.1016/j.automatica.2011.09.005},
+  doi =           {10.1016/j.automatica.2011.02.017},
 }
 
-@book{AH:1966,
-  author =        {A. Halanay},
-  publisher =     {Academic Press},
-  title =         {Differential Equations: Stability, Oscillations, Time
-                   Lags},
-  year =          {1966},
-  isbn =          {978-0-12-317950-0},
+@article{XX-BA-MJC:21,
+  author =        {X. Xu and B. A{\c{c}}{\i}kme{\c{s}}e and
+                   M. J. Corless},
+  journal =       {IEEE Transactions on Automatic Control},
+  number =        {3},
+  pages =         {1129--1143},
+  title =         {Observer-Based Controllers for Incrementally
+                   Quadratic Nonlinear Systems With Disturbances},
+  volume =        {66},
+  year =          {2021},
+  doi =           {10.1109/tac.2020.2996985},
+}
+
+@inproceedings{VA-ST:19,
+  author =        {V. Andrieu and S. Tarbouriech},
+  booktitle =     {IFAC Symposium on Nonlinear Control Systems},
+  pages =         {616-621},
+  title =         {{LMI} conditions for contraction and synchronization},
+  volume =        {52},
+  year =          {2019},
+  abstract =      {This paper deals with a systematic way to check if a
+                   certain class of nonlinear systems can define a
+                   contraction. The proposed approach combines the use
+                   of sector bound condition or monotonic condition
+                   satisfied by the nonlinearities with the use of an
+                   adequate control function matrix. The contraction
+                   analysis results are provided under the form of
+                   linear matrix inequalities (LMIs). The design of a
+                   nonlinear control law (that is a control law
+                   depending on nonlinearities) is proposed in order for
+                   the closed loop to be a contraction. The adaptation
+                   of the contraction results to the synchronization of
+                   n identical nonlinear systems is also investigated by
+                   considering two kinds of communication graphs (full
+                   and general undirected ones).},
+  doi =           {10.1016/j.ifacol.2019.12.030},
+}
+
+@article{MG-VA-ST-DA:22,
+  author =        {M. Giaccagli and V. Andrieu and S. Tarbouriech and
+                   D. Astolfi},
+  journal =       {European Journal of Control},
+  pages =         {100685},
+  title =         {Infinite gain margin, contraction and optimality: An
+                   {LMI}-based design},
+  volume =        {68},
+  year =          {2022},
+  doi =           {10.1016/j.ejcon.2022.100685},
+}
+
+@article{AVP-AD-FB:22a,
+  author =        {A. V. Proskurnikov and A. Davydov and F. Bullo},
+  journal =       {SIAM Journal on Control and Optimization},
+  number =        {4},
+  pages =         {1955-1978},
+  title =         {The {Yakubovich} {S-Lemma} Revisited: {Stability} and
+                   Contractivity in Non-{Euclidean} Norms},
+  volume =        {61},
+  year =          {2023},
+  abstract =      {The celebrated S-Lemma was originally proposed to
+                   ensure the existence of a quadratic Lyapunov function
+                   in the Lur'e problem of absolute stability. A
+                   quadratic Lyapunov function is, however, nothing else
+                   than a squared Euclidean norm on the state space
+                   (that is, a norm induced by an inner product). A
+                   natural question arises as to whether squared
+                   \emph{non-Euclidean} norms $V(x)=\|x\|^2$ may serve
+                   as Lyapunov functions in stability problems. This
+                   paper presents a novel non-polynomial S-Lemma that
+                   leads to constructive criteria for the existence of
+                   such functions defined by weighted $\ell_p$ norms.
+                   Our generalized S-Lemma leads to new absolute
+                   stability and absolute contractivity criteria for
+                   Lur'e-type systems, including, for example, a new
+                   simple proof of the Aizerman and Kalman conjectures
+                   for positive Lur'e systems.},
+  doi =           {10.1137/22M1512600},
+}
+
+@article{RO-AO-MM:24,
+  author =        {R. Ofir and A. Ovseevich and M. Margaliot},
+  journal =       {Automatica},
+  pages =         {111341},
+  title =         {Contraction and $k$-contraction in {Lurie} systems
+                   with applications to networked systems},
+  volume =        {159},
+  year =          {2024},
+  doi =           {10.1016/j.automatica.2023.111341},
+}
+
+@inproceedings{SZ-AC-US-DA-VA:23,
+  author =        {S. Zoboli and A. Cecilia and U. Serres and D. Astolfi and
+                   V. Andrieu},
+  booktitle =     {{IEEE} Conf.\ on Decision and Control},
+  month =         dec,
+  title =         {{LMI} Conditions for $k$-contraction Analysis: {A}
+                   Step Towards Design},
+  year =          {2023},
+  doi =           {10.1109/cdc49753.2023.10383436},
+}
+
+@article{VB:95,
+  author =        {Balakrishnan, V.},
+  journal =       {Systems \& Control Letters},
+  number =        {4},
+  pages =         {265-272},
+  title =         {Linear matrix inequalities in robustness analysis
+                   with multipliers},
+  volume =        {25},
+  year =          {1995},
+  doi =           {10.1016/0167-6911(94)00087-c},
+}
+
+@article{AM-AR:97,
+  author =        {A. Megretski and A. Rantzer},
+  journal =       {IEEE Transactions on Automatic Control},
+  number =        {6},
+  pages =         {819-30},
+  title =         {System analysis via integral quadratic constraints},
+  volume =        {42},
+  year =          {1997},
+  abstract =      {This paper introduces a unified approach to
+                   robustness analysis with respect to nonlinearities,
+                   time variations, and uncertain parameters. From an
+                   original idea by Yakubovich (1967), the approach has
+                   been developed under a combination of influences from
+                   the Western and Russian traditions of control theory.
+                   It is shown how a complex system can be described,
+                   using integral quadratic constraints (IQC) for its
+                   elementary components. A stability theorem for
+                   systems described by IQCs is presented that covers
+                   classical passivity/dissipativity arguments but
+                   simplifies the use of multipliers and the treatment
+                   of causality. A systematic computational approach is
+                   described, and relations to other methods of
+                   stability analysis are discussed. Last, but not
+                   least, the paper contains a summarizing list of IQCs
+                   for important types of system components. (55
+                   References).},
+  doi =           {10.1109/9.587335},
+}
+
+@article{BA-MC:08,
+  author =        {B. A\c{c}ıkmeşe and M. Corless},
+  journal =       {Systems \& Control Letters},
+  number =        {1},
+  pages =         {78-94},
+  title =         {Stability analysis with quadratic {Lyapunov}
+                   functions: {Some} necessary and sufficient multiplier
+                   conditions},
+  volume =        {57},
+  year =          {2008},
+  abstract =      {In this paper, we present several conditions which
+                   are both necessary and sufficient for quadratic
+                   stability of an uncertain/nonlinear system. These
+                   conditions involve multiplier matrices which
+                   characterize the uncertain/nonlinear terms in the
+                   system description. It is known that some of these
+                   conditions are sufficient for quadratic stability.
+                   One of the main contributions of this paper is to
+                   demonstrate that these conditions are also necessary
+                   conditions, hence, they are not conservative
+                   conditions for quadratic stability. By presenting
+                   multiplier matrices for many common types of
+                   uncertain/nonlinear terms, the paper also
+                   demonstrates the usefulness of the multiplier matrix
+                   approach in the analysis and control of
+                   nonlinear/time-varying/uncertain systems.},
+  doi =           {10.1016/j.sysconle.2007.06.018},
 }
 
 @book{RA-JEM-TSR:88,
@@ -3294,6 +3865,26 @@
   doi =           {10.1016/j.jfranklin.2015.10.011},
 }
 
+@article{MAK-SGK:1955,
+  author =        {M. A. Krasnoselski{\"\i} and S. G. Krein},
+  journal =       {Doklady Akademii Nauk SSSR},
+  number =        {1},
+  pages =         {13--16},
+  title =         {Nonlocal existence theorems and uniqueness theorems
+                   for systems of ordinary differential equations},
+  volume =        {102},
+  year =          {1955},
+}
+
+@book{RPA-VL:93,
+  author =        {R. P. Agarwal and V. Lakshmikantham},
+  publisher =     {World Scientific Publishing},
+  title =         {Uniqueness and Nonuniqueness Criteria for Ordinary
+                   Differential Equations},
+  year =          {1993},
+  isbn =          {9810213573},
+}
+
 @article{MN:1942,
   author =        {M. Nagumo},
   journal =       {Proceedings of the Physico-Mathematical Society of
@@ -3325,28 +3916,189 @@
   isbn =          {9783319179322},
 }
 
-@article{JAY:69,
-  author =        {J. A. Yorke},
-  journal =       {Proceedings of the American Mathematical Society},
-  number =        {2},
-  pages =         {509--512},
-  title =         {Periods of periodic solutions and the {Lipschitz}
-                   constant},
-  volume =        {22},
-  year =          {1969},
-  doi =           {10.2307/2037090},
+@article{JL-XL-WCX-HZ:11,
+  author =        {J. Liu and X. Liu and W.-C. Xie and H. Zhang},
+  journal =       {Automatica},
+  number =        {12},
+  pages =         {2689-2696},
+  title =         {Stochastic consensus seeking with communication
+                   delays},
+  volume =        {47},
+  year =          {2011},
+  abstract =      {This paper investigates the consensus problem of
+                   dynamical networks of multi-agents where each agent
+                   can only obtain noisy and delayed measurements of the
+                   states of its neighbors due to environmental
+                   uncertainties and communication delays. We consider
+                   general networks with fixed topology and with
+                   switching (dynamically changing) topology, propose
+                   consensus protocols that take into account both the
+                   noisy measurements and the communication time-delays,
+                   and study mean square average-consensus for
+                   multi-agent systems networked in an uncertain
+                   environment and with uniform communication
+                   time-varying delays. Using tools from differential
+                   equations and stochastic calculus, together with
+                   results from matrix theory and algebraic graph
+                   theory, we establish sufficient conditions under
+                   which the proposed consensus protocols lead to mean
+                   square average-consensus. Simulations are also
+                   provided to demonstrate the theoretical results.},
+  doi =           {10.1016/j.automatica.2011.09.005},
 }
 
-@article{AL-JAY:76,
-  author =        {A. Lajmanovich and J. A. Yorke},
-  journal =       {Mathematical Biosciences},
+@book{AH:1966,
+  author =        {A. Halanay},
+  publisher =     {Academic Press},
+  title =         {Differential Equations: Stability, Oscillations, Time
+                   Lags},
+  year =          {1966},
+  isbn =          {978-0-12-317950-0},
+}
+
+@article{TM-NF-MK:81,
+  author =        {T. Mori and N. Fukuma and M. Kuwahara},
+  journal =       {International Journal of Control},
+  number =        {6},
+  pages =         {1175--1184},
+  title =         {Simple stability criteria for single and composite
+                   linear systems with time delays},
+  volume =        {34},
+  year =          {1981},
+  doi =           {10.1080/00207178108922590},
+}
+
+@article{TM-NF-MK:82,
+  author =        {T. Mori and N. Fukuma and M. Kuwahara},
+  journal =       {International Journal of Control},
+  number =        {1},
+  pages =         {95--97},
+  title =         {On an estimate of the decay rate for stable linear
+                   delay systems},
+  volume =        {36},
+  year =          {1982},
+  doi =           {10.1080/00207178208932877},
+}
+
+@article{PHAN-HT:18,
+  author =        {P. H. A. Ngoc and H. Trinh},
+  journal =       {SIAM Journal on Control and Optimization},
   number =        {3},
-  pages =         {221--236},
-  title =         {A deterministic model for gonorrhea in a
-                   nonhomogeneous population},
-  volume =        {28},
-  year =          {1976},
-  doi =           {10.1016/0025-5564(76)90125-5},
+  pages =         {2377-2397},
+  title =         {On Contraction of Functional Differential Equations},
+  volume =        {56},
+  year =          {2018},
+  abstract =      {General nonlinear functional differential equations
+                   are considered. Explicit criteria for contraction of
+                   such equations are presented. Then explicit criteria
+                   for global exponential stability of equilibria and
+                   for existence, uniqueness, and global exponential
+                   stability of periodic orbits are derived. Some
+                   illustrative examples are given.},
+  doi =           {10.1137/16M1092672},
+}
+
+@article{VC-AG-AD-GR-FB:23a,
+  author =        {V. Centorrino and A. Gokhale and A. Davydov and
+                   G. Russo and F. Bullo},
+  journal =       {Neural Computation},
+  number =        {6},
+  pages =         {1163–1197},
+  title =         {Positive Competitive Networks for Sparse
+                   Reconstruction},
+  volume =        {36},
+  year =          {2024},
+  abstract =      {We propose and analyze a continuous-time firing-rate
+                   neural network, the positive firing-rate competitive
+                   network, to tackle sparse reconstruction problems
+                   with non-negativity constraints. These problems,
+                   which involve approximating a given input stimulus
+                   from a dictionary using a set of sparse (active)
+                   neurons, play a key role in a wide range of domains,
+                   including for example neuroscience, signal
+                   processing, and machine learning. First, by
+                   leveraging the theory of proximal operators, we
+                   relate the equilibria of a family of continuous-time
+                   firing-rate neural networks to the optimal solutions
+                   of sparse reconstruction problems. Then, we prove
+                   that our model is a positive system and give rigorous
+                   conditions for the convergence to the equilibrium.
+                   Specifically, we show that the convergence: (i) only
+                   depends on a property of the dictionary; (ii) is
+                   linear-exponential, in the sense that initially the
+                   convergence rate is at worst linear and then, after a
+                   transient, it becomes exponential. We also prove a
+                   number of technical results to assess the
+                   contractivity properties of the neural dynamics of
+                   interest. Our analysis leverages contraction theory
+                   to characterize the behavior of a family of
+                   firing-rate competitive networks for sparse
+                   reconstruction with and without non-negativity
+                   constraints. Finally, we validate the effectiveness
+                   of our approach via a numerical example.},
+  doi =           {10.1162/neco_a_01657},
+}
+
+@unpublished{EDA:23,
+  author =        {{E. Dall'Anese}},
+  month =         dec,
+  note =          {Personal communication},
+  title =         {Contractivity of interconnected continuous and
+                   discrete-time systems},
+  year =          {2023},
+}
+
+@article{DLZ-PM:96,
+  author =        {Zhu, D. L. and Marcotte, P.},
+  journal =       {SIAM Journal on Optimization},
+  number =        {3},
+  pages =         {714-726},
+  title =         {Co-Coercivity and Its Role in the Convergence of
+                   Iterative Schemes for Solving Variational
+                   Inequalities},
+  volume =        {6},
+  year =          {1996},
+  doi =           {10.1137/s1052623494250415},
+}
+
+@article{JSP-DES:07,
+  author =        {J.-S. Pang and D. E. Stewart},
+  journal =       {Mathematical Programming},
+  number =        {2},
+  pages =         {345-424},
+  title =         {Differential variational inequalities},
+  volume =        {113},
+  year =          {2007},
+  doi =           {10.1007/s10107-006-0052-x},
+}
+
+@article{BG-LP:17,
+  author =        {B. Gao and L. Pavel},
+  journal =       {arXiv preprint arXiv:1704.00805},
+  title =         {On the properties of the softmax function with
+                   application in game theory and reinforcement
+                   learning},
+  year =          {2017},
+  doi =           {10.48550/arXiv.1704.00805},
+}
+
+@article{EKR-SB:16,
+  author =        {E. K. Ryu and S. Boyd},
+  journal =       {Applied Computational Mathematics},
+  number =        {1},
+  pages =         {3--43},
+  title =         {Primer on monotone operator methods},
+  volume =        {15},
+  year =          {2016},
+}
+
+@book{HKK:02,
+  author =        {H. K. Khalil},
+  edition =       {3},
+  publisher =     {Prentice Hall},
+  title =         {Nonlinear Systems},
+  year =          {2002},
+  isbn =          {0130673897},
 }
 
 @article{IWS:78,
@@ -3379,16 +4131,6 @@
   title =         {Convex Analysis and Optimization},
   year =          {2003},
   isbn =          {1-886529-45-0},
-}
-
-@article{EKR-SB:16,
-  author =        {E. K. Ryu and S. Boyd},
-  journal =       {Applied Computational Mathematics},
-  number =        {1},
-  pages =         {3--43},
-  title =         {Primer on monotone operator methods},
-  volume =        {15},
-  year =          {2016},
 }
 
 @book{EPO:59,
@@ -3433,6 +4175,15 @@
                    provide a novel iterative algorithm to compute the
                    asymptotic state of the network SIR system.},
   doi =           {10.1016/j.arcontrol.2017.09.002},
+}
+
+@article{MAAR-DA-EDS:23,
+  author =        {M. A. Al-Radhawi and D. Angeli and E. D. Sontag},
+  journal =       {arXiv preprint arXiv:2307.13678},
+  title =         {On structural contraction of biological interaction
+                   networks},
+  year =          {2023},
+  doi =           {10.48550/arXiv.2307.13678},
 }
 
 @article{CFD:94,
@@ -3598,30 +4349,6 @@
   doi =           {10.1016/j.automatica.2010.08.011},
 }
 
-@article{GQ-NL:19,
-  author =        {G. {Qu} and N. {Li}},
-  journal =       {IEEE Control Systems Letters},
-  number =        {1},
-  pages =         {43-48},
-  title =         {On the Exponential Stability of Primal-Dual Gradient
-                   Dynamics},
-  volume =        {3},
-  year =          {2019},
-  doi =           {10.1109/LCSYS.2018.2851375},
-}
-
-@inproceedings{JW-NE:11,
-  address =       {Orlando, USA},
-  author =        {J. Wang and N. Elia},
-  booktitle =     {{IEEE} Conf.\ on Decision and Control and European
-                   Control Conference},
-  pages =         {3800-3805},
-  title =         {A control perspective for centralized and distributed
-                   convex optimization},
-  year =          {2011},
-  doi =           {10.1109/CDC.2011.6161503},
-}
-
 @article{AJL:1920,
   author =        {A. J. Lotka},
   journal =       {Proceedings of the National Academy of Sciences},
@@ -3634,26 +4361,26 @@
   doi =           {10.1073/pnas.6.7.410},
 }
 
-@article{VV:1928,
+@article{VV:1926,
   author =        {V. Volterra},
-  journal =       {ICES Journal of Marine Science},
-  number =        {1},
-  pages =         {3--51},
-  publisher =     {Oxford University Press},
-  title =         {Variations and fluctuations of the number of
-                   individuals in animal species living together},
-  volume =        {3},
-  year =          {1928},
-  doi =           {10.1093/icesjms/3.1.3},
+  journal =       {Nature},
+  number =        {2983},
+  pages =         {12--13},
+  title =         {Fluctuations in the abundance of a species considered
+                   mathematically},
+  volume =        {119},
+  year =          {1926},
+  doi =           {10.1038/119012b0},
 }
 
 @article{SJ-PCV-FB:19q+arxiv,
   author =        {S. Jafarpour and P. Cisneros-Velarde and F. Bullo},
+  journal =       {arXiv preprint arXiv:2005.09774},
   note =          {Extended report with proofs.},
   title =         {Weak and Semi-Contraction for Network Systems and
                    Diffusively-Coupled Oscillators},
   year =          {2021},
-  url =           {https://arxiv.org/abs/2005.09774},
+  doi =           {10.48550/arXiv.2005.09774},
 }
 
 @article{BSG:76,
@@ -3842,6 +4569,18 @@
   doi =           {10.1016/j.trc.2007.10.005},
 }
 
+@article{MF-JL:22,
+  author =        {M. Fitzsimmons and J. Liu},
+  journal =       {Automatica},
+  pages =         {110349},
+  title =         {A note on the equivalence of a strongly convex
+                   function and its induced contractive differential
+                   equation},
+  year =          {2022},
+  doi =           {10.1016/j.automatica.2022.110349},
+  url =           {https://doi.org/10.1016/j.automatica.2022.110349},
+}
+
 @article{RG-AF-VS-NEL:18,
   author =        {R. Gray and A. Franci and V. Srivastava and
                    N. E. Leonard},
@@ -3928,6 +4667,35 @@
   doi =           {10.1109/JPROC.2018.2821924},
 }
 
+@article{VC-AD-AG-GR-FB:24a,
+  author =        {V. Centorrino and A. Davydov and A. Gokhale and
+                   G. Russo and F. Bullo},
+  journal =       {IEEE Control Systems Letters},
+  pages =         {1745-1750},
+  title =         {On Weakly Contracting Dynamics for Convex
+                   Optimization},
+  volume =        {8},
+  year =          {2024},
+  abstract =      {We investigate the convergence characteristics of
+                   dynamics that are \emph{globally weakly} and
+                   \emph{locally strongly contracting}. Such dynamics
+                   naturally arise in the context of convex optimization
+                   problems with a unique minimizer. We show that
+                   convergence to the equilibrium is
+                   \emph{linear-exponential}, in the sense that the
+                   distance between each solution and the equilibrium is
+                   upper bounded by a function that first decreases
+                   linearly and then exponentially. As we show, the
+                   linear-exponential dependency arises naturally in
+                   certain dynamics with saturations. Additionally, we
+                   provide a sufficient condition for local
+                   input-to-state stability. Finally, we illustrate our
+                   results on, and propose a conjecture for,
+                   continuous-time dynamical systems solving linear
+                   programs.},
+  doi =           {10.1109/LCSYS.2024.3414348},
+}
+
 @inproceedings{ES:06-Markov,
   author =        {E. Seneta},
   booktitle =     {Markov Anniversary Meeting},
@@ -3951,7 +4719,7 @@
 @article{VVK:83,
   author =        {V. V. Kolpakov},
   journal =       {Journal of Soviet Mathematics},
-  pages =         {2094–2106},
+  pages =         {2094-2106},
   title =         {Matrix seminorms and related inequalities},
   volume =        {23},
   year =          {1983},
@@ -4013,11 +4781,11 @@
 @article{RM-FJH:20,
   author =        {R. Marsli and F. J. Hall},
   journal =       {Linear and Multilinear Algebra},
-  number =        {0},
-  pages =         {1-21},
+  number =        {10},
+  pages =         {1886--1906},
   title =         {Some properties of ergodicity coefficients with
                    applications in spectral graph theory},
-  volume =        {0},
+  volume =        {70},
   year =          {2020},
   abstract =      {The main result is Corollary 2.9 which provides upper
                    bounds on, and even better, approximates the largest
@@ -4437,15 +5205,6 @@
   isbn =          {0387984895},
 }
 
-@book{HKK:02,
-  author =        {H. K. Khalil},
-  edition =       {3},
-  publisher =     {Prentice Hall},
-  title =         {Nonlinear Systems},
-  year =          {2002},
-  isbn =          {0130673897},
-}
-
 @book{WMH-SS:74,
   author =        {M. W. Hirsch and S. Smale},
   publisher =     {Academic Press},
@@ -4571,6 +5330,17 @@
   doi =           {10.1137/050626405},
 }
 
+@book{FB:22,
+  author =        {F. Bullo},
+  edition =       {{1.6}},
+  month =         jan,
+  publisher =     {Kindle Direct Publishing},
+  title =         {Lectures on Network Systems},
+  year =          {2022},
+  isbn =          {978-1986425643},
+  url =           {https://fbullo.github.io/lns},
+}
+
 @book{WR-RWB:08,
   author =        {W. Ren and R. W. Beard},
   publisher =     {Springer},
@@ -4587,7 +5357,7 @@
   title =         {Distributed Control of Robotic Networks},
   year =          {2009},
   isbn =          {978-0-691-14195-4},
-  url =           {http://www.coordinationbook.info},
+  url =           {https://fbullo.github.io/dcrn},
 }
 
 @book{MM-ME:10,
@@ -4898,7 +5668,7 @@
 
 @article{NEF:91,
   author =        {N. E. Friedkin},
-  journal =       {American Journal of Sociology},
+  journal =       {Social Problems},
   number =        {6},
   pages =         {1478-1504},
   title =         {Theoretical foundations for centrality measures},
@@ -4959,7 +5729,7 @@
                    preference aggregation, measuring the vertex
                    proximity, and uncovering the structure of a
                    digraph.},
-  url =           {https://arxiv.org/pdf/math/0602059},
+  doi =           {10.48550/arXiv.math/0602059},
 }
 
 @article{ZL-BF-MM:05,
