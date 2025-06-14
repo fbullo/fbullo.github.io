@@ -755,6 +755,27 @@
   doi =           {10.4249/scholarpedia.1888},
 }
 
+@inproceedings{MS-JO:22,
+  author =        {M. Snow and J. Orchard},
+  booktitle =     {Proceedings of the Annual Meeting of the Cognitive
+                   Science Society},
+  title =         {Biological softmax: {Demonstrated} in modern
+                   {Hopfield} networks},
+  volume =        {44},
+  year =          {2022},
+  url =           {https://escholarship.org/uc/item/3jd1t2hr},
+}
+
+@article{BG-LP:17,
+  author =        {B. Gao and L. Pavel},
+  journal =       {arXiv preprint arXiv:1704.00805},
+  title =         {On the properties of the softmax function with
+                   application in game theory and reinforcement
+                   learning},
+  year =          {2017},
+  doi =           {10.48550/arXiv.1704.00805},
+}
+
 @article{MN:1942,
   author =        {M. Nagumo},
   journal =       {Proceedings of the Physico-Mathematical Society of
@@ -784,27 +805,6 @@
   title =         {Set-Theoretic Methods in Control},
   year =          {2015},
   isbn =          {9783319179322},
-}
-
-@inproceedings{MS-JO:22,
-  author =        {M. Snow and J. Orchard},
-  booktitle =     {Proceedings of the Annual Meeting of the Cognitive
-                   Science Society},
-  title =         {Biological softmax: {Demonstrated} in modern
-                   {Hopfield} networks},
-  volume =        {44},
-  year =          {2022},
-  url =           {https://escholarship.org/uc/item/3jd1t2hr},
-}
-
-@article{BG-LP:17,
-  author =        {B. Gao and L. Pavel},
-  journal =       {arXiv preprint arXiv:1704.00805},
-  title =         {On the properties of the softmax function with
-                   application in game theory and reinforcement
-                   learning},
-  year =          {2017},
-  doi =           {10.48550/arXiv.1704.00805},
 }
 
 @article{MF-AT:95,
@@ -1045,7 +1045,7 @@
   author =        {Y. Zhang and P. A. Heng and A. W. C. Fu},
   journal =       {IEEE Transactions on Neural Networks},
   number =        {6},
-  pages =         {1487–1493},
+  pages =         {1487-1493},
   title =         {Estimate of exponential convergence rate and
                    exponential stability for neural networks},
   volume =        {10},
@@ -1069,7 +1069,7 @@
   author =        {T. Chen and W. Lu and S.-I. Amari},
   journal =       {Neural Computation},
   number =        {12},
-  pages =         {2947–2957},
+  pages =         {2947-2957},
   title =         {Global Convergence Rate of Recurrently Connected
                    Neural Networks},
   volume =        {14},
@@ -1983,8 +1983,10 @@
                    G. Russo and F. Bullo},
   journal =       {IEEE Transactions on Automatic Control},
   note =          {To appear},
+  number =        {11},
   title =         {Time-Varying Convex Optimization: A Contraction and
                    Equilibrium Tracking Approach},
+  volume =        {70},
   year =          {2025},
   abstract =      {In this article, we provide a novel and
                    broadly-applicable contraction-theoretic approach to
@@ -2006,7 +2008,7 @@
                    solution trajectories and minimizing trajectories. We
                    validate our theoretical results on two numerical
                    examples.},
-  doi =           {10.48550/arXiv.2305.15595},
+  doi =           {10.1109/TAC.2025.3576043},
 }
 
 @techreport{KBP-MSP:12,
@@ -2156,10 +2158,50 @@
 
 @article{VC-FB-GR:24k,
   author =        {V. Centorrino and F. Bullo and G. Russo},
-  journal =       {Technical report},
-  title =         {Similarity matching networks: {Hebbian} learning and
-                   convergence over multiple time scales},
+  journal =       {Neural Computation},
+  month =         jun,
+  note =          {Submitted},
+  title =         {Similarity Matching Networks: {Hebbian} Learning and
+                   Convergence over Multiple Time Scales},
   year =          {2025},
+  abstract =      {A recent breakthrough in biologically-plausible
+                   normative frameworks for dimensionality reduction is
+                   based upon the similarity matching cost function and
+                   the low-rank matrix approximation problem. Despite
+                   clear biological interpretation, successful
+                   application in several domains, and experimental
+                   validation, a formal complete convergence analysis
+                   remains elusive. Building on this framework, we
+                   consider and analyze a continuous-time neural
+                   network, the \emph{similarity matching network}, for
+                   principal subspace projection. Derived from a
+                   min-max-min objective, this biologically-plausible
+                   network consists of three coupled dynamics evolving
+                   at different time scales: neural dynamics, lateral
+                   synaptic dynamics, and feedforward synaptic dynamics
+                   at the fast, intermediate, and slow time scales,
+                   respectively. The feedforward and lateral synaptic
+                   dynamics consist of Hebbian and anti-Hebbian learning
+                   rules, respectively. By leveraging a multilevel
+                   optimization framework, we prove convergence of the
+                   dynamics in the offline setting. Specifically, at the
+                   first level (fast time scale), we show strong
+                   convexity of the cost function and global exponential
+                   convergence of the corresponding gradient-flow
+                   dynamics. At the second level (intermediate time
+                   scale), we prove strong concavity of the cost
+                   function and exponential convergence of the
+                   corresponding gradient-flow dynamics within the space
+                   of positive definite matrices. At the third and final
+                   level (slow time scale), we study a non-convex and
+                   non-smooth cost function, provide explicit
+                   expressions for its global minima, and prove almost
+                   sure convergence of the corresponding gradient-flow
+                   dynamics to the global minima. These results rely
+                   upon two mild technical conjectures that we support
+                   empirically. Finally, we validate the effectiveness
+                   of our approach via a numerical example.},
+  doi =           {10.48550/arXiv.2506.06134},
 }
 
 @inproceedings{JMQ:67,
@@ -2321,6 +2363,17 @@
                    The signature of the Hessian at each critical point
                    is determined.},
   url =           {http://eudml.org/doc/207501},
+}
+
+@article{JLWJ-IME:95,
+  author =        {J. L. {Wyatt~Jr.} and I. M. Elfadel},
+  journal =       {Neural Computation},
+  number =        {5},
+  pages =         {915–922},
+  title =         {Time-Domain Solutions of {Oja's} Equations},
+  volume =        {7},
+  year =          {1995},
+  doi =           {10.1162/neco.1995.7.5.915},
 }
 
 @article{WYY-UH-JBM:94,
