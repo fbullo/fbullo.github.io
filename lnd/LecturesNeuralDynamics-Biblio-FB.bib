@@ -870,6 +870,17 @@
   url =           {http://cvxr.com/cvx},
 }
 
+@article{EK-AB:93,
+  author =        {E. Kaszkurewicz and A. Bhaya},
+  journal =       {{SIAM} Journal on Matrix Analysis and Applications},
+  number =        {2},
+  pages =         {508--520},
+  title =         {Robust Stability and Diagonal {Liapunov} Functions},
+  volume =        {14},
+  year =          {1993},
+  doi =           {10.1137/0614036},
+}
+
 @book{SB-LEG-EF-VB:94,
   author =        {S. Boyd and L. {El~Ghaoui} and E. Feron and
                    V. Balakrishnan},
@@ -1193,17 +1204,6 @@
   title =         {Concerning problem of absolute stability},
   volume =        {12},
   year =          {1969},
-}
-
-@article{EK-AB:93,
-  author =        {E. Kaszkurewicz and A. Bhaya},
-  journal =       {{SIAM} Journal on Matrix Analysis and Applications},
-  number =        {2},
-  pages =         {508--520},
-  title =         {Robust Stability and Diagonal {Liapunov} Functions},
-  volume =        {14},
-  year =          {1993},
-  doi =           {10.1137/0614036},
 }
 
 @article{AD-AVP-FB:22q,
@@ -1994,20 +1994,26 @@
                    any parameter-dependent contracting dynamics, we show
                    that the tracking error is asymptotically
                    proportional to the rate of change of the parameter
-                   with proportionality constant upper bounded by
-                   Lipschitz constant in which the parameter appears
-                   divided by the contraction rate of the dynamics
-                   squared. To apply this result to time-varying convex
-                   optimization problems, we establish the strong
+                   and that the proportionality constant is upper
+                   bounded by Lipschitz constant in which the parameter
+                   appears divided by the contraction rate of the
+                   dynamics squared. We additionally establish that
+                   augmenting any parameter-dependent contracting
+                   dynamics with a feedforward prediction term ensures
+                   that the tracking error vanishes exponentially
+                   quickly. To apply these results to time-varying
+                   convex optimization, we establish the strong
                    infinitesimal contractivity of dynamics solving three
-                   canonical problems, namely monotone inclusions,
-                   linear equality-constrained problems, and composite
-                   minimization problems. For each of these problems, we
-                   prove the sharpest-known rates of contraction and
-                   provide explicit tracking error bounds between
-                   solution trajectories and minimizing trajectories. We
-                   validate our theoretical results on two numerical
-                   examples.},
+                   canonical problems: monotone inclusions, linear
+                   equality-constrained problems, and composite
+                   minimization problems. For each case, we derive the
+                   sharpest-known contraction rates and provide explicit
+                   bounds on the tracking error between solution
+                   trajectories and minimizing trajectories. We validate
+                   our theoretical results on two numerical examples
+                   \change{and on an} application to control barrier
+                   function-based controller design that involves real
+                   hardware.},
   doi =           {10.1109/TAC.2025.3576043},
 }
 
