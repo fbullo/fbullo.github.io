@@ -30,8 +30,7 @@ tt.tthl {
 }
 
 pre, tt {
-/*	font-family: Georgia, serif; */
-	font-family: Monaco, serif;
+	font-family: Georgia, serif;
 }
 
 a, a > tt {
@@ -150,7 +149,7 @@ div#footer {
 }
 
 div#footer a {
-	color: #7E0A1B; 
+	color: #80a0b0;
 }
 
 div#footer-text {

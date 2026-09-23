@@ -5,7 +5,6 @@
 <meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link rel="stylesheet" href="mysite.css" type="text/css" />
-<link rel="stylesheet" href="mystyle.css" type="text/css" />
 <title>Lectures on Dynamical Systems</title>
 </head>
 <body>
@@ -14,7 +13,7 @@
 <h1>Lectures on Dynamical Systems</h1>
 </div>
 <table class="imgtable"><tr><td>
-<img src="images/cover-lds.jpg" alt="LDS" width="200px" height="HEIGHTpx" />&nbsp;</td>
+<img src="images/cover-lds.jpg" alt="LDS" width="200px" />&nbsp;</td>
 <td align="left"><h3><a href="https://fbullo.github.io" target=&ldquo;blank&rdquo;>Francesco Bullo</a></h3>
 <p><a href="https://me.ucsb.edu" target=&ldquo;blank&rdquo;>Department of Mechanical Engineering</a><br />
 <a href="https://ece.ucsb.edu" target=&ldquo;blank&rdquo;>Department of Electrical and Computer Engineering</a><br />
@@ -50,39 +49,65 @@ Analyzes frequency response, resonance, lightly damped systems, and beating phen
 </p>
 </li>
 <li><p>Chapter 7 “Control Systems: Basic Definitions and Concepts”
-Introduces control systems, comparing open- and closed-loop control, with static and dynamic models, and highlighting advantages of feedback.
+Introduces control systems and block diagrams in both the time and the Laplace domains, develops proportional, feedforward, and proportional-integral control, and compares open- and closed-loop designs, highlighting the advantages of feedback.
 </p>
 </li>
 <li><p>Chapter 8 “Control Systems Design”
-Covers feedback diagrams, design strategies for low-order systems, stability issues, and block diagrams for multi-input multi-output control systems.
+Presents PID controllers and their practical modifications, design methods for first- and second-order systems based on transient specifications, root locus analysis and design, and the mechanisms by which saturation, rate limits, and unmodeled dynamics can destabilize a feedback loop.
 </p>
 </li>
 </ul>
-<h2>Download and copyright information</h2>
-<ul>
-<li><p>Version dated Oct 8, 2025
+<h2>Download</h2>
+<p><b>Version 1.0, September 22, 2026.</b>  This is the first version of these
+lecture notes made publicly available; it is free to download.
 </p>
-</li>
-<li><p>Complete book in upright format: <a href="https://ucsb.box.com/s/y4kgb7m3wr06y74d5d76pafroeu2rs11" target=&ldquo;blank&rdquo;><b>[PDF file]</a></b>
+<ul>
+<li><p>Complete book in upright/textbook format: <a href="https://ucsb.box.com/s/y4kgb7m3wr06y74d5d76pafroeu2rs11" target=&ldquo;blank&rdquo;><b>[PDF file]</b></a>
 </p>
 </li>
 <li><p>Complete book in slide/landscape format: <a href="https://ucsb.box.com/s/kzzktqqhuxg3a0v5txhphxaslxe5dvqp" target=&ldquo;blank&rdquo;><b>[PDF]</b></a>
 </p>
 </li>
+<li><p>Archive of the figures, in PDF format: <a href="DynamicalSystems-Figures-FB.tgz" target=&ldquo;blank&rdquo;><b>[tgz]</b></a>
+</p>
+</li>
+<li><p>Bibliography, in BibTeX format: <a href="DynamicalSystems-Biblio-FB.bib" target=&ldquo;blank&rdquo;><b>[bib]</b></a>
+</p>
+</li>
 </ul>
+<p>Future versions will correct errors and add content.  This page always
+carries the current version, so please link here rather than to a copy.
+</p>
 <div class="codeblock">
 <div class="blockcontent"><pre>
 @Book{lectures-dynamical-systems,
   author =    {F. Bullo},
   title =     {Lectures on Dynamical Systems},
-  year =      2025,
+  year =      2026,
+  edition =   {Version 1.0},
   url =       {https://fbullo.github.io/lds}
 }
 </pre></div></div>
 <h2>Copyright information</h2>
-<p>These lecture notes are intended for personal non-commercial use only: you
-may not use this material for commercial purposes and you may not copy and
-redistribute this material in any medium or format.
+<p>Copyright © Francesco Bullo 2023-2026.  These lecture notes are made
+available free of charge for personal, educational, and other
+non-commercial use.  You are welcome to download them and to print a copy
+for your own use.  You may not sell them, use them for commercial purposes,
+or redistribute them in any medium or format.  Please link to this page
+instead, so that readers always reach the current version.
+</p>
+<p>Unless otherwise noted, all figures in the book are my own work; they are
+available in the archive above and licensed under the
+<a href="https://creativecommons.org/licenses/by-sa/4.0" target=&ldquo;blank&rdquo;>Creative Commons
+Attribution-ShareAlike 4.0 International License</a> (CC BY-SA 4.0).  A small
+number of figures are the work of others and are not covered by that
+license; they are not included in the archive.  Each is identified in its
+caption, together with its source and, where applicable, the license under
+which it is reproduced.  Those images remain the property of their
+respective copyright holders and are reproduced in a work distributed free
+of charge for teaching purposes, as fair use.  If you hold the rights to one
+of them and would prefer that it not appear, please write to me and I will
+remove it from the next version.
 </p>
 <h2>History</h2>
 <ul>
@@ -95,7 +120,10 @@ redistribute this material in any medium or format.
 <li><p>June 8, 2025: third revision
 </p>
 </li>
-<li><p><b>Oct 1, 2025</b>: first edition online
+<li><p>Oct 1, 2025: first edition online
+</p>
+</li>
+<li><p><b>Sep 22, 2026</b>: version 1.0, first public release
 </p>
 </li>
 </ul>
@@ -106,7 +134,7 @@ uses. Please email  bullo at ucsb.edu
 </p>
 <div id="footer">
 <div id="footer-text">
-Page generated 2025-10-09 22:57:37 PDT, by <a href="https://github.com/wsshin/jemdoc_mathjax" target="blank">jemdoc+MathJax</a>.
+Page generated 2026-09-22 12:31:17 PDT, by <a href="https://github.com/wsshin/jemdoc_mathjax" target="blank">jemdoc+MathJax</a>.
 </div>
 </div>
 </div>
