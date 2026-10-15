@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<link rel="stylesheet" href="mysite.css" type="text/css" />
+<style>
+  /* Layout without a table: the menu beside the content, or above it on
+     narrow screens and at high zoom (WCAG 1.4.10 reflow). */
+  body { padding: 8px; }  /* top padding too: a title at the very top fails axe's contrast check */
+  .layout { display: flex; align-items: flex-start; gap: 0.5em; }
+  .layout > nav { flex: 0 0 auto; }
+  .layout > main { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+  pre { white-space: pre-wrap; }
+  @media (max-width: 40em) {
+    .layout { flex-direction: column; align-items: stretch; }
+    .layout > nav { white-space: normal; }
+    .layout > main { padding-left: 0; padding-right: 0; }
+  }
+  /* Links differ from text by more than colour (WCAG 1.4.1). */
+  main a, main a > tt { text-decoration: underline; }
+  a:hover { border-bottom: none; text-decoration-thickness: 2px; }
+  /* Visible keyboard focus (WCAG 2.4.7). */
+  a:focus-visible { outline: 2px solid #7E0A1B; outline-offset: 2px; }
+  /* Skip link, visible only when focused (WCAG 2.4.1). */
+  .skip-link { position: absolute; left: -9999px; }
+  .skip-link:focus { position: static; display: inline-block; padding: 0.3em; }
+  /* Contrast of at least 4.5:1 for text (WCAG 1.4.3). */
+  div.blocktitle { color: #7E0A1B; }
+  div#footer, div#footer a { color: #595959; }
+</style>
+<title>Contraction Theory for Dynamical Systems: Editions and revision notes</title>
+</head>
+<body>
+<a class="skip-link" href="#layout-content">Skip to main content</a>
+<main id="layout-content">
+<div id="toptitle">
+<h1>Contraction Theory for Dynamical Systems: Editions and revision notes</h1>
+</div>
+<p><a href="index.html" target=&ldquo;blank&rdquo;>Back to the book page</a>
+</p>
+<h2>Editions</h2>
+<p>All versions are published by Kindle Direct Publishing under ISBN
+979-8836646806 and are freely downloadable in tablet and slide format from
+the <a href="index.html" target=&ldquo;blank&rdquo;>book page</a>.  Page counts are those of the printed paperback.
+</p>
+<table id="editions">
+<tr class="r1"><td class="c1"><b>Version</b> </td><td class="c2"> <b>Date</b> </td><td class="c3"> <b>Paperback pages</b> </td><td class="c4"> <b>Exercises</b> </td><td class="c5"> <b>Summary</b> </td></tr>
+<tr class="r2"><td class="c1">1.0 </td><td class="c2"> June 1, 2022 </td><td class="c3"> 220 </td><td class="c4"> 50 </td><td class="c5"> First edition; announced July 1, 2022.  Corrected reprints with minor additions on July 28 and August 19, 2022. </td></tr>
+<tr class="r3"><td class="c1">1.1 </td><td class="c2"> March 1, 2023 </td><td class="c3"> 229 </td><td class="c4"> 75 </td><td class="c5"> A theorem statement corrected and several proofs improved; the variations on the Banach Contraction Theorem reorganized toward a parallel treatment of discrete and continuous time; ten new exercises. </td></tr>
+<tr class="r4"><td class="c1">1.2 </td><td class="c2"> August 1, 2024 </td><td class="c3"> 252 </td><td class="c4"> 94 </td><td class="c5"> Chapter 2 on norms heavily edited; recommended exercises marked with the symbol ▶; new appendix on LMIs; revised treatment of Lur'e systems; many new exercises. </td></tr>
+<tr class="r5"><td class="c1">1.3 </td><td class="c2"> January 1, 2026 </td><td class="c3"> 307 </td><td class="c4"> 113 </td><td class="c5"> New Chapter 6 on stochastic dynamics; substantial improvements to nine exercises and thirteen new ones.
+</td></tr></table>
+<p>The revision notes below are reproduced as they appeared in the preface of
+each version.  Chapter, result, and exercise numbers are those of the version
+described; later versions renumbered.
+</p>
+<h2>Revision 1.1 (March 1, 2023)</h2>
+<p>Since the first edition on June 1, 2022, I have corrected a theorem
+statement and improved several proofs.  Regarding exercises, four are
+improved, three more have solutions and ten new ones are added.  I have
+reorganized the treatment of the variations of the Banach Contraction
+Theorem working towards a more parallel treatment of discrete and
+continuous time problems.
+</p>
+<p>For their extensive help in helping me understand this material, I wish to
+thank Veronica Centorrino, Alexander Davydov, Giulia De Pasquale, Robin
+Delabays, Anand Gokhale, Giovanni Russo, Kevin D. Smith, and M. Elena
+Valcher.
+</p>
+<p><i>Detailed list of changes:</i> In Chapter 1, added Remark 1.2 “Continuity and
+related concepts”, reorganized Section 1.4 “Variations on the theme by
+Banach”, added Figure 1.1, expanded E1.1, added solution to E1.6, added E1.7
+and E1.8.  In Chapter 2, improved the proof of Lemma 2.1, improved Figure
+2.3, added E2.4, improved E2.9, E2.14 and E2.26, added E2.28, E2.29, E2.30
+and E2.31.  In Chapter 3, added Remark 3.6 “Existence and uniqueness
+theorems for ordinary differential equations” and clarified smoothness
+assumptions on vector fields throughout the chapter, added E3.4, improved
+E3.5, added solutions to E3.12, added E3.15 and E3.16.  In Chapter 4,
+removed an incorrect claim in Theorem 4.4, added solution to E4.4.  In
+Chapter 5, corrected the orthonormal basis in the example in Section 5.2.
+</p>
+<p><i>March 1, 2023, Santa Barbara, California, USA.  Francesco Bullo</i>
+</p>
+<h2>Revision 1.2 (August 1, 2024)</h2>
+<p>In this revision, Chapter 2 has been heavily edited and much work has
+focused on exercises.  In this edition, recommended exercises for readers
+and instructors are marked with the symbol ▶.
+</p>
+<p>For help with the changes in this revision, I wish to thank Andrew Alleyne,
+Veronica Centorrino, Lily Cothren, Emiliano Dall'Anese, Alexander Davydov,
+Robin Delabays, Anand Gokhale, Zahra Marvi, Anton Proskurnikov, and Giovanni
+Russo.
+</p>
+<p><i>Detailed list of changes:</i> Chapter 1 contains an improved and simplified
+the treatment of local contraction and invariance in Lemma 1.10.
+Additionally, Exercise E1.3 on Lipschitz properties has been extended and
+the following new exercises added: E1.2 on the Newton&ndash;Raphson method and
+E1.5 on noisy contractions.
+</p>
+<p>Chapter 2 has undergone significant reorganization and partial rewriting to
+enhance readability, consistency, and comprehensiveness.  An appendix has
+been added on properties and transcriptions of LMIs.  A running matrix
+example has been added, and the definition of weak pairings has been
+simplified, establishing their continuity properties via Exercise E2.26.
+The exercises have been renumbered to reflect the revised order of
+presentation.  New exercises include E2.16 on the log norm of saddle
+matrices, E2.18 on Coppel's inequality with time-varying weights, and E2.29
+on polyhedral norms and weak pairings.  Exercise E2.35 on the
+ℓ<sub>2</sub> logarithmic norm of block matrices with skew-symmetric
+off-diagonal properties has been extended and sharpened.
+</p>
+<p>In Chapter 3, Section 3.7 has been revised to feature a more detailed
+analysis and literature review on contracting Lur'e systems, along with the
+new appendix 2.9.3 and the new exercises E3.21, E3.22, and E3.23.  Exercise
+E3.13 on local infinitesimal contractivity and invariance has been improved.
+Additional exercises have been added: E3.9 on upper and lower bounds on
+discrete and continuous-time Lyapunov functions, E3.15 on contracting delay
+systems, E3.16 on contraction factors with respect to distinct norms, E3.18
+on Lyapunov function for the variational system, and E3.20 on interconnected
+continuous and discrete-time systems.
+</p>
+<p>In Chapter 4, Section 4.6 with a biochemical reaction network has been
+added.  Exercise E4.8 has been improved.  New exercises include E4.9 on the
+weighted Frobenius inner product, E4.2 on integral function as a third
+Lyapunov function, E4.11 on linear-exponential decay, and E4.12 on the
+convergence of weakly contracting and locally strongly contracting dynamics.
+</p>
+<p><i>August 1, 2024, Santa Barbara, California, USA.  Francesco Bullo</i>
+</p>
+<h2>Revision 1.3 (January 1, 2026)</h2>
+<p>A new Chapter 6 has been added on stochastic dynamics.  This chapter
+provides an overview of key concepts and equations related to the
+contraction analysis of stochastic differential equations and of the
+Fokker&ndash;Planck equation with respect to the Wasserstein metric.
+</p>
+<p>Several typos have been corrected throughout.  Substantial improvements have
+been made on the following Exercises: E1.1 on examples of complete metric
+spaces, E1.4 on the incremental small gain theorem, E1.8 on the Thomson
+metric for positive definite matrices, E1.9 on dynamic programming, E2.16 on
+the log norm of rank-1 matrices, E2.23 on least upper bounds on linear
+system solutions, E2.22 on the Grönwall comparison lemma with Dini
+derivatives, and E3.18 on the variational system and the sensitivity matrix.
+</p>
+<p>The following new exercises have been added: E2.2 on Schur stability of 2 ×
+2 matrices, E2.6 on the vector space and norm properties of the function
+space <i>L</i><sup>p</sup>, E2.27 on interpolation properties of induced
+and logarithmic norms, E2.32 on matrix norm via weak pairings, E2.43 on
+nonEuclidean norms of interval matrices, E3.21 on Euclidean contractivity of
+symmetric neural networks, E3.22 on discrete-time firing-rate models, E3.23
+on 1-Lipschitz layers in neural networks, E3.25 on incremental multipliers
+for elementwise maps, E3.29 on incremental multipliers and Jacobian
+properties, E3.30 on weighted gradient flows, E3.31 on contractivity of
+nonlinear systems in implicit Lur'e form, and E3.33 on a contracting
+gradient flow in the space of positive definite matrices.
+</p>
+<p>For help with the changes in this revision, I wish to thank Lauren E.
+Conger, Alexander Davydov, Giancarlo Ferrari Trecate, Anand Gokhale, Yu
+Kawano, Moses Nah, Zahra Marvi, Anton Proskurnikov, and Ryotaro Shima.
+</p>
+<p><i>January 1, 2026, Santa Barbara, California, USA.  Francesco Bullo</i>
+</p>
+<p><a href="index.html" target=&ldquo;blank&rdquo;>Back to the book page</a>
+</p>
+<div id="footer">
+<div id="footer-text">
+Page generated 2026-10-14 22:06:52 PDT, by <a href="https://github.com/wsshin/jemdoc_mathjax">jemdoc+MathJax</a>.
+</div>
+</div>
+</main>
+</body>
+</html>

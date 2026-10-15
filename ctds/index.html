@@ -1,21 +1,46 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link rel="stylesheet" href="mysite.css" type="text/css" />
-<link rel="stylesheet" href="mystyle.css" type="text/css" />
+<style>
+  /* Layout without a table: the menu beside the content, or above it on
+     narrow screens and at high zoom (WCAG 1.4.10 reflow). */
+  body { padding: 8px; }  /* top padding too: a title at the very top fails axe's contrast check */
+  .layout { display: flex; align-items: flex-start; gap: 0.5em; }
+  .layout > nav { flex: 0 0 auto; }
+  .layout > main { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+  pre { white-space: pre-wrap; }
+  @media (max-width: 40em) {
+    .layout { flex-direction: column; align-items: stretch; }
+    .layout > nav { white-space: normal; }
+    .layout > main { padding-left: 0; padding-right: 0; }
+  }
+  /* Links differ from text by more than colour (WCAG 1.4.1). */
+  main a, main a > tt { text-decoration: underline; }
+  a:hover { border-bottom: none; text-decoration-thickness: 2px; }
+  /* Visible keyboard focus (WCAG 2.4.7). */
+  a:focus-visible { outline: 2px solid #7E0A1B; outline-offset: 2px; }
+  /* Skip link, visible only when focused (WCAG 2.4.1). */
+  .skip-link { position: absolute; left: -9999px; }
+  .skip-link:focus { position: static; display: inline-block; padding: 0.3em; }
+  /* Contrast of at least 4.5:1 for text (WCAG 1.4.3). */
+  div.blocktitle { color: #7E0A1B; }
+  div#footer, div#footer a { color: #595959; }
+</style>
 <title>Contraction Theory for Dynamical Systems</title>
 </head>
 <body>
-<div id="layout-content">
+<a class="skip-link" href="#layout-content">Skip to main content</a>
+<main id="layout-content">
 <div id="toptitle">
 <h1>Contraction Theory for Dynamical Systems</h1>
 </div>
 <table class="imgtable"><tr><td>
-<img src="images/cover-ctds.jpg" alt="CTDS" width="200px" height="HEIGHTpx" />&nbsp;</td>
-<td align="left"><h3><a href="https://fbullo.github.io" target=&ldquo;blank&rdquo;>Francesco Bullo</a></h3>
+<img src="images/cover-ctds.jpg" alt="CTDS" width="200px" />&nbsp;</td>
+<td style="text-align: left"><h3><a href="https://fbullo.github.io" target=&ldquo;blank&rdquo;>Francesco Bullo</a></h3>
 <p>Department of Mechanical Engineering<br />
 Center for Control, Dynamical-Systems, and Computation<br />
 University of California, Santa Barbara<br />
@@ -193,15 +218,9 @@ uses. Please email  bullo at ucsb.edu
 </p>
 <div id="footer">
 <div id="footer-text">
-Page generated 2026-06-26 15:33:43 CEST, by <a href="https://github.com/wsshin/jemdoc_mathjax" target="blank">jemdoc+MathJax</a>.
+Page generated 2026-10-14 22:06:52 PDT, by <a href="https://github.com/wsshin/jemdoc_mathjax">jemdoc+MathJax</a>.
 </div>
 </div>
-</div>
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-_uacct = "UA-4612889-1";
-urchinTracker();
-</script>
+</main>
 </body>
 </html>
