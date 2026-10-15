@@ -1,8 +1,9 @@
-<html>
+<html lang="en">
 <head>
 <meta HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css"
-href="http://motion.mee.ucsb.edu/book-gcms/css/mechanics-control.css">
+href="css/mechanics-control.css">
 <title>Geometric Control of Mechanical Systems (Error Report Form)</title>
 </head>
 
@@ -17,15 +18,15 @@ is easiest for us if error reports include page and line numbers, e.g.,
 ``Page 410, u10'' if the error is on the 10th line from the bottom on page
 410.  Thanks.<p>
 <form method="POST" action="http://penelope.mast.queensu.ca/~andrew/cgi-bin/book-error.cgi">
-<input name="page" size=5> Page number<br>
-<input name="line" size=5> Line number<br>
-<input type="radio" name="updown" value="down" checked> Line from the top<br>
-<input type="radio" name="updown" value="up"> Line from the bottom<br>
-<TEXTAREA name="error" rows="20" cols="60">
+<label><input name="page" size=5> Page number</label><br>
+<label><input name="line" size=5> Line number</label><br>
+<label><input type="radio" name="updown" value="down" checked> Line from the top</label><br>
+<label><input type="radio" name="updown" value="up"> Line from the bottom</label><br>
+<TEXTAREA name="error" rows="20" cols="60" aria-label="Description of error">
 Description of error:
 </TEXTAREA><br>
-<input name="name" size=60> Your name<br>
-<input name="email" size=60> Your email address<br>
+<label><input name="name" size=60> Your name</label><br>
+<label><input name="email" size=60> Your email address</label><br>
 <input type="hidden" name="_dbconfig" value="mechanics-control.db">
 <input type="submit" value="submit"> <input type="reset" value="reset">
 </form>
