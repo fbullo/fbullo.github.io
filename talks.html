@@ -1,24 +1,53 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link rel="stylesheet" href="mysite.css" type="text/css" />
+<style>
+  /* Layout without a table: the menu beside the content, or above it on
+     narrow screens and at high zoom (WCAG 1.4.10 reflow). */
+  body { padding: 0 8px; }
+  .layout { display: flex; align-items: flex-start; gap: 0.5em; }
+  .layout > nav { flex: 0 0 auto; }
+  .layout > main { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+  pre { white-space: pre-wrap; }
+  @media (max-width: 40em) {
+    .layout { flex-direction: column; align-items: stretch; }
+    .layout > nav { white-space: normal; }
+    .layout > main { padding-left: 0; padding-right: 0; }
+  }
+  /* Links differ from text by more than colour (WCAG 1.4.1). */
+  main a, main a > tt { text-decoration: underline; }
+  a:hover { border-bottom: none; text-decoration-thickness: 2px; }
+  /* Visible keyboard focus (WCAG 2.4.7). */
+  a:focus-visible { outline: 2px solid #7E0A1B; outline-offset: 2px; }
+  /* Skip link, visible only when focused (WCAG 2.4.1). */
+  .skip-link { position: absolute; left: -9999px; }
+  .skip-link:focus { position: static; display: inline-block; padding: 0.3em; }
+  /* Contrast of at least 4.5:1 for text (WCAG 1.4.3). */
+  div.blocktitle { color: #3366B8; }
+  div#footer, div#footer a { color: #595959; }
+  /* This site's blue #3871C0 is 4.45:1 on the grey menu and boxes. */
+  a, a > tt, #layout-menu a:link, #layout-menu a:visited,
+  #layout-menu a.current:link, #layout-menu a.current:visited { color: #3366B8; }
+  a:focus-visible { outline-color: #3366B8; }
+</style>
 <title>Professor Francesco Bullo - Slides </title>
 </head>
 <body>
-<table summary="Table for page layout." id="tlayout">
-<tr valign="top">
-<td id="layout-menu">
+<a class="skip-link" href="#layout-content">Skip to main content</a>
+<div class="layout">
+<nav id="layout-menu" aria-label="Course pages">
 <div class="menu-category">Francesco Bullo</div>
-<div class="menu-item"><a href="https://fbullo.github.io/index.html" class="current">Home</a></div>
+<div class="menu-item"><a href="https://fbullo.github.io/index.html">Home</a></div>
 <div class="menu-item"><a href="https://fbullo.github.io/contact.html">Contact&nbsp;Info</a></div>
 <div class="menu-item"><a href="https://fbullo.github.io/bio.html">Biography</a></div>
 <div class="menu-category">Research</div>
 <div class="menu-item"><a href="https://fbullo.github.io/group.html">Research&nbsp;Group</a></div>
-<div class="menu-item"><a href="https://fbullo.github.io/papers/index.html" class="current">Publications</a></div>
-<div class="menu-item"><a href="https://fbullo.github.io/talks.html">Talks</a></div>
+<div class="menu-item"><a href="https://fbullo.github.io/papers/index.html">Publications</a></div>
+<div class="menu-item"><a href="https://fbullo.github.io/talks.html" class="current" aria-current="page">Talks</a></div>
 <div class="menu-item"><a href="https://fbullo.github.io/msg-prospective.html">For&nbsp;Prospective&nbsp;<br /> Students</a></div>
 <div class="menu-category">Teaching</div>
 <div class="menu-item"><a href="https://motion.me.ucsb.edu/ME103-Fall2026">ME&nbsp;103&nbsp;Fall&rsquo;26</a></div>
@@ -31,8 +60,8 @@
 <div class="menu-item"><a href="https://fbullo.github.io/lds">Lectures&nbsp;on&nbsp;Dynamical&nbsp;Systems.</a></div>
 <div class="menu-item"><a href="https://fbullo.github.io/lrpk">Lectures&nbsp;on&nbsp;Robotic<br /> Planning&nbsp;&amp;&nbsp;Kinematics.</a></div>
 <div class="menu-item"><a href="https://fbullo.github.io/lnd">Lectures&nbsp;on&nbsp;Neural&nbsp;Dynamics.</a></div>
-</td>
-<td id="layout-content">
+</nav>
+<main id="layout-content">
 <div id="toptitle">
 <h1>Professor Francesco Bullo - Slides<br /></h1>
 </div>
@@ -69,7 +98,7 @@ slides <a href="talks/ContractionTheory-Tutorial-FB.pdf" target=&ldquo;blank&rdq
 <dd><p>
 event:  Minicourse (12h) at the University of Linkoping, Sweden<br />
 place/date: Linkoping, Sweden in Sep 2023<br />
-video: 12h in 6 lectures, with chapters <a href="https://youtu.be/FQV5PrRHks8" target=&ldquo;blank&rdquo;><img align="top" border="0" src="/images/youtube.png"></a> 
+video: 12h in 6 lectures, with chapters <a href="https://youtu.be/FQV5PrRHks8" target=&ldquo;blank&rdquo;><img alt="YouTube video" style="vertical-align: top; border: 0" src="/images/youtube.png"></a> 
 </p></dd>
 </dl>
 <dl>
@@ -78,7 +107,7 @@ slides <a href="talks/2023-06-FBullo-ContractionTheory-Intro.pdf" target=&ldquo;
 <dd><p>
 event:  Minicourse at Scuola Superiore Meridionale + 2023 ACC Workshop<br />
 place/date: Linkoping, Sweden in Sep 2023<br />
-video: 10h in 4 lectures, with chapters <a href="https://youtu.be/RvR47ZbqJjc" target=&ldquo;blank&rdquo;><img align="top" border="0" src="/images/youtube.png"></a> 
+video: 10h in 4 lectures, with chapters <a href="https://youtu.be/RvR47ZbqJjc" target=&ldquo;blank&rdquo;><img alt="YouTube video" style="vertical-align: top; border: 0" src="/images/youtube.png"></a> 
 </p></dd>
 </dl>
 <h2>Kuramoto Oscillators  (2016-22)</h2>
@@ -89,7 +118,7 @@ slides <a href="talks/2022-03-30-FBullo-Synchronization-Workshop.pdf" target=&ld
 coauthors: Saber Jafarpour, Kevin D. Smith, and Robin Delabays<br />
 event:  Workshop on Synchronization in Natural and Engineering Systems: Open Problems in Modeling, Analysis, and Control<br />
 place/date:  online, Mar 2022<br />
-video: <a href="https://youtu.be/9TFIz-XIozI" target=&ldquo;blank&rdquo;><img align="top" border="0" src="/images/youtube.png"></a> 
+video: <a href="https://youtu.be/9TFIz-XIozI" target=&ldquo;blank&rdquo;><img alt="YouTube video" style="vertical-align: top; border: 0" src="/images/youtube.png"></a> 
 </p></dd>
 </dl>
 <dl>
@@ -99,7 +128,7 @@ slides <a href="talks/2020-10-13-FBullo-ICCAS.pdf" target=&ldquo;blank&rdquo;>(p
 coauthors: Saber Jafarpour, Kevin D. Smith, and Elizabeth Y. Huang<br />
 event:  20th Int. Conference on Control, Automation and Systems (ICASS) <br /> 
 place/date:  Busan, Korea, Oct 13, 2020<br /> 
-video: <a href="https://youtu.be/nGh4J-iF5lE" target=&ldquo;blank&rdquo;><img align="top" border="0" src="/images/youtube.png"></a>
+video: <a href="https://youtu.be/nGh4J-iF5lE" target=&ldquo;blank&rdquo;><img alt="YouTube video" style="vertical-align: top; border: 0" src="/images/youtube.png"></a>
 </p></dd>
 </dl>
 <dl>
@@ -121,7 +150,7 @@ and <a href="talks/2022-02-05-FBullo-MasryMemorial-2x2.pdf" target=&ldquo;blank&
 coauthors: Saber Jafarpour, Alex Davydov, Anton Proskurnikov<br />
 event:  NYU and IIT Madras<br />
 place/date:  March Online, Dec 2021 and Feb 2022<br />
-video: <a href="https://youtu.be/5rPnPHQ9-bU" target=&ldquo;blank&rdquo;><img align="top" border="0" src="/images/youtube.png"></a>
+video: <a href="https://youtu.be/5rPnPHQ9-bU" target=&ldquo;blank&rdquo;><img alt="YouTube video" style="vertical-align: top; border: 0" src="/images/youtube.png"></a>
 </p></dd>
 </dl>
 <dl>
@@ -549,8 +578,7 @@ event: DISC Summer School on Modeling and Control of Mechanical Systems<br />
 place/date: Zeist, Netherlands, Jul 2002
 </p></dd>
 </dl>
-</td>
-</tr>
-</table>
+</main>
+</div>
 </body>
 </html>
