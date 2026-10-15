@@ -82,3 +82,47 @@
 @string{category_write_bibtex_key = 0}
 @string{complete_year_write_bibtex_key = 0}
 @string{complete_biblio_write_bibtex_key = 0}
+
+% Accessible page template (WCAG 2.1 AA), FB 2026-10-14: these strings
+% replace the defaults of bibtex2html 1.02 (src/custom-layout.c).  The pages
+% are written in ISO-8859-1, so the charset stays.  Attribute values use
+% single quotes: the reader of this file ends a value at any double quote.
+% Root-relative CSS link, so a local copy of the site uses its own css/.
+@STRING{ file_tag.start = "<!DOCTYPE html>
+<html lang='en'>
+
+" }
+@STRING{ head_tag.end = "<meta http-equiv='Content-Type' content='text/html; charset=ISO-8859-1'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<link rel='stylesheet' href='/css/mysite-small.css' type='text/css'>
+</head>
+" }
+@STRING{ body_tag.start = "<body>
+<a class='skip-link' href='#main'>Skip to main content</a>
+<main id='main'>
+
+" }
+@STRING{ body_tag.end = "
+</main>
+</body>
+" }
+@STRING{ page_title_tag.start = "
+<h1 class='pub-title'>
+" }
+@STRING{ page_title_tag.end = "
+</h1>
+" }
+@STRING{ page_subtitle_tag.start = "
+<h2 class='pub-subtitle'>
+" }
+@STRING{ page_subtitle_tag.end = "
+</h2>
+" }
+@STRING{ item_tag.end = "
+</li>
+
+" }
+@STRING{ separator = "
+<hr>
+
+" }

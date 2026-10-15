@@ -321,3 +321,14 @@ img.eqwl {
 	padding-bottom: 0.2em;
 	margin: 0;
 }
+
+/* Accessibility (WCAG 2.1 AA), 2026-10-14, for the pages written by
+   bibtex2html with the template in papers/preface.bib. */
+main a, main a > tt { text-decoration: underline; }  /* not by colour alone */
+a:hover { border-bottom: none; text-decoration-thickness: 2px; }
+a:focus-visible { outline: 2px solid #7E0A1B; outline-offset: 2px; }
+.skip-link { position: absolute; left: -9999px; }
+.skip-link:focus { position: static; display: inline-block; padding: 0.3em; }
+h1.pub-title, h2.pub-subtitle { text-align: center; border-bottom: none; }
+h2.pub-subtitle { background: #eeeeee; padding: 0.4em; font-size: 110%; }
+main { overflow-wrap: anywhere; }

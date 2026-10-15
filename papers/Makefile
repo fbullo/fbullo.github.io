@@ -19,7 +19,7 @@ html: Makefile $(FBbibfile)
 	sed s/B.....rger/Burger/  $(FBtmp2) > $(FBtmp1)
 	sed s/Allg.....wer/Allgower/  $(FBtmp1) > $(FBtmp2)
 	sed s/Canc..un,.M..exico/"Cancun, Mexico"/  $(FBtmp2) > $(FBtmp1)
-	/Users/bullo/bin/change_string "textendash" "--" $(FBtmp1)
+	/Users/bullo/bin/change_string -- "textendash" "--" $(FBtmp1)
 	rm -f $(FBtmp1).bak
 	/Users/bullo/bin/change_string "\\\!" "" $(FBtmp1)
 	rm -f $(FBtmp1).bak
@@ -31,7 +31,7 @@ html: Makefile $(FBbibfile)
 	rm -f $(FBtmp1).bak
 	/Users/bullo/bin/change_string "{\\\\'\\\\i}" "i" $(FBtmp1)
 	rm -f $(FBtmp1).bak
-	bibtex2html -html-links -peon -sort cat -force -icons $(FBtmp1)
+	/Users/bullo/bin/bibtex2html-1.02 -html-links -peon -sort cat -force -icons $(FBtmp1)
 	rm -f $(FBtmp2) $(FBtmp1) *.bak
 	rm -f *.bak */*.bak
 	change_string "bgcolor=\"#669999\""  "" *.html */*.html; rm -f *.bak */*.bak
@@ -46,6 +46,10 @@ html: Makefile $(FBbibfile)
 	change_string "font size=2"  "font size=1" *.html */*.html; rm -f *.bak */*.bak
 	change_string "font size=4"  "font size=2" *.html */*.html; rm -f *.bak */*.bak
 	change_string "FONT SIZE=6"  "font size=5" *.html */*.html; rm -f *.bak */*.bak
+# accessibility: CSS instead of the align and valign attributes of the index tables
+	change_string "<table align=\"center\"" "<table style=\"margin-left: auto; margin-right: auto\"" *.html */*.html; rm -f *.bak */*.bak
+	change_string "<tr align=\"left\" valign=\"top\">" "<tr style=\"text-align: left; vertical-align: top\">" *.html */*.html; rm -f *.bak */*.bak
+	change_string "<tr align=\"center\">" "<tr style=\"text-align: center\">" *.html */*.html; rm -f *.bak */*.bak
 
 new:
 	change_string "<br>\n\n<br>"  "" *.html */*.html; rm -f *.bak */*.bak
