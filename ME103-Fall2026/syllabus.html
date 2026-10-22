@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<link rel="stylesheet" href="mysite.css" type="text/css" />
+<style>
+  /* Layout without a table: the menu beside the content, or above it on
+     narrow screens and at high zoom (WCAG 1.4.10 reflow). */
+  body { padding: 8px; }  /* top padding too: a title at the very top fails axe's contrast check */
+  .layout { display: flex; align-items: flex-start; gap: 0.5em; }
+  .layout > nav { flex: 0 0 auto; }
+  .layout > main { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+  pre { white-space: pre-wrap; }
+  @media (max-width: 40em) {
+    .layout { flex-direction: column; align-items: stretch; }
+    .layout > nav { white-space: normal; }
+    .layout > main { padding-left: 0; padding-right: 0; }
+  }
+  /* Links differ from text by more than colour (WCAG 1.4.1). */
+  main a, main a > tt { text-decoration: underline; }
+  a:hover { border-bottom: none; text-decoration-thickness: 2px; }
+  /* Visible keyboard focus (WCAG 2.4.7). */
+  a:focus-visible { outline: 2px solid #7E0A1B; outline-offset: 2px; }
+  /* Skip link, visible only when focused (WCAG 2.4.1). */
+  .skip-link { position: absolute; left: -9999px; }
+  .skip-link:focus { position: static; display: inline-block; padding: 0.3em; }
+  /* Contrast of at least 4.5:1 for text (WCAG 1.4.3). */
+  div.blocktitle { color: #7E0A1B; }
+  div#footer, div#footer a { color: #595959; }
+</style>
+<title>UCSB &ldquo;Dynamical Systems&rdquo; &ndash; Course Syllabus  ME 103, Fall 2026  Instructor: Francesco Bullo   SYLLABUS</title>
+</head>
+<body>
+<a class="skip-link" href="#layout-content">Skip to main content</a>
+<div class="layout">
+<nav id="layout-menu" aria-label="Course pages">
+<div class="menu-category">UCSB ME 103</div>
+<div class="menu-item"><a href="index.html">Description</a></div>
+<div class="menu-item"><a href="syllabus.html" class="current" aria-current="page">Syllabus&nbsp;and&nbsp;homework</a></div>
+</nav>
+<main id="layout-content">
+<div id="toptitle">
+<h1>UCSB &ldquo;Dynamical Systems&rdquo; &ndash; Course Syllabus <br /> ME 103, Fall 2026<br /> Instructor: Francesco Bullo<br /><br /> SYLLABUS</h1>
+</div>
+<p>This is the syllabus for the UCSB course ME 103 &ldquo;Dynamical Systems&rdquo;, Fall
+2026.
+</p>
+<p>This copy is a snapshot of the course website, taken on October 21, 2026.  It is not updated.
+</p>
+<h2>Textbooks and Reading Material</h2>
+<p>I will follow my lecture notes &ldquo;Lectures on Dynamical Systems&rdquo;.  I will
+cover one chapter per week, with the exceptions of Chapters 4 and 5 which
+are a bit longer.
+</p>
+<div class="infoblock">
+<div class="blockcontent">
+<p><a href="https://fbullo.github.io/lds" target=&ldquo;blank&rdquo;>Lectures on Dynamical Systems</a><br />
+Francesco Bullo <br />
+version 1.0, September 2026<br />
+PDF files in textbook and landscape format
+</p>
+</div></div>
+<p>For additional reading I recommend:
+</p>
+<div class="infoblock">
+<div class="blockcontent">
+<p><b>System Dynamics</b>  <br />
+K. Ogata<br />
+4th edition, Pearson, 2003, ISBN 0131424629
+</p>
+</div></div>
+<div class="infoblock">
+<div class="blockcontent">
+<p><b>Feedback Control of Dynamic Systems</b> <br />
+G. F. Franklin, J. D. Powell, and A. Emami-Naeini<br />
+7th edition, Prentice Hall, 2015, ISBN 1-292-27452-2
+</p>
+</div></div>
+<div class="infoblock">
+<div class="blockcontent">
+<p><b>Feedback Systems: An Introduction for Scientists and Engineers</b> <br />
+K. J. Åström and R. M. Murray<br />
+2nd edition, Princeton University Press, 2021, ISBN 0691193983<br />
+<a href="http://www.cds.caltech.edu/~murray/books/AM08/pdf/fbs-public_24Jul2020.pdf" target=&ldquo;blank&rdquo;>PDF available here</a>
+</p>
+</div></div>
+<div class="infoblock">
+<div class="blockcontent">
+<p><b>Control Systems: An Introduction</b><br />
+By Hassan K. Khalil
+<a href="https://services.publishing.umich.edu/Books/C/Control-Systems" target=&ldquo;blank&rdquo;>PDF available here (after completing a form)</a>
+</p>
+</div></div>
+<div class="infoblock">
+<div class="blockcontent">
+<ul>
+<li><p>Optional advanced reading: Journal article describing SymPy: <a href="handouts/SymPy-PeerJ.pdf" target=&ldquo;blank&rdquo;>SymPy-PeerJ.pdf</a>
+</p>
+</li>
+<li><p>Optional advanced reading: Conference article describing the Python Control Systems Library: <a href="handouts/PythonControlLibrary-CDC21.pdf" target=&ldquo;blank&rdquo;>PythonControlLibrary-CDC21.pdf</a>
+</p>
+</li>
+</ul>
+</div></div>
+<h2>How to turn in homework  + late homework policy</h2>
+<p>Homework is submitted via Gradescope.
+</p>
+<p>No late homework will be accepted without prior approval.  Approval is
+automatic the first three times you ask: <b>to announce late homework you
+must send email to the lead TA Abed Musaffar by midnight the day before</b>
+&lt;abed@engineering.ucsb.edu&gt;.
+</p>
+<p>Beginning with the second late homework, late homework will automatically
+lose 20% of the grade and no late homework will be accepted after 11:59pm
+two business days after the deadline.
+</p>
+<h2>Homework formatting</h2>
+<ol>
+<li><p><b>One Exercise Per Page:</b> For clarity, please answer each exercise on a
+separate page. Gradescope allows you to associate each page with the
+corresponding question, which will help streamline the grading process for
+the TAs.
+</p>
+</li>
+<li><p><b>Box Your Final Answers:</b> Be sure to draw a box around your final
+answers. Last year, it was sometimes challenging for the TAs to determine
+your final answers, which made grading more difficult. Clearly marking your
+final answers will help avoid confusion and help the TAs give you partial
+credit.
+</p>
+</li>
+</ol>
+<h2>How to request a clarification about homework grades</h2>
+<p>If you have any concerns or clarification requests about a grade you
+received, you <b>must submit the re-grade request within 1 week</b> from the
+moment the grade is made available.
+</p>
+<p>Please include a careful explanation and all relevant dates and facts: send
+a single email to the lead TA and Professor Bullo.
+</p>
+<p>No homework/midterm re-grade requests will be considered during and after
+the final exam week.
+</p>
+<h2>Week 1: Mon Sep 28 and Wed Sep 30<br /> </h2>
+<ul>
+<li><p>Reading Assignment: FB Chapter #1
+</p>
+</li>
+<li><p>Homework Assignment #1, due on Wednesday Week 2, at 11:59pm, on gradescope:
+</p>
+<ul>
+<li><p>E1.8 &ldquo;Finding typos in Python code&rdquo;,
+</p>
+</li>
+<li><p>E1.9 &ldquo;Phase portraits, equilibria, and stability of a nonlinear system&rdquo;,
+</p>
+</li>
+<li><p>E1.10 &ldquo;Understanding phase portraits&rdquo;, and
+</p>
+</li>
+<li><p>E1.11 &ldquo;One-dimensional phase portrait&rdquo;
+</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<h2>Week 2: Mon Oct 5 and Wed Oct 7<br /> </h2>
+<ul>
+<li><p>Reading Assignment: FB Chapter #2: <b>Not yet assigned</b>
+</p>
+</li>
+<li><p>Homework Assignment #2, due on Wednesday Week 3, at 11:59pm, on gradescope:
+</p>
+<ul>
+<li><p>E2.3 &ldquo;Mechanical modeling of a muscle&rdquo;,
+</p>
+</li>
+<li><p>E2.7 &ldquo;Rigid versus freely moving supports&rdquo;,
+</p>
+</li>
+<li><p>E2.8 &ldquo;Equations of motion for the roll dynamics of a ship&rdquo;, and
+</p>
+</li>
+<li><p>E2.11 &ldquo;Gear train with three gears in contact&rdquo;
+</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<h2>Week 3: Mon Oct 12 and Wed Oct 14<br /></h2>
+<ul>
+<li><p>Reading Assignment: FB Chapter #3: <b>Not yet assigned</b>
+</p>
+</li>
+<li><p>Homework Assignment #3: due on Wednesday Week 4, at 11:59pm, on gradescope:
+</p>
+<ul>
+<li><p>E3.1 &ldquo;Heat transfer problems in surfing&rdquo;,
+</p>
+</li>
+<li><p>E3.4 &ldquo;Heat and fluid flow in a water heater&rdquo;,
+</p>
+</li>
+<li><p>E3.5 &ldquo;Linearization of a mass-spring-damper system with a nonlinear spring&rdquo;, and
+</p>
+</li>
+<li><p>E3.6 &ldquo;Equilibrium points and linearization of the water tank dynamics with input&rdquo;
+</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<h2>Week 4: Mon Oct 19 and Wed Oct 21<br /></h2>
+<ul>
+<li><p>Reading Assignment: FB Chapter #4: <b>Not yet assigned</b>
+</p>
+</li>
+<li><p>Homework Assignment #4-a on Section 4.1 and Section 4.2, due on Wednesday Week 5, at 11:59pm, on gradescope: Exercises
+</p>
+<ul>
+<li><p>E4.3 &ldquo;Laplace transforms #3&rdquo;,
+</p>
+</li>
+<li><p>E4.4 &ldquo;Inverse Laplace transforms #1&rdquo;, and
+</p>
+</li>
+<li><p>E4.5 &ldquo;Inverse Laplace transforms #2&rdquo;
+</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<h2>Week 5: Mon Oct 26 and Wed Oct 28<br /></h2>
+<ul>
+<li><p>Monday (and possibly Wednesday) of Week 5 dedicated to Chapter 4.
+</p>
+</li>
+<li><p>Homework Assignment #4-b on Section 4.3, Section 4.4 and Section 4.5, due on <b>Monday Week 6 (Nov 2), at 11am, before class</b>, on gradescope: Exercises
+</p>
+<ul>
+<li><p>E4.8 &ldquo;Solving a differential equation via the Laplace transform #3&rdquo;,
+</p>
+</li>
+<li><p>E4.9 &ldquo;Solving a differential equation via the Laplace transform #4&rdquo;, and
+</p>
+</li>
+<li><p>E4.11 &ldquo;Free response of undamped harmonic oscillator&rdquo;
+</p>
+</li></ul>
+</li>
+<li><p>Reading Assignment: FB Chapter #5: <b>Not yet assigned</b>
+</p>
+</li>
+</ul>
+<div class="infoblock">
+<div class="blockcontent">
+<p><b>Midterm on Wed November 4th</b> 
+</p>
+</div></div>
+<h2>Midterm Week 6: Mon Nov 2 and Wed Nov 4<br /></h2>
+<ul>
+<li><p>Monday: Chapter #5
+</p>
+</li>
+<li><p>Tuesday office hours: Review and discussion of homework solutions (Chapters 1-4) 
+</p>
+</li>
+<li><p><b>Midterm on Wednesday Nov 4th</b>
+</p>
+</li>
+</ul>
+<h2>Week 7: Mon Nov 9 and Wed Nov 11<br /></h2>
+<ul>
+<li><p>Revised second half of Chapter #5: <b>Not yet assigned</b>
+</p>
+</li>
+<li><p>Homework Assignment #5: due on Wednesday Week 8, at 11:59pm, on gradescope:
+</p>
+<ul>
+<li><p>E5.1 &ldquo;From poles to transfer function and differential equation&rdquo;,
+</p>
+</li>
+<li><p>E5.6 &ldquo;From complex conjugate poles to canonical parameters and functions of time&rdquo;,
+</p>
+</li>
+<li><p>E5.7 &ldquo;Pendulum-tuned mass damper&rdquo;,
+</p>
+</li>
+<li><p>E5.9 &ldquo;Oscillatory response of an aircraft wing to turbine-induced vibrations&rdquo;,
+</p>
+</li>
+<li><p>E5.13 &ldquo;Transfer function of building system&rdquo;
+</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<h2>Week 8: Mon Nov 16 and Wed Nov 18</h2>
+<ul>
+<li><p>Reading Assignment: FB Chapter #6: <b>Not yet assigned</b>
+</p>
+</li>
+<li><p>Homework Assignment #6: due on Wednesday Week 9 at 11:59pm. We will accept without penalty by Monday Week 10 (Monday November 30th) at 11:59pm, on gradescope:
+</p>
+<ul>
+<li><p>E6.1 &ldquo;Low-pass and high-pass filters&rdquo;,
+</p>
+</li>
+<li><p>E6.2 &ldquo;Mass-spring-damper system connected to a moving point&rdquo;,
+</p>
+</li>
+<li><p>E6.3 &ldquo;The undamped vibration absorber&rdquo;,
+</p>
+</li>
+<li><p>E6.7 &ldquo;Beating in weakly-coupled identical harmonic oscillators&rdquo;
+</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<h2>Thanksgiving Week 9: Mon Nov 23 and Wed Nov 25</h2>
+<ul>
+<li><p><b>Online lectures on Monday and Wednesday</b>
+</p>
+</li>
+<li><p><b>Online office hour by Francesco on Tuesday</b>
+</p>
+</li>
+<li><p>Reading Assignment: FB Chapter #7: <b>Not yet assigned</b>
+</p>
+</li>
+<li><p>Homework Assignment #7: due on Wednesday Week 10, at 11:59pm, on gradescope:
+</p>
+<ul>
+<li><p>E7.4 &ldquo;Closed-form of first-order system with proportional and integral control&rdquo;,
+</p>
+</li>
+<li><p>E7.5 &ldquo;Properties of integral control&rdquo;,
+</p>
+</li>
+<li><p>E7.6 &ldquo;Integral control of first-order systems&rdquo;,
+</p>
+</li>
+<li><p>E7.8 &ldquo;An example block diagram&rdquo;
+</p>
+</li></ul>
+</li>
+<li><p>(Thursday Nov 26 is Thanksgiving) <br />
+</p>
+</li>
+</ul>
+<h2>Week 10: Mon Nov 30 and Wed Dec 2<br /></h2>
+<ul>
+<li><p>(5 minutes for in-class course evaluation)
+</p>
+</li>
+<li><p>Reading Assignment: FB Chapter #8: <b>Not yet assigned</b>
+</p>
+</li>
+<li><p>No homework assignment on Chapter 8
+</p>
+</li>
+</ul>
+<h2>Marked slides or additional content</h2>
+<ul>
+<li><p>empty for now
+
+
+
+
+
+
+
+
+
+</p>
+</li>
+</ul>
+<h2>Final's Week</h2>
+<ul>
+<li><p>Final Exam: Thursday, December 10th from 12pm-3pm.
+
+</p>
+</li>
+</ul>
+</main>
+</div>
+</body>
+</html>
