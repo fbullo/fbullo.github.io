@@ -14,6 +14,10 @@
   .layout > main { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
   pre { white-space: pre-wrap; }
   @media (max-width: 40em) {
+    /* Image blocks (cover, award photo) stack, picture above text, and the
+       picture shrinks to the screen width (WCAG 1.4.10 reflow). */
+    table.imgtable, table.imgtable tbody, table.imgtable tr, table.imgtable td { display: block; }
+    table.imgtable img { max-width: 100%; height: auto; }
     .layout { flex-direction: column; align-items: stretch; }
     .layout > nav { white-space: normal; }
     .layout > main { padding-left: 0; padding-right: 0; }
@@ -288,7 +292,7 @@ uses. Please email  bullo at ucsb.edu
 </p>
 <div id="footer">
 <div id="footer-text">
-Page generated 2026-10-31 11:44:42 PDT, by <a href="https://github.com/wsshin/jemdoc_mathjax">jemdoc+MathJax</a>.
+Page generated 2026-10-31 11:50:14 PDT, by <a href="https://github.com/wsshin/jemdoc_mathjax">jemdoc+MathJax</a>.
 </div>
 </div>
 </main>
