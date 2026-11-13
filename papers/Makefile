@@ -50,6 +50,9 @@ html: Makefile $(FBbibfile)
 	change_string "<table align=\"center\"" "<table style=\"margin-left: auto; margin-right: auto\"" *.html */*.html; rm -f *.bak */*.bak
 	change_string "<tr align=\"left\" valign=\"top\">" "<tr style=\"text-align: left; vertical-align: top\">" *.html */*.html; rm -f *.bak */*.bak
 	change_string "<tr align=\"center\">" "<tr style=\"text-align: center\">" *.html */*.html; rm -f *.bak */*.bak
+# encoding: bibtex2html writes Latin-1 (0xEC for an acute i) under charset=ISO-8859-1, but GitHub
+# Pages serves charset=utf-8, so accented letters showed as U+FFFD: convert to UTF-8 (2026-11-13)
+	/Users/bullo/bin/bibtex2html-utf8 *.html */*.html Biblio/*.bib
 # stage new pages (new co-authors, keywords, years): "git commit -a" commits only
 # files git already tracks, so new pages were never published (404 until 2026-10-15)
 	if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then git add -A -- . ':!.DS_Store' ':!**/.DS_Store'; fi
